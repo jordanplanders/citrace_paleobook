@@ -1,0 +1,2174 @@
+
+
+<!DOCTYPE html>
+
+
+<html >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Clustering &#8212; C-iTrace Paleobook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/science_bits/clustering';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Navigating the perils of a model grid" href="data_scatter_on_pcolor.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="None"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../README.html">
+                    C-iTrace (and friends) Paleobook
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lifehacks</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lifehacks/working_with_data_on_a_model_grid.html">Navigating the perils of a model grid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lifehacks/pyODV.html">py(?)ODV</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Science Bits</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="data_scatter_on_pcolor.html">Navigating the perils of a model grid</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Clustering</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jordanplanders/citrace" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jordanplanders/citrace/issues/new?title=Issue%20on%20page%20%2Fnotebooks/science_bits/clustering.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/science_bits/clustering.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Clustering</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data">Load Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-itrace">C-iTRACE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Clustering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#surface">Surface</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#select-a-surface">Select a surface</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cluster">Cluster</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-in-positional-coordinates">Plot in positional coordinates</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-in-cluster-space">Plotting in cluster space</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#section-clustering">Section clustering</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#select-the-section-of-interest">Select the section of interest</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Cluster</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Plot in positional coordinates</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-next">What’s next?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-and-references">Resources and references</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="clustering">
+<h1>Clustering<a class="headerlink" href="#clustering" title="Permalink to this headline">#</a></h1>
+<hr class="docutils" />
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h2>
+<p>Oceanographers of many stripes think about the ocean in terms of watermasses. Water moves in masses with minimal mixing at the boundaries, maintaining core characteristics over long distances. Physical and chemical characteristics change in response to various processes, making it potentially helpful to label watermasses on the basis of multiple traits. In this notebook, we’ll apply a handful of clustering algorithms readily available via <a class="reference external" href="https://scikit-learn.org/stable/index.html">Scikit Learn</a> to a section and a surface.</p>
+</section>
+<hr class="docutils" />
+<section id="imports">
+<h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">cftime</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+<span class="kn">import</span> <span class="nn">matplotlib.gridspec</span> <span class="k">as</span> <span class="nn">gridspec</span>
+<span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">FormatStrFormatter</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1.inset_locator</span> <span class="kn">import</span> <span class="n">inset_axes</span>
+<span class="kn">import</span> <span class="nn">cartopy</span>
+
+<span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
+<span class="kn">import</span> <span class="nn">cartopy.feature</span> <span class="k">as</span> <span class="nn">cfeature</span>
+<span class="kn">import</span> <span class="nn">cartopy.util</span> <span class="k">as</span> <span class="nn">cutil</span>
+
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">datasets</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">euclidean_distances</span><span class="p">,</span> <span class="n">silhouette_samples</span><span class="p">,</span> <span class="n">silhouette_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">kneighbors_graph</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The autoreload extension is already loaded. To reload it, use:
+  %reload_ext autoreload
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">convert_z_to_meters</span><span class="p">(</span><span class="n">ds</span><span class="p">):</span>
+    <span class="n">cm_to_m</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">100</span>
+    <span class="n">z_t</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">z_t</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;z_t_m&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;z_t&quot;</span><span class="p">,</span> <span class="n">z_t</span><span class="o">*</span><span class="n">cm_to_m</span><span class="p">)</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">swap_dims</span><span class="p">({</span><span class="s1">&#39;z_t&#39;</span><span class="p">:</span><span class="s1">&#39;z_t_m&#39;</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">ds</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">between</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">lims</span><span class="p">):</span>
+    <span class="n">_ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">ds</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">&lt;</span><span class="nb">max</span><span class="p">(</span><span class="n">lims</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">&gt;</span><span class="nb">min</span><span class="p">(</span><span class="n">lims</span><span class="p">)),</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_ds</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="load-data">
+<h2>Load Data<a class="headerlink" href="#load-data" title="Permalink to this headline">#</a></h2>
+<section id="c-itrace">
+<h3>C-iTRACE<a class="headerlink" href="#c-itrace" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">PF_data_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/Users/jlanders/PycharmProjects/PangeoForge_recipes/C-iTRACE/data&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file_name</span> <span class="o">=</span> <span class="s1">&#39;ctrace.decadal.ND143.nc&#39;</span>
+<span class="n">ds_Nd143</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">PF_data_dir</span><span class="o">/</span><span class="s1">&#39;netcdf3&#39;</span><span class="o">/</span><span class="n">file_name</span><span class="p">,</span> <span class="n">use_cftime</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="c1">#, engine=&#39;netcdf4&#39;, decode_coords=True)#.load()#, decode_coords=True)</span>
+
+<span class="n">file_name</span> <span class="o">=</span> <span class="s1">&#39;ctrace.decadal.ND144.nc&#39;</span>
+<span class="n">ds_Nd144</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">PF_data_dir</span><span class="o">/</span><span class="s1">&#39;netcdf3&#39;</span><span class="o">/</span><span class="n">file_name</span><span class="p">,</span> <span class="n">use_cftime</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="c1">#, engine=&#39;netcdf4&#39;, decode_coords=True)#.load()#, decode_coords=True)</span>
+
+<span class="n">file_name</span> <span class="o">=</span> <span class="s1">&#39;ctrace.decadal.SALT.nc&#39;</span>
+<span class="n">ds_sal</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">PF_data_dir</span><span class="o">/</span><span class="s1">&#39;netcdf3&#39;</span><span class="o">/</span><span class="n">file_name</span><span class="p">,</span> <span class="n">use_cftime</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="c1">#, engine=&#39;netcdf4&#39;, decode_coords=True)#.load()#, decode_coords=True)</span>
+
+<span class="n">file_name</span> <span class="o">=</span> <span class="s1">&#39;ctrace.decadal.CISO_DIC_d13C.nc&#39;</span>
+<span class="n">ds_d13C</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">PF_data_dir</span><span class="o">/</span><span class="s1">&#39;netcdf3&#39;</span><span class="o">/</span><span class="n">file_name</span><span class="p">,</span> <span class="n">use_cftime</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="c1">#, engine=&#39;netcdf4&#39;, decode_coords=True)#.load()#, decode_coords=True)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">epsNd</span><span class="p">(</span><span class="n">Nd</span><span class="p">):</span>
+    <span class="p">(</span><span class="n">Nd143</span><span class="p">,</span> <span class="n">Nd144</span><span class="p">)</span> <span class="o">=</span> <span class="n">Nd</span>
+    <span class="n">Nd_CHUR</span> <span class="o">=</span> <span class="mf">0.512638</span>
+    <span class="n">scaler</span> <span class="o">=</span> <span class="mi">1000</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">Nd143</span><span class="p">,</span><span class="n">Nd144</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="o">/</span><span class="n">Nd_CHUR</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">4</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time_slice</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">ds_Nd143_sub</span> <span class="o">=</span> <span class="n">ds_Nd143</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">time_slice</span><span class="p">))</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">ds_Nd144_sub</span> <span class="o">=</span> <span class="n">ds_Nd144</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">time_slice</span><span class="p">))</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">ds_sal_sub</span> <span class="o">=</span> <span class="n">ds_sal</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">time_slice</span><span class="p">))</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">ds_d13C_sub</span> <span class="o">=</span> <span class="n">ds_d13C</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">time_slice</span><span class="p">))</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iso_ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">combine_by_coords</span><span class="p">([</span><span class="n">ds_sal_sub</span><span class="p">[</span><span class="s1">&#39;SALT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span> 
+                               <span class="n">ds_d13C_sub</span><span class="p">[</span><span class="s1">&#39;CISO_DIC_d13C&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span> 
+                               <span class="n">ds_Nd144_sub</span><span class="p">[</span><span class="s1">&#39;ND144&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span> 
+                               <span class="n">ds_Nd143_sub</span><span class="p">[</span><span class="s1">&#39;ND143&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time_slice</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">iso_ds_sub</span> <span class="o">=</span> <span class="n">iso_ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">time_slice</span><span class="p">))</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epsNd_tmp</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">apply_ufunc</span><span class="p">(</span><span class="n">epsNd</span><span class="p">,</span> <span class="p">(</span><span class="n">iso_ds</span><span class="p">[</span><span class="s1">&#39;ND143&#39;</span><span class="p">],</span><span class="n">iso_ds</span><span class="p">[</span><span class="s1">&#39;ND144&#39;</span><span class="p">]))</span>
+<span class="n">epsNd_tmp</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;eNd&#39;</span>
+<span class="n">iso_ds</span><span class="p">[</span><span class="s1">&#39;eNd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;z_t&#39;</span><span class="p">,</span> <span class="s1">&#39;nlat&#39;</span><span class="p">,</span> <span class="s1">&#39;nlon&#39;</span><span class="p">),</span> <span class="n">epsNd_tmp</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="n">iso_ds</span> <span class="o">=</span> <span class="n">iso_ds</span><span class="o">.</span><span class="n">drop_vars</span><span class="p">([</span><span class="s1">&#39;ND143&#39;</span><span class="p">,</span> <span class="s1">&#39;ND144&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/jlanders/opt/miniconda3/envs/paleobook-dev/lib/python3.10/site-packages/xarray/core/computation.py:760: RuntimeWarning: invalid value encountered in divide
+  result_data = func(*input_data)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># convert depth from cm to m</span>
+<span class="n">iso_ds</span> <span class="o">=</span><span class="n">convert_z_to_meters</span><span class="p">(</span><span class="n">iso_ds</span><span class="p">)</span>
+<span class="n">iso_ds</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewBox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewBox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+  --xr-border-color: var(--jp-border-color2, #e0e0e0);
+  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
+  --xr-background-color: var(--jp-layout-color0, white);
+  --xr-background-color-row-even: var(--jp-layout-color1, white);
+  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+}
+
+html[theme=dark],
+body[data-theme=dark],
+body.vscode-dark {
+  --xr-font-color0: rgba(255, 255, 255, 1);
+  --xr-font-color2: rgba(255, 255, 255, 0.54);
+  --xr-font-color3: rgba(255, 255, 255, 0.38);
+  --xr-border-color: #1F1F1F;
+  --xr-disabled-color: #515151;
+  --xr-background-color: #111111;
+  --xr-background-color-row-even: #111111;
+  --xr-background-color-row-odd: #313131;
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 20px 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: none;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: '►';
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: '▼';
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: '(';
+}
+
+.xr-dim-list:after {
+  content: ')';
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ',';
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  margin-bottom: 0;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-index-preview {
+  grid-column: 2 / 5;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  display: none;
+  background-color: var(--xr-background-color) !important;
+  padding-bottom: 5px !important;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data,
+.xr-index-data-in:checked ~ .xr-index-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-index-name div,
+.xr-index-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2,
+.xr-no-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+</style><pre class='xr-text-repr-fallback'>&lt;xarray.Dataset&gt;
+Dimensions:        (nlat: 116, nlon: 100, time: 301, z_t_m: 60)
+Coordinates:
+    TLAT           (nlat, nlon) float64 -79.5 -79.5 -79.5 ... 68.36 68.26 68.21
+    TLONG          (nlat, nlon) float64 323.3 326.9 330.5 ... 317.8 319.3 320.8
+  * time           (time) float64 -8.0 -7.99 -7.98 -7.97 ... -5.02 -5.01 -5.0
+    z_t            (z_t_m) float32 500.0 1.5e+03 2.5e+03 ... 5.125e+05 5.375e+05
+  * z_t_m          (z_t_m) float32 5.0 15.0 25.0 ... 5.125e+03 5.375e+03
+Dimensions without coordinates: nlat, nlon
+Data variables:
+    CISO_DIC_d13C  (time, z_t_m, nlat, nlon) float64 nan nan nan ... nan nan nan
+    SALT           (time, z_t_m, nlat, nlon) float64 nan nan nan ... nan nan nan
+    eNd            (time, z_t_m, nlat, nlon) float64 nan nan nan ... nan nan nan</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-ddd6050a-ed5b-41e7-a3c8-30508c2ade59' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-ddd6050a-ed5b-41e7-a3c8-30508c2ade59' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span>nlat</span>: 116</li><li><span>nlon</span>: 100</li><li><span class='xr-has-index'>time</span>: 301</li><li><span class='xr-has-index'>z_t_m</span>: 60</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-299e347c-742d-4349-8c53-f6190003a3f5' class='xr-section-summary-in' type='checkbox'  checked><label for='section-299e347c-742d-4349-8c53-f6190003a3f5' class='xr-section-summary' >Coordinates: <span>(5)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>TLAT</span></div><div class='xr-var-dims'>(nlat, nlon)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>-79.5 -79.5 -79.5 ... 68.26 68.21</div><input id='attrs-d2c1ad0f-cce6-4ec2-a497-c75b9f4cb005' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-d2c1ad0f-cce6-4ec2-a497-c75b9f4cb005' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-42f0e6e9-0056-41ef-b969-0a15d3b16383' class='xr-var-data-in' type='checkbox'><label for='data-42f0e6e9-0056-41ef-b969-0a15d3b16383' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>array of t-grid latitudes</dd><dt><span>units :</span></dt><dd>degrees_north</dd></dl></div><div class='xr-var-data'><pre>array([[-79.49699172, -79.49699172, -79.49699172, ..., -79.49699172,
+        -79.49699172, -79.49699172],
+       [-77.98148831, -77.98148831, -77.98148831, ..., -77.98148831,
+        -77.98148831, -77.98148831],
+       [-76.4659849 , -76.4659849 , -76.4659849 , ..., -76.4659849 ,
+        -76.4659849 , -76.4659849 ],
+       ...,
+       [ 67.40867121,  67.46350911,  67.57190569, ...,  67.57190569,
+         67.46350911,  67.40867121],
+       [ 67.80494094,  67.85778431,  67.96217313, ...,  67.96217313,
+         67.85778431,  67.80494094],
+       [ 68.20741553,  68.25795363,  68.35772038, ...,  68.35772038,
+         68.25795363,  68.20741553]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>TLONG</span></div><div class='xr-var-dims'>(nlat, nlon)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>323.3 326.9 330.5 ... 319.3 320.8</div><input id='attrs-431170ff-999a-4a65-a2a5-c1c7ce1df1db' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-431170ff-999a-4a65-a2a5-c1c7ce1df1db' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-962185fe-044e-4008-b825-51d3d58e3219' class='xr-var-data-in' type='checkbox'><label for='data-962185fe-044e-4008-b825-51d3d58e3219' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>array of t-grid longitudes</dd><dt><span>units :</span></dt><dd>degrees_east</dd></dl></div><div class='xr-var-data'><pre>array([[323.3       , 326.9       , 330.5       , ..., 312.5       ,
+        316.1       , 319.7       ],
+       [323.3       , 326.9       , 330.5       , ..., 312.5       ,
+        316.1       , 319.7       ],
+       [323.3       , 326.9       , 330.5       , ..., 312.5       ,
+        316.1       , 319.7       ],
+       ...,
+       [322.33511948, 323.99745622, 325.6363243 , ..., 317.3636757 ,
+        319.00254378, 320.66488052],
+       [322.28951224, 323.86045218, 325.40739731, ..., 317.59260269,
+        319.13954782, 320.71048776],
+       [322.24063519, 323.71368525, 325.16235526, ..., 317.83764474,
+        319.28631475, 320.75936481]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>time</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>-8.0 -7.99 -7.98 ... -5.01 -5.0</div><input id='attrs-8f4ccbd5-2016-4f5c-a8d2-8d677876b4e9' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-8f4ccbd5-2016-4f5c-a8d2-8d677876b4e9' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-be1c5807-aea0-4af0-98e1-615de86ff8f9' class='xr-var-data-in' type='checkbox'><label for='data-be1c5807-aea0-4af0-98e1-615de86ff8f9' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>time</dd><dt><span>units :</span></dt><dd>ka BP</dd><dt><span>bounds :</span></dt><dd>time_bound</dd><dt><span>calendar :</span></dt><dd>noleap</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div><div class='xr-var-data'><pre>array([-8.      , -7.990001, -7.98    , ..., -5.02    , -5.01    , -5.      ])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>z_t</span></div><div class='xr-var-dims'>(z_t_m)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>500.0 1.5e+03 ... 5.375e+05</div><input id='attrs-0ec75cec-3251-434c-920b-bee380808b21' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-0ec75cec-3251-434c-920b-bee380808b21' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-e82e4da2-9fcc-4397-9886-b0bb71d06b11' class='xr-var-data-in' type='checkbox'><label for='data-e82e4da2-9fcc-4397-9886-b0bb71d06b11' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>depth from surface to midpoint of layer</dd><dt><span>units :</span></dt><dd>centimeters</dd><dt><span>positive :</span></dt><dd>down</dd><dt><span>valid_min :</span></dt><dd>500.0</dd><dt><span>valid_max :</span></dt><dd>537500.0</dd></dl></div><div class='xr-var-data'><pre>array([5.000000e+02, 1.500000e+03, 2.500000e+03, 3.500000e+03, 4.500000e+03,
+       5.500000e+03, 6.500000e+03, 7.500000e+03, 8.500000e+03, 9.500000e+03,
+       1.050000e+04, 1.150000e+04, 1.250000e+04, 1.350000e+04, 1.450000e+04,
+       1.550000e+04, 1.650984e+04, 1.754790e+04, 1.862913e+04, 1.976603e+04,
+       2.097114e+04, 2.225783e+04, 2.364088e+04, 2.513702e+04, 2.676542e+04,
+       2.854837e+04, 3.051192e+04, 3.268680e+04, 3.510935e+04, 3.782276e+04,
+       4.087846e+04, 4.433777e+04, 4.827367e+04, 5.277280e+04, 5.793729e+04,
+       6.388626e+04, 7.075633e+04, 7.870025e+04, 8.788252e+04, 9.847059e+04,
+       1.106204e+05, 1.244567e+05, 1.400497e+05, 1.573946e+05, 1.764003e+05,
+       1.968944e+05, 2.186457e+05, 2.413972e+05, 2.649001e+05, 2.889385e+05,
+       3.133405e+05, 3.379793e+05, 3.627670e+05, 3.876452e+05, 4.125768e+05,
+       4.375392e+05, 4.625190e+05, 4.875083e+05, 5.125028e+05, 5.375000e+05],
+      dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>z_t_m</span></div><div class='xr-var-dims'>(z_t_m)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>5.0 15.0 ... 5.125e+03 5.375e+03</div><input id='attrs-ed7e4a4e-b40a-4aa2-901b-081b0d7f6c9e' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-ed7e4a4e-b40a-4aa2-901b-081b0d7f6c9e' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-aba33288-4b78-40c0-80bf-89f9b37dfe01' class='xr-var-data-in' type='checkbox'><label for='data-aba33288-4b78-40c0-80bf-89f9b37dfe01' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([5.000000e+00, 1.500000e+01, 2.500000e+01, 3.500000e+01, 4.500000e+01,
+       5.500000e+01, 6.500000e+01, 7.500000e+01, 8.500000e+01, 9.500000e+01,
+       1.050000e+02, 1.150000e+02, 1.250000e+02, 1.350000e+02, 1.450000e+02,
+       1.550000e+02, 1.650984e+02, 1.754790e+02, 1.862913e+02, 1.976603e+02,
+       2.097114e+02, 2.225783e+02, 2.364088e+02, 2.513701e+02, 2.676542e+02,
+       2.854836e+02, 3.051192e+02, 3.268680e+02, 3.510935e+02, 3.782276e+02,
+       4.087846e+02, 4.433777e+02, 4.827367e+02, 5.277280e+02, 5.793729e+02,
+       6.388626e+02, 7.075633e+02, 7.870025e+02, 8.788252e+02, 9.847058e+02,
+       1.106204e+03, 1.244567e+03, 1.400497e+03, 1.573946e+03, 1.764003e+03,
+       1.968944e+03, 2.186457e+03, 2.413971e+03, 2.649001e+03, 2.889385e+03,
+       3.133405e+03, 3.379793e+03, 3.627670e+03, 3.876452e+03, 4.125768e+03,
+       4.375393e+03, 4.625190e+03, 4.875083e+03, 5.125028e+03, 5.375000e+03],
+      dtype=float32)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-c3a9f3fd-d111-4919-8691-0390c0d96ac1' class='xr-section-summary-in' type='checkbox'  checked><label for='section-c3a9f3fd-d111-4919-8691-0390c0d96ac1' class='xr-section-summary' >Data variables: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>CISO_DIC_d13C</span></div><div class='xr-var-dims'>(time, z_t_m, nlat, nlon)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>nan nan nan nan ... nan nan nan nan</div><input id='attrs-d3e2f0b2-43dd-46a4-9101-d80bd376ccec' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-d3e2f0b2-43dd-46a4-9101-d80bd376ccec' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-b9f703e2-eddf-4385-b9a7-34cdf928b696' class='xr-var-data-in' type='checkbox'><label for='data-b9f703e2-eddf-4385-b9a7-34cdf928b696' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>d13C of DIC</dd><dt><span>units :</span></dt><dd>permil</dd><dt><span>grid_loc :</span></dt><dd>3111</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div><div class='xr-var-data'><pre>array([[[[       nan,        nan,        nan, ...,        nan,
+                 nan,        nan],
+         [1.73970377,        nan,        nan, ..., 1.69224513,
+          1.75902212, 1.76574695],
+         [1.97474253, 2.04595876, 2.08497882, ..., 1.8462863 ,
+          1.91457438, 1.95875144],
+         ...,
+         [       nan,        nan,        nan, ...,        nan,
+                 nan,        nan],
+         [       nan,        nan,        nan, ...,        nan,
+                 nan,        nan],
+         [       nan,        nan,        nan, ...,        nan,
+                 nan,        nan]],
+
+        [[       nan,        nan,        nan, ...,        nan,
+                 nan,        nan],
+         [1.45244181,        nan,        nan, ..., 1.41505647,
+          1.45135725, 1.45715177],
+         [1.57883644, 1.650105  , 1.67950094, ..., 1.45596802,
+          1.49779463, 1.53398967],
+...
+         [       nan,        nan,        nan, ...,        nan,
+                 nan,        nan],
+         [       nan,        nan,        nan, ...,        nan,
+                 nan,        nan],
+         [       nan,        nan,        nan, ...,        nan,
+                 nan,        nan]],
+
+        [[       nan,        nan,        nan, ...,        nan,
+                 nan,        nan],
+         [       nan,        nan,        nan, ...,        nan,
+                 nan,        nan],
+         [       nan,        nan,        nan, ...,        nan,
+                 nan,        nan],
+         ...,
+         [       nan,        nan,        nan, ...,        nan,
+                 nan,        nan],
+         [       nan,        nan,        nan, ...,        nan,
+                 nan,        nan],
+         [       nan,        nan,        nan, ...,        nan,
+                 nan,        nan]]]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>SALT</span></div><div class='xr-var-dims'>(time, z_t_m, nlat, nlon)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>nan nan nan nan ... nan nan nan nan</div><input id='attrs-f20bbe0b-261e-433b-91b1-3d928d861d5f' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-f20bbe0b-261e-433b-91b1-3d928d861d5f' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-72d84151-a825-4a23-9aec-c91655d6dd38' class='xr-var-data-in' type='checkbox'><label for='data-72d84151-a825-4a23-9aec-c91655d6dd38' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Salinity</dd><dt><span>units :</span></dt><dd>gram/kilogram</dd><dt><span>grid_loc :</span></dt><dd>3111</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div><div class='xr-var-data'><pre>array([[[[        nan,         nan,         nan, ...,         nan,
+                  nan,         nan],
+         [34.88167572,         nan,         nan, ..., 34.799263  ,
+          34.81764603, 34.8585434 ],
+         [34.75651932, 34.74035645, 34.75646973, ..., 34.79731369,
+          34.78350067, 34.76885605],
+         ...,
+         [        nan,         nan,         nan, ...,         nan,
+                  nan,         nan],
+         [        nan,         nan,         nan, ...,         nan,
+                  nan,         nan],
+         [        nan,         nan,         nan, ...,         nan,
+                  nan,         nan]],
+
+        [[        nan,         nan,         nan, ...,         nan,
+                  nan,         nan],
+         [34.91241837,         nan,         nan, ..., 34.86710739,
+          34.87751007, 34.89736938],
+         [34.81698608, 34.79630661, 34.80683136, ..., 34.86488724,
+          34.8548584 , 34.83860016],
+...
+         [        nan,         nan,         nan, ...,         nan,
+                  nan,         nan],
+         [        nan,         nan,         nan, ...,         nan,
+                  nan,         nan],
+         [        nan,         nan,         nan, ...,         nan,
+                  nan,         nan]],
+
+        [[        nan,         nan,         nan, ...,         nan,
+                  nan,         nan],
+         [        nan,         nan,         nan, ...,         nan,
+                  nan,         nan],
+         [        nan,         nan,         nan, ...,         nan,
+                  nan,         nan],
+         ...,
+         [        nan,         nan,         nan, ...,         nan,
+                  nan,         nan],
+         [        nan,         nan,         nan, ...,         nan,
+                  nan,         nan],
+         [        nan,         nan,         nan, ...,         nan,
+                  nan,         nan]]]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>eNd</span></div><div class='xr-var-dims'>(time, z_t_m, nlat, nlon)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>nan nan nan nan ... nan nan nan nan</div><input id='attrs-9473441d-48a6-482c-b6f4-e32a9bd16a49' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-9473441d-48a6-482c-b6f4-e32a9bd16a49' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-4c1a9c7f-505d-41fb-95ee-b2be9630b012' class='xr-var-data-in' type='checkbox'><label for='data-4c1a9c7f-505d-41fb-95ee-b2be9630b012' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[[[        nan,         nan,         nan, ...,         nan,
+                  nan,         nan],
+         [-6.69432115,         nan,         nan, ..., -6.7294956 ,
+          -6.71150683, -6.69997719],
+         [-6.63746156, -6.61467069, -6.60547916, ..., -6.70155905,
+          -6.67725226, -6.65761674],
+         ...,
+         [        nan,         nan,         nan, ...,         nan,
+                  nan,         nan],
+         [        nan,         nan,         nan, ...,         nan,
+                  nan,         nan],
+         [        nan,         nan,         nan, ...,         nan,
+                  nan,         nan]],
+
+        [[        nan,         nan,         nan, ...,         nan,
+                  nan,         nan],
+         [-6.69694148,         nan,         nan, ..., -6.72975523,
+          -6.71141436, -6.70062471],
+         [-6.63897524, -6.61673058, -6.60628786, ..., -6.7019981 ,
+          -6.67853609, -6.6575684 ],
+...
+         [        nan,         nan,         nan, ...,         nan,
+                  nan,         nan],
+         [        nan,         nan,         nan, ...,         nan,
+                  nan,         nan],
+         [        nan,         nan,         nan, ...,         nan,
+                  nan,         nan]],
+
+        [[        nan,         nan,         nan, ...,         nan,
+                  nan,         nan],
+         [        nan,         nan,         nan, ...,         nan,
+                  nan,         nan],
+         [        nan,         nan,         nan, ...,         nan,
+                  nan,         nan],
+         ...,
+         [        nan,         nan,         nan, ...,         nan,
+                  nan,         nan],
+         [        nan,         nan,         nan, ...,         nan,
+                  nan,         nan],
+         [        nan,         nan,         nan, ...,         nan,
+                  nan,         nan]]]])</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-4877335b-b712-4d13-b110-d9c0bd9d5ef6' class='xr-section-summary-in' type='checkbox'  ><label for='section-4877335b-b712-4d13-b110-d9c0bd9d5ef6' class='xr-section-summary' >Indexes: <span>(2)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-index-name'><div>time</div></div><div class='xr-index-preview'>PandasIndex</div><div></div><input id='index-ca9233d1-8fb0-4298-abd8-6d9b64981ebf' class='xr-index-data-in' type='checkbox'/><label for='index-ca9233d1-8fb0-4298-abd8-6d9b64981ebf' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Index([             -8.0, -7.99000072479248, -7.98000049591064,
+       -7.97000026702881, -7.96000003814697, -7.95000076293945,
+       -7.94000053405762, -7.93000030517578, -7.92000007629395,
+       -7.90999984741211,
+       ...
+       -5.09000015258789, -5.07999992370605, -5.06999969482422,
+       -5.05999946594238, -5.05000114440918, -5.04000091552734,
+       -5.03000068664551, -5.02000045776367, -5.01000022888184,
+                    -5.0],
+      dtype=&#x27;float64&#x27;, name=&#x27;time&#x27;, length=301))</pre></div></li><li class='xr-var-item'><div class='xr-index-name'><div>z_t_m</div></div><div class='xr-index-preview'>PandasIndex</div><div></div><input id='index-43219e9b-5824-4ab5-9f2f-8fbfd250bd3b' class='xr-index-data-in' type='checkbox'/><label for='index-43219e9b-5824-4ab5-9f2f-8fbfd250bd3b' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Index([               5.0,               15.0,               25.0,
+                     35.0,               45.0,               55.0,
+                     65.0,               75.0,               85.0,
+                     95.0,              105.0,              115.0,
+                    125.0,              135.0,              145.0,
+                    155.0,   165.098388671875, 175.47903442382812,
+         186.291259765625, 197.66026306152344,  209.7113800048828,
+       222.57827758789062, 236.40882873535156, 251.37014770507812,
+        267.6542053222656,   285.483642578125, 305.11920166015625,
+       326.86798095703125,  351.0934753417969, 378.22760009765625,
+        408.7846374511719,   443.377685546875,  482.7366943359375,
+        527.7279663085938,  579.3728637695312,  638.8626098632812,
+        707.5632934570312,  787.0025024414062,     878.8251953125,
+         984.705810546875, 1106.2042236328125,   1244.56689453125,
+       1400.4971923828125, 1573.9464111328125, 1764.0032958984375,
+       1968.9442138671875,   2186.45654296875,  2413.971435546875,
+        2649.001220703125,  2889.384521484375,  3133.404541015625,
+         3379.79345703125,  3627.670166015625,  3876.451904296875,
+         4125.76806640625,     4375.392578125,    4625.1904296875,
+         4875.08349609375,   5125.02783203125,             5375.0],
+      dtype=&#x27;float32&#x27;, name=&#x27;z_t_m&#x27;))</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-56bfbd79-e79e-4029-ac4a-e8f51373a990' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-56bfbd79-e79e-4029-ac4a-e8f51373a990' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iso_snapshot_data</span> <span class="o">=</span> <span class="n">iso_ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="o">-</span><span class="mf">5.99</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+<span class="c1"># iso_snapshot_data = iso_snapshot_data.compute()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id1">
+<h2>Clustering<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+<p>The core of the matter is the function below. It takes in an array of tracer data (excluding positional coordinates like latitude, longitude, and depth!), and applies a handful of clustering algorithms. Some algorithms require that one specify the number of clusters in advance, while others require other parameters that describe other tolerances. For considerably more detail, check out the <a class="reference external" href="https://scikit-learn.org/stable/modules/clustering.html">Scikit-Learn documentation</a>! After assigning labels, we calculate a metric called the silohuette coefficient that describes the relationship between the tightness of each cluster relative to its separation from other clusters. A high silohuette coefficient indicates clusters are tight and well separated, while a lower value indicates the opposite.</p>
+<p>Note! In this case, we are using these algorithms as classfication tools, not for predictive purposes. In another draft of this notebook it would certainly be worth setting this up as a modelling exercise in which we train the models on a subset of the data and test it on the remaining fraction.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_clustering</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="n">N_CLUSTERS</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">):</span>
+    <span class="n">pred_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">n_samples</span> <span class="o">=</span> <span class="mi">1500</span>
+
+    <span class="n">plot_num</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">i_dataset</span><span class="p">,</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="n">data</span><span class="p">]):</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">dataset</span>
+        <span class="c1"># normalize dataset for easier parameter selection</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="c1"># estimate bandwidth for mean shift</span>
+        <span class="n">bandwidth</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">estimate_bandwidth</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">quantile</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+        <span class="c1"># connectivity matrix for structured Ward</span>
+        <span class="n">connectivity</span> <span class="o">=</span> <span class="n">kneighbors_graph</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="c1"># make connectivity symmetric</span>
+        <span class="n">connectivity</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">connectivity</span> <span class="o">+</span> <span class="n">connectivity</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+        <span class="c1"># Compute distances</span>
+        <span class="c1">#distances = np.exp(-euclidean_distances(X))</span>
+        <span class="n">distances</span> <span class="o">=</span> <span class="n">euclidean_distances</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="c1"># create clustering estimators</span>
+        <span class="n">ms</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">MeanShift</span><span class="p">(</span><span class="n">bandwidth</span><span class="o">=</span><span class="n">bandwidth</span><span class="p">,</span> <span class="n">bin_seeding</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">two_means</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">MiniBatchKMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">N_CLUSTERS</span><span class="p">)</span>
+        <span class="n">ward</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">AgglomerativeClustering</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">N_CLUSTERS</span><span class="p">,</span>
+                        <span class="n">linkage</span><span class="o">=</span><span class="s1">&#39;ward&#39;</span><span class="p">,</span> <span class="n">connectivity</span><span class="o">=</span><span class="n">connectivity</span><span class="p">)</span>
+        <span class="n">spectral</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">SpectralClustering</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">N_CLUSTERS</span><span class="p">,</span>
+                                              <span class="n">eigen_solver</span><span class="o">=</span><span class="s1">&#39;arpack&#39;</span><span class="p">,</span>
+                                              <span class="n">affinity</span><span class="o">=</span><span class="s2">&quot;nearest_neighbors&quot;</span><span class="p">)</span>
+        <span class="n">dbscan</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="mf">.2</span><span class="p">)</span>
+        <span class="n">affinity_propagation</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">AffinityPropagation</span><span class="p">(</span><span class="n">damping</span><span class="o">=</span><span class="mf">.9</span><span class="p">,</span>
+                                                           <span class="n">preference</span><span class="o">=-</span><span class="mi">200</span><span class="p">)</span>
+
+        <span class="n">average_linkage</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">AgglomerativeClustering</span><span class="p">(</span><span class="n">linkage</span><span class="o">=</span><span class="s2">&quot;average&quot;</span><span class="p">,</span>
+                                <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;cityblock&quot;</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="n">N_CLUSTERS</span><span class="p">,</span>
+                                <span class="n">connectivity</span><span class="o">=</span><span class="n">connectivity</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">algorithm</span> <span class="ow">in</span> <span class="p">[</span>
+                                <span class="p">(</span><span class="s1">&#39;MiniBatchKMeans&#39;</span><span class="p">,</span> <span class="n">two_means</span><span class="p">),</span>
+                                <span class="p">(</span><span class="s1">&#39;AffinityPropagation&#39;</span><span class="p">,</span> <span class="n">affinity_propagation</span><span class="p">),</span>
+                                <span class="p">(</span><span class="s1">&#39;MeanShift&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="p">),</span>
+                                <span class="p">(</span><span class="s1">&#39;SpectralClustering&#39;</span><span class="p">,</span> <span class="n">spectral</span><span class="p">),</span>
+                                <span class="p">(</span><span class="s1">&#39;Ward&#39;</span><span class="p">,</span> <span class="n">ward</span><span class="p">),</span>
+                                <span class="c1"># (&#39;AgglomerativeClustering&#39;, average_linkage),</span>
+                                <span class="c1"># (&#39;DBSCAN&#39;, dbscan)</span>
+                               <span class="p">]:</span>
+            <span class="c1"># predict cluster memberships</span>
+            <span class="n">algorithm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">algorithm</span><span class="p">,</span> <span class="s1">&#39;labels_&#39;</span><span class="p">):</span>
+                <span class="n">y_pred</span> <span class="o">=</span> <span class="n">algorithm</span><span class="o">.</span><span class="n">labels_</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">y_pred</span> <span class="o">=</span> <span class="n">algorithm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            
+            <span class="n">sil_score</span> <span class="o">=</span> <span class="n">silhouette_score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;euclidean&#39;</span><span class="p">)</span>
+            <span class="n">sample_sil_vals</span> <span class="o">=</span> <span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+            <span class="n">N_CLUSTERS</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_pred</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)))</span>
+            <span class="n">_colors_map</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colormaps</span><span class="p">[</span><span class="n">cmap</span><span class="p">]</span><span class="o">.</span><span class="n">resampled</span><span class="p">(</span><span class="n">N_CLUSTERS</span><span class="p">)</span>
+            <span class="n">_colors</span> <span class="o">=</span> <span class="n">_colors_map</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N_CLUSTERS</span><span class="p">))</span>
+
+            <span class="n">pred_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;y_pred&#39;</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">,</span> <span class="s1">&#39;colors&#39;</span><span class="p">:</span> <span class="n">_colors</span><span class="p">[</span><span class="n">y_pred</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+                                            <span class="s1">&#39;sample_sil_vals&#39;</span><span class="p">:</span><span class="n">sample_sil_vals</span><span class="p">,</span><span class="s1">&#39;sil_score&#39;</span><span class="p">:</span><span class="n">sil_score</span><span class="p">}</span>  <span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">pred_dict</span>    
+</pre></div>
+</div>
+</div>
+</div>
+<section id="surface">
+<h3>Surface<a class="headerlink" href="#surface" title="Permalink to this headline">#</a></h3>
+<section id="select-a-surface">
+<h4>Select a surface<a class="headerlink" href="#select-a-surface" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lims</span> <span class="o">=</span> <span class="p">[</span><span class="mi">290</span><span class="p">,</span> <span class="mi">360</span><span class="p">]</span>
+<span class="n">lon_ds</span> <span class="o">=</span> <span class="n">between</span><span class="p">(</span><span class="n">iso_snapshot_data</span><span class="p">,</span> <span class="s1">&#39;TLONG&#39;</span><span class="p">,</span> <span class="n">lims</span><span class="p">)</span>
+<span class="n">lims</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">]</span>
+<span class="n">subarea_ds</span> <span class="o">=</span> <span class="n">between</span><span class="p">(</span><span class="n">lon_ds</span><span class="p">,</span> <span class="s1">&#39;TLAT&#39;</span><span class="p">,</span> <span class="n">lims</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">surf_ds</span> <span class="o">=</span> <span class="n">subarea_ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">z_t_m</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+<span class="n">surf_ds</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewBox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewBox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+  --xr-border-color: var(--jp-border-color2, #e0e0e0);
+  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
+  --xr-background-color: var(--jp-layout-color0, white);
+  --xr-background-color-row-even: var(--jp-layout-color1, white);
+  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+}
+
+html[theme=dark],
+body[data-theme=dark],
+body.vscode-dark {
+  --xr-font-color0: rgba(255, 255, 255, 1);
+  --xr-font-color2: rgba(255, 255, 255, 0.54);
+  --xr-font-color3: rgba(255, 255, 255, 0.38);
+  --xr-border-color: #1F1F1F;
+  --xr-disabled-color: #515151;
+  --xr-background-color: #111111;
+  --xr-background-color-row-even: #111111;
+  --xr-background-color-row-odd: #313131;
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 20px 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: none;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: '►';
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: '▼';
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: '(';
+}
+
+.xr-dim-list:after {
+  content: ')';
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ',';
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  margin-bottom: 0;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-index-preview {
+  grid-column: 2 / 5;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  display: none;
+  background-color: var(--xr-background-color) !important;
+  padding-bottom: 5px !important;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data,
+.xr-index-data-in:checked ~ .xr-index-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-index-name div,
+.xr-index-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2,
+.xr-no-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+</style><pre class='xr-text-repr-fallback'>&lt;xarray.Dataset&gt;
+Dimensions:        (nlat: 116, nlon: 100)
+Coordinates:
+    TLAT           (nlat, nlon) float64 -79.5 -79.5 -79.5 ... 68.36 68.26 68.21
+    TLONG          (nlat, nlon) float64 323.3 326.9 330.5 ... 317.8 319.3 320.8
+    time           float64 -5.99
+    z_t            float32 4.827e+04
+    z_t_m          float32 482.7
+Dimensions without coordinates: nlat, nlon
+Data variables:
+    CISO_DIC_d13C  (nlat, nlon) float64 nan nan nan nan nan ... nan nan nan nan
+    SALT           (nlat, nlon) float64 nan nan nan nan nan ... nan nan nan nan
+    eNd            (nlat, nlon) float64 nan nan nan nan nan ... nan nan nan nan</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-c3665fce-31f9-4cfa-b150-1badbb8048cf' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-c3665fce-31f9-4cfa-b150-1badbb8048cf' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span>nlat</span>: 116</li><li><span>nlon</span>: 100</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-0f1bdc72-b397-4665-8371-8bd7046b9f42' class='xr-section-summary-in' type='checkbox'  checked><label for='section-0f1bdc72-b397-4665-8371-8bd7046b9f42' class='xr-section-summary' >Coordinates: <span>(5)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>TLAT</span></div><div class='xr-var-dims'>(nlat, nlon)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>-79.5 -79.5 -79.5 ... 68.26 68.21</div><input id='attrs-b6a94cf0-5783-4630-adf0-e0b1f1451ea4' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-b6a94cf0-5783-4630-adf0-e0b1f1451ea4' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-c68af685-76a3-4df7-8a3e-bb2e209ae8ff' class='xr-var-data-in' type='checkbox'><label for='data-c68af685-76a3-4df7-8a3e-bb2e209ae8ff' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>array of t-grid latitudes</dd><dt><span>units :</span></dt><dd>degrees_north</dd></dl></div><div class='xr-var-data'><pre>array([[-79.49699172, -79.49699172, -79.49699172, ..., -79.49699172,
+        -79.49699172, -79.49699172],
+       [-77.98148831, -77.98148831, -77.98148831, ..., -77.98148831,
+        -77.98148831, -77.98148831],
+       [-76.4659849 , -76.4659849 , -76.4659849 , ..., -76.4659849 ,
+        -76.4659849 , -76.4659849 ],
+       ...,
+       [ 67.40867121,  67.46350911,  67.57190569, ...,  67.57190569,
+         67.46350911,  67.40867121],
+       [ 67.80494094,  67.85778431,  67.96217313, ...,  67.96217313,
+         67.85778431,  67.80494094],
+       [ 68.20741553,  68.25795363,  68.35772038, ...,  68.35772038,
+         68.25795363,  68.20741553]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>TLONG</span></div><div class='xr-var-dims'>(nlat, nlon)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>323.3 326.9 330.5 ... 319.3 320.8</div><input id='attrs-077b2b4d-edb4-427f-852d-6ca8bbc8fcae' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-077b2b4d-edb4-427f-852d-6ca8bbc8fcae' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-ee999a45-5a56-494c-80aa-f638948a72b6' class='xr-var-data-in' type='checkbox'><label for='data-ee999a45-5a56-494c-80aa-f638948a72b6' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>array of t-grid longitudes</dd><dt><span>units :</span></dt><dd>degrees_east</dd></dl></div><div class='xr-var-data'><pre>array([[323.3       , 326.9       , 330.5       , ..., 312.5       ,
+        316.1       , 319.7       ],
+       [323.3       , 326.9       , 330.5       , ..., 312.5       ,
+        316.1       , 319.7       ],
+       [323.3       , 326.9       , 330.5       , ..., 312.5       ,
+        316.1       , 319.7       ],
+       ...,
+       [322.33511948, 323.99745622, 325.6363243 , ..., 317.3636757 ,
+        319.00254378, 320.66488052],
+       [322.28951224, 323.86045218, 325.40739731, ..., 317.59260269,
+        319.13954782, 320.71048776],
+       [322.24063519, 323.71368525, 325.16235526, ..., 317.83764474,
+        319.28631475, 320.75936481]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>time</span></div><div class='xr-var-dims'>()</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>-5.99</div><input id='attrs-4a9181fd-5afd-443c-8129-1ea7a04aa40d' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-4a9181fd-5afd-443c-8129-1ea7a04aa40d' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-cb453bea-cb2e-4bfa-af00-c3c6622ea487' class='xr-var-data-in' type='checkbox'><label for='data-cb453bea-cb2e-4bfa-af00-c3c6622ea487' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>time</dd><dt><span>units :</span></dt><dd>ka BP</dd><dt><span>bounds :</span></dt><dd>time_bound</dd><dt><span>calendar :</span></dt><dd>noleap</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div><div class='xr-var-data'><pre>array(-5.98999977)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>z_t</span></div><div class='xr-var-dims'>()</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>4.827e+04</div><input id='attrs-01bd1838-e3ad-420c-9113-9742c9bbaa64' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-01bd1838-e3ad-420c-9113-9742c9bbaa64' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-fe443ede-19e4-420c-b6ce-e137303f870d' class='xr-var-data-in' type='checkbox'><label for='data-fe443ede-19e4-420c-b6ce-e137303f870d' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>depth from surface to midpoint of layer</dd><dt><span>units :</span></dt><dd>centimeters</dd><dt><span>positive :</span></dt><dd>down</dd><dt><span>valid_min :</span></dt><dd>500.0</dd><dt><span>valid_max :</span></dt><dd>537500.0</dd></dl></div><div class='xr-var-data'><pre>array(48273.67, dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>z_t_m</span></div><div class='xr-var-dims'>()</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>482.7</div><input id='attrs-d0c11eb4-ccfc-4403-b523-f2a4f49ca404' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-d0c11eb4-ccfc-4403-b523-f2a4f49ca404' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-ca889020-2609-4a33-a3a3-32b9791c8098' class='xr-var-data-in' type='checkbox'><label for='data-ca889020-2609-4a33-a3a3-32b9791c8098' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array(482.7367, dtype=float32)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-e672ab6e-4ee0-4585-8008-8e9441d4ffec' class='xr-section-summary-in' type='checkbox'  checked><label for='section-e672ab6e-4ee0-4585-8008-8e9441d4ffec' class='xr-section-summary' >Data variables: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>CISO_DIC_d13C</span></div><div class='xr-var-dims'>(nlat, nlon)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>nan nan nan nan ... nan nan nan nan</div><input id='attrs-41d3eb0a-f1f6-43e5-bd1a-52f2993d0f7b' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-41d3eb0a-f1f6-43e5-bd1a-52f2993d0f7b' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-05a4bfe0-01ba-489e-8c39-4679891aa76c' class='xr-var-data-in' type='checkbox'><label for='data-05a4bfe0-01ba-489e-8c39-4679891aa76c' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>d13C of DIC</dd><dt><span>units :</span></dt><dd>permil</dd><dt><span>grid_loc :</span></dt><dd>3111</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div><div class='xr-var-data'><pre>array([[       nan,        nan,        nan, ...,        nan,        nan,
+               nan],
+       [0.89257133,        nan,        nan, ..., 0.8347491 , 0.84531724,
+        0.86759812],
+       [0.84859478, 0.84589159, 0.83753645, ..., 0.8274278 , 0.83268225,
+        0.84022647],
+       ...,
+       [       nan,        nan,        nan, ...,        nan,        nan,
+               nan],
+       [       nan,        nan,        nan, ...,        nan,        nan,
+               nan],
+       [       nan,        nan,        nan, ...,        nan,        nan,
+               nan]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>SALT</span></div><div class='xr-var-dims'>(nlat, nlon)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>nan nan nan nan ... nan nan nan nan</div><input id='attrs-7911d79e-3434-4283-b75d-6fc8b2302669' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-7911d79e-3434-4283-b75d-6fc8b2302669' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-144079c8-67a0-48a4-a30d-d33727740f06' class='xr-var-data-in' type='checkbox'><label for='data-144079c8-67a0-48a4-a30d-d33727740f06' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Salinity</dd><dt><span>units :</span></dt><dd>gram/kilogram</dd><dt><span>grid_loc :</span></dt><dd>3111</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div><div class='xr-var-data'><pre>array([[        nan,         nan,         nan, ...,         nan,
+                nan,         nan],
+       [34.8820343 ,         nan,         nan, ..., 34.90818405,
+        34.90279388, 34.89268112],
+       [34.89985275, 34.90284729, 34.91198349, ..., 34.91668701,
+        34.91412735, 34.90764236],
+       ...,
+       [        nan,         nan,         nan, ...,         nan,
+                nan,         nan],
+       [        nan,         nan,         nan, ...,         nan,
+                nan,         nan],
+       [        nan,         nan,         nan, ...,         nan,
+                nan,         nan]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>eNd</span></div><div class='xr-var-dims'>(nlat, nlon)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>nan nan nan nan ... nan nan nan nan</div><input id='attrs-3c80f7f9-448b-45c9-8477-ee7f88e6e872' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-3c80f7f9-448b-45c9-8477-ee7f88e6e872' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-32fb17a6-5c61-4369-a6ce-c2f3366db6af' class='xr-var-data-in' type='checkbox'><label for='data-32fb17a6-5c61-4369-a6ce-c2f3366db6af' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[        nan,         nan,         nan, ...,         nan,
+                nan,         nan],
+       [-7.29610647,         nan,         nan, ..., -7.29967421,
+        -7.29900815, -7.29850251],
+       [-7.28614789, -7.29968627, -7.31281166, ..., -7.2984139 ,
+        -7.28736579, -7.28132383],
+       ...,
+       [        nan,         nan,         nan, ...,         nan,
+                nan,         nan],
+       [        nan,         nan,         nan, ...,         nan,
+                nan,         nan],
+       [        nan,         nan,         nan, ...,         nan,
+                nan,         nan]])</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-29f847e1-00b9-4c4c-b38b-f17a00ede2f1' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-29f847e1-00b9-4c4c-b38b-f17a00ede2f1' class='xr-section-summary'  title='Expand/collapse section'>Indexes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'></ul></div></li><li class='xr-section-item'><input id='section-14675f73-c5fa-4a79-8674-35ea0a021d3f' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-14675f73-c5fa-4a79-8674-35ea0a021d3f' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lats</span> <span class="o">=</span> <span class="n">surf_ds</span><span class="o">.</span><span class="n">TLAT</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<span class="n">lons</span> <span class="o">=</span> <span class="n">surf_ds</span><span class="o">.</span><span class="n">TLONG</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+<span class="n">proxy_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;CISO_DIC_d13C&#39;</span><span class="p">,</span> <span class="s1">&#39;SALT&#39;</span><span class="p">,</span> <span class="s1">&#39;eNd&#39;</span><span class="p">]</span>
+<span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="n">var</span><span class="p">:</span> <span class="n">surf_ds</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">proxy_vars</span><span class="p">}</span>
+<span class="n">d</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lats</span>
+<span class="n">d</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lons</span>
+
+<span class="n">proxy_df_surf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="n">proxy_df_surf</span> <span class="o">=</span> <span class="n">proxy_df_surf</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="cluster">
+<h4>Cluster<a class="headerlink" href="#cluster" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pred_dict_surf</span> <span class="o">=</span> <span class="n">test_clustering</span><span class="p">(</span><span class="n">proxy_df_surf</span><span class="p">[</span><span class="n">proxy_vars</span><span class="p">],</span> <span class="n">proxy_df_surf</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">],</span> <span class="n">proxy_df_surf</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/jlanders/opt/miniconda3/envs/paleobook-dev/lib/python3.10/site-packages/sklearn/cluster/_kmeans.py:870: FutureWarning: The default value of `n_init` will change from 3 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  warnings.warn(
+/Users/jlanders/opt/miniconda3/envs/paleobook-dev/lib/python3.10/site-packages/sklearn/manifold/_spectral_embedding.py:274: UserWarning: Graph is not fully connected, spectral embedding may not work as expected.
+  warnings.warn(
+/Users/jlanders/opt/miniconda3/envs/paleobook-dev/lib/python3.10/site-packages/sklearn/cluster/_agglomerative.py:282: UserWarning: the number of connected components of the connectivity matrix is 2 &gt; 1. Completing it to avoid stopping the tree early.
+  connectivity, n_connected_components = _fix_connectivity(
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plot-in-positional-coordinates">
+<h4>Plot in positional coordinates<a class="headerlink" href="#plot-in-positional-coordinates" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="c1"># 1 row, 2 columns, .05 space between columns, 8:.3 ratio of left column to right column</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">pred_dict_surf</span><span class="p">),</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.07</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span><span class="n">height_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="c1">#, width_ratios=[8, .3])</span>
+
+<span class="k">for</span> <span class="n">ik</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">pred_dict_surf</span><span class="o">.</span><span class="n">keys</span><span class="p">())):</span>
+    <span class="c1"># add subplot with specified map projection and coastlines (GeoAxes)</span>
+    <span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">ik</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">Robinson</span><span class="p">(</span><span class="n">central_longitude</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">COASTLINE</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
+
+    <span class="n">sample_silhouette_values</span> <span class="o">=</span> <span class="n">pred_dict_surf</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;sample_sil_vals&#39;</span><span class="p">]</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">pred_dict_surf</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;y_pred&#39;</span><span class="p">]</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pred_dict_surf</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;colors&#39;</span><span class="p">])</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">pred_dict_surf</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;sil_score&#39;</span><span class="p">]</span>
+    
+    <span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">proxy_df_surf</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">],</span><span class="n">proxy_df_surf</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">],</span><span class="n">c</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> 
+                <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span>  <span class="c1">#map=&#39;tab20&#39;,</span>
+                 <span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    
+    <span class="n">ax2</span><span class="o">.</span><span class="n">coastlines</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">LAND</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    
+    <span class="n">N_CLUSTERS</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_pred</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span>
+    <span class="n">ax2_sil</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">ik</span><span class="p">])</span><span class="c1">#, projection=ccrs.Robinson(central_longitude=0))</span>
+    <span class="n">ax2_sil</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">ax2_sil</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample_silhouette_values</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">N_CLUSTERS</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="p">])</span>
+
+    <span class="n">x_lower</span> <span class="o">=</span> <span class="mi">10</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_CLUSTERS</span><span class="p">):</span>
+        <span class="c1"># Aggregate the silhouette scores for samples belonging to cluster i, and sort them</span>
+        <span class="n">ith_cluster_silhouette_values</span> <span class="o">=</span> \
+            <span class="n">sample_silhouette_values</span><span class="p">[</span><span class="n">y_pred</span> <span class="o">==</span> <span class="n">i</span><span class="p">]</span>
+
+        <span class="n">color</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">y_pred</span> <span class="o">==</span> <span class="n">i</span><span class="p">)]</span>
+
+        <span class="n">ith_cluster_silhouette_values</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="n">inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ith_cluster_silhouette_values</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">ith_cluster_silhouette_values</span> <span class="o">=</span> <span class="n">ith_cluster_silhouette_values</span><span class="p">[</span><span class="n">inds</span><span class="p">]</span>
+        <span class="n">size_cluster_i</span> <span class="o">=</span> <span class="n">ith_cluster_silhouette_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">size_cluster_i</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">x_upper</span> <span class="o">=</span> <span class="n">x_lower</span> <span class="o">+</span> <span class="n">size_cluster_i</span>
+            <span class="n">ax2_sil</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_lower</span><span class="p">,</span> <span class="n">x_upper</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ith_cluster_silhouette_values</span><span class="p">)),</span>
+                              <span class="mi">0</span><span class="p">,</span> <span class="n">ith_cluster_silhouette_values</span><span class="p">,</span>
+                              <span class="n">facecolor</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+
+            <span class="c1"># Label the silhouette plots with their cluster numbers at the middle</span>
+            <span class="n">ax2_sil</span><span class="o">.</span><span class="n">text</span><span class="p">(</span> <span class="n">x_lower</span> <span class="o">+</span> <span class="mf">0.45</span> <span class="o">*</span> <span class="n">size_cluster_i</span><span class="p">,</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="c1">#, size=axis_sz)</span>
+
+            <span class="c1"># Compute the new y_lower for next plot</span>
+            <span class="n">x_lower</span> <span class="o">=</span> <span class="n">x_upper</span> <span class="o">+</span> <span class="mi">10</span>  <span class="c1"># 10 for the 0 samples</span>
+
+    <span class="c1"># The vertical line for average silhoutte score of all the values</span>
+    <span class="n">ax2_sil</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">score</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">ax2_sil</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>  <span class="c1"># Clear the yaxis labels / ticks</span>
+    <span class="n">ax2_sil</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.6</span><span class="p">,</span> <span class="mf">.9</span><span class="p">])</span>
+    <span class="n">ax2_sil</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;bottom&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax2_sil</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">ik</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+        <span class="n">ax2_sil</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+        <span class="n">ax2_sil</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/4b00f2bc642c05e6531156bee5665dc78b916b44eefc20cf28450efbc1ac05b0.png" src="../../_images/4b00f2bc642c05e6531156bee5665dc78b916b44eefc20cf28450efbc1ac05b0.png" />
+</div>
+</div>
+</section>
+<section id="plotting-in-cluster-space">
+<h4>Plotting in cluster space<a class="headerlink" href="#plotting-in-cluster-space" title="Permalink to this headline">#</a></h4>
+<p>TSNE is a handy algorithm that allows us to collapse our multi-dimensional data down to two vectors that we can use as axes to plot our clusters. The code below fits and transforms the data using TSNE and then produces series of plots, each colored according to cluster labels. The values on the axes are not interperable, but rather give an interesting visual sense of how different algorithms assign labels.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">TSNE</span>
+
+<span class="n">tsne</span> <span class="o">=</span> <span class="n">TSNE</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">43</span><span class="p">)</span>
+<span class="n">Yt</span> <span class="o">=</span> <span class="n">tsne</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">proxy_df_surf</span><span class="p">[</span><span class="n">proxy_vars</span><span class="p">])</span>
+<span class="n">tsne_plot_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;TSNE_1&#39;</span><span class="p">:</span><span class="n">Yt</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;TSNE_2&#39;</span><span class="p">:</span><span class="n">Yt</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="c1"># 1 row, 2 columns, .05 space between columns, 8:.3 ratio of left column to right column</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">pred_dict</span><span class="p">),</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span><span class="c1">#, width_ratios=[8, .3])</span>
+<span class="n">algs</span> <span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">pred_dict_surf</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+<span class="k">for</span> <span class="n">ik</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">algs</span><span class="p">):</span>
+    <span class="c1"># add subplot with specified map projection and coastlines (GeoAxes)</span>
+    <span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">ik</span><span class="p">])</span>
+    <span class="n">tsne_plot_df</span><span class="p">[</span><span class="s1">&#39;clusters&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">pred_dict_surf</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;y_pred&#39;</span><span class="p">]</span><span class="c1">#pred_dict_surf[key]#9</span>
+    
+    <span class="n">num_clusters</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tsne_plot_df</span><span class="p">[</span><span class="s1">&#39;clusters&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pred_dict_surf</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;colors&#39;</span><span class="p">])</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">tsne_plot_df</span><span class="p">[</span><span class="s1">&#39;TSNE_1&#39;</span><span class="p">],</span> <span class="n">tsne_plot_df</span><span class="p">[</span><span class="s1">&#39;TSNE_2&#39;</span><span class="p">],</span> <span class="n">c</span> <span class="o">=</span> <span class="n">colors</span><span class="p">,</span>
+                <span class="c1"># hue=&#39;clusters&#39;, data=tsne_plot_df, ax=ax2, palette=sns.color_palette(&quot;Spectral&quot;, num_clusters), legend=&#39;full&#39;,</span>
+                    <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.7</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">.25</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="se">\n</span><span class="si">{}</span><span class="s1"> clusters&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">num_clusters</span><span class="p">))</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="n">tsne_plot_df</span><span class="p">[</span><span class="s1">&#39;TSNE_1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">*</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">tsne_plot_df</span><span class="p">[</span><span class="s1">&#39;TSNE_1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">*</span><span class="mf">1.2</span><span class="p">])</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="n">tsne_plot_df</span><span class="p">[</span><span class="s1">&#39;TSNE_2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">*</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">tsne_plot_df</span><span class="p">[</span><span class="s1">&#39;TSNE_2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">*</span><span class="mf">1.2</span><span class="p">])</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">ik</span> <span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">get_yaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">get_yaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">([])</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/d2a66ff9e43faccb00ffa4db0e15423c327e65f6510ffedada16e27043128109.png" src="../../_images/d2a66ff9e43faccb00ffa4db0e15423c327e65f6510ffedada16e27043128109.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="section-clustering">
+<h3>Section clustering<a class="headerlink" href="#section-clustering" title="Permalink to this headline">#</a></h3>
+<section id="select-the-section-of-interest">
+<h4>Select the section of interest<a class="headerlink" href="#select-the-section-of-interest" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lims</span> <span class="o">=</span> <span class="p">[</span><span class="mi">340</span><span class="p">,</span> <span class="mi">342</span><span class="p">]</span>
+<span class="n">sect_ds</span> <span class="o">=</span> <span class="n">between</span><span class="p">(</span><span class="n">subarea_ds</span><span class="p">,</span> <span class="s1">&#39;TLONG&#39;</span><span class="p">,</span> <span class="n">lims</span><span class="p">)</span>
+
+<span class="n">lat_lims</span> <span class="o">=</span> <span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">sect_ds</span><span class="o">.</span><span class="n">TLAT</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;nlon&#39;</span><span class="p">)),</span> <span class="nb">max</span><span class="p">(</span><span class="n">sect_ds</span><span class="o">.</span><span class="n">TLAT</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;nlon&#39;</span><span class="p">))]</span>
+<span class="n">lon_lims</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">lims</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, we’ll restructure it into a Pandas dataframe.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lat_mesh</span><span class="p">,</span> <span class="n">depth_mesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">sect_ds</span><span class="o">.</span><span class="n">TLAT</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;nlon&#39;</span><span class="p">),</span> <span class="n">sect_ds</span><span class="o">.</span><span class="n">z_t_m</span><span class="p">)</span>
+
+<span class="n">lats</span> <span class="o">=</span> <span class="n">lat_mesh</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<span class="n">depths</span> <span class="o">=</span> <span class="n">depth_mesh</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+<span class="n">proxy_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;CISO_DIC_d13C&#39;</span><span class="p">,</span> <span class="s1">&#39;SALT&#39;</span><span class="p">,</span> <span class="s1">&#39;eNd&#39;</span><span class="p">]</span>
+<span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="n">var</span><span class="p">:</span> <span class="n">sect_ds</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;nlon&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">proxy_vars</span><span class="p">}</span>
+<span class="n">d</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lats</span>
+<span class="n">d</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">depths</span>
+
+<span class="n">proxy_df_sect</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="n">proxy_df_sect</span> <span class="o">=</span> <span class="n">proxy_df_sect</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h4>Cluster<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h4>
+<p>Just as before, we’ll run it through the sausage maker.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pred_dict_sect</span> <span class="o">=</span> <span class="n">test_clustering</span><span class="p">(</span><span class="n">proxy_df_sect</span><span class="p">[</span><span class="n">proxy_vars</span><span class="p">],</span> <span class="n">proxy_df_sect</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">],</span> <span class="n">proxy_df_sect</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/jlanders/opt/miniconda3/envs/paleobook-dev/lib/python3.10/site-packages/sklearn/cluster/_kmeans.py:870: FutureWarning: The default value of `n_init` will change from 3 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  warnings.warn(
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cluster_output</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;lat&#39;</span><span class="p">:</span><span class="n">pred_dict_sect</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> 
+                                <span class="s1">&#39;depth&#39;</span><span class="p">:</span><span class="n">pred_dict_sect</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> 
+                                <span class="n">key</span><span class="p">:</span><span class="n">pred_dict_sect</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;y_pred&#39;</span><span class="p">]})</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">ik</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">pred_dict_sect</span><span class="o">.</span><span class="n">keys</span><span class="p">()))]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sect_cluster_df</span> <span class="o">=</span> <span class="n">cluster_output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">cluster_output</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+    <span class="n">sect_cluster_df</span> <span class="o">=</span> <span class="n">sect_cluster_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">])</span>
+    
+<span class="n">sect_cluster_df</span> <span class="o">=</span> <span class="n">sect_cluster_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">proxy_df_sect</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">])</span>
+<span class="n">sect_cluster_df</span> <span class="o">=</span> <span class="n">sect_cluster_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h4>Plot in positional coordinates<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h4>
+<p>This is the handy function from the ODV notebook that adds an inset map to the section plots.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_inset_map</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="n">lons</span><span class="p">,</span> <span class="n">central_lon</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">central_lat</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">size_scaler</span><span class="o">=</span><span class="mf">.25</span><span class="p">):</span>
+    <span class="n">axin</span> <span class="o">=</span> <span class="n">inset_axes</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">size_scaler</span><span class="o">*</span><span class="mi">5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">size_scaler</span><span class="o">*</span><span class="mi">5</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">,</span> 
+                 <span class="n">axes_class</span><span class="o">=</span><span class="n">cartopy</span><span class="o">.</span><span class="n">mpl</span><span class="o">.</span><span class="n">geoaxes</span><span class="o">.</span><span class="n">GeoAxes</span><span class="p">,</span> 
+                 <span class="n">axes_kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">Orthographic</span><span class="p">(</span><span class="n">central_latitude</span><span class="o">=</span><span class="n">central_lat</span><span class="p">,</span> 
+                                                               <span class="n">central_longitude</span><span class="o">=</span><span class="n">central_lon</span><span class="p">)))</span>
+                                                               <span class="c1"># central_lon)))</span>
+
+    <span class="n">axin</span><span class="o">.</span><span class="n">coastlines</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
+    <span class="n">axin</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">LAND</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">axin</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">())</span>
+    <span class="n">axin</span><span class="o">.</span><span class="n">set_global</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">pred_dict_sect</span><span class="p">)))</span>
+<span class="c1"># 1 row, 2 columns, .05 space between columns, 8:.3 ratio of left column to right column</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pred_dict_sect</span><span class="p">),</span><span class="mi">2</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">algs</span> <span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">pred_dict_sect</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+<span class="k">for</span> <span class="n">ik</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">algs</span><span class="p">):</span>
+    
+    <span class="n">sample_silhouette_values</span> <span class="o">=</span> <span class="n">pred_dict_sect</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;sample_sil_vals&#39;</span><span class="p">]</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">pred_dict_sect</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;y_pred&#39;</span><span class="p">]</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pred_dict_sect</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;colors&#39;</span><span class="p">])</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">pred_dict_sect</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;sil_score&#39;</span><span class="p">]</span>
+    
+    <span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="n">ik</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span><span class="c1">#, projection=ccrs.Robinson(central_longitude=0))</span>
+    
+    <span class="n">ax2</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mf">.25</span><span class="p">)</span>
+    
+    <span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">proxy_df_sect</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">],</span><span class="n">proxy_df_sect</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">],</span>
+                         <span class="n">c</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span>
+              <span class="p">)</span>
+
+    <span class="n">ylims</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="n">ylims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">max</span><span class="p">([</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="n">ylims</span><span class="p">[</span><span class="mi">0</span><span class="p">]])])</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Depth (m)&#39;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Latitude (deg N)&#39;</span><span class="p">)</span>
+
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ik</span> <span class="o">&lt;</span><span class="nb">len</span><span class="p">(</span><span class="n">algs</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># ax2.get_xaxis().set_visible(False)</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">([])</span>
+        <span class="c1"># ax2.spines[&#39;left&#39;].set_visible(False)</span>
+    
+    <span class="n">make_inset_map</span><span class="p">(</span><span class="n">ax2</span><span class="p">,</span> <span class="n">lat_lims</span><span class="p">,</span> <span class="n">lon_lims</span><span class="p">,</span> <span class="n">central_lon</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">central_lat</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">size_scaler</span><span class="o">=</span><span class="mf">.15</span><span class="p">)</span>
+    
+    <span class="n">N_CLUSTERS</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_pred</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span>
+    <span class="n">ax2_sil</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="n">ik</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span><span class="c1">#, projection=ccrs.Robinson(central_longitude=0))</span>
+    
+    <span class="n">y_lower</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_CLUSTERS</span><span class="p">):</span>
+        <span class="c1"># Aggregate the silhouette scores for samples belonging to cluster i, and sort them</span>
+        <span class="n">ith_cluster_silhouette_values</span> <span class="o">=</span> \
+            <span class="n">sample_silhouette_values</span><span class="p">[</span><span class="n">y_pred</span> <span class="o">==</span> <span class="n">i</span><span class="p">]</span>
+
+        <span class="n">color</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">y_pred</span> <span class="o">==</span> <span class="n">i</span><span class="p">)]</span>
+
+        <span class="n">ith_cluster_silhouette_values</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="n">inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ith_cluster_silhouette_values</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">ith_cluster_silhouette_values</span> <span class="o">=</span> <span class="n">ith_cluster_silhouette_values</span><span class="p">[</span><span class="n">inds</span><span class="p">]</span>
+        <span class="n">size_cluster_i</span> <span class="o">=</span> <span class="n">ith_cluster_silhouette_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">size_cluster_i</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            
+            <span class="n">y_upper</span> <span class="o">=</span> <span class="n">y_lower</span> <span class="o">+</span> <span class="n">size_cluster_i</span>
+
+            <span class="n">ax2_sil</span><span class="o">.</span><span class="n">fill_betweenx</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">y_lower</span><span class="p">,</span> <span class="n">y_upper</span><span class="p">),</span>
+                              <span class="mi">0</span><span class="p">,</span> <span class="n">ith_cluster_silhouette_values</span><span class="p">,</span>
+                              <span class="n">facecolor</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+
+            <span class="c1"># Label the silhouette plots with their cluster numbers at the middle</span>
+            <span class="n">ax2_sil</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">y_lower</span> <span class="o">+</span> <span class="mf">0.45</span> <span class="o">*</span> <span class="n">size_cluster_i</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="c1">#, size=axis_sz)</span>
+
+            <span class="c1"># Compute the new y_lower for next plot</span>
+            <span class="n">y_lower</span> <span class="o">=</span> <span class="n">y_upper</span> <span class="o">+</span> <span class="mi">10</span>  <span class="c1"># 10 for the 0 samples</span>
+
+    <span class="c1"># The vertical line for average silhoutte score of all the values</span>
+    <span class="n">ax2_sil</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">score</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax2_sil</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="n">y_lower</span> <span class="o">+</span> <span class="mf">0.05</span> <span class="o">*</span> <span class="n">size_cluster_i</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">score</span><span class="p">,</span><span class="mi">2</span><span class="p">)))</span><span class="c1">#r(score), format=FormatStrFormatter(&#39;%g&#39;))#, size=axis_sz)</span>
+
+    <span class="n">ax2_sil</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>  <span class="c1"># Clear the yaxis labels / ticks</span>
+    <span class="n">ax2_sil</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.6</span><span class="p">,</span> <span class="mf">.9</span><span class="p">])</span>
+    <span class="n">ax2_sil</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax2_sil</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax2_sil</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;bottom&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax2_sil</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/aaa1808a98b6fef408da43e413a67961d6367ccb621d6b218577147c23dd565c.png" src="../../_images/aaa1808a98b6fef408da43e413a67961d6367ccb621d6b218577147c23dd565c.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
+<p>So many options for exploring our expectations about what are the core traits of a watermass, so little time!</p>
+</section>
+<section id="what-s-next">
+<h2>What’s next?<a class="headerlink" href="#what-s-next" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="resources-and-references">
+<h2>Resources and references<a class="headerlink" href="#resources-and-references" title="Permalink to this headline">#</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p><em>Citations</em></p></th>
+</tr>
+</thead>
+</table>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "conda-env-paleobook-dev-py"
+        },
+        kernelOptions: {
+            name: "conda-env-paleobook-dev-py",
+            path: "./notebooks/science_bits"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'conda-env-paleobook-dev-py'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="data_scatter_on_pcolor.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Navigating the perils of a model grid</p>
+      </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data">Load Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-itrace">C-iTRACE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Clustering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#surface">Surface</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#select-a-surface">Select a surface</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cluster">Cluster</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-in-positional-coordinates">Plot in positional coordinates</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-in-cluster-space">Plotting in cluster space</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#section-clustering">Section clustering</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#select-the-section-of-interest">Select the section of interest</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Cluster</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Plot in positional coordinates</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-next">What’s next?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-and-references">Resources and references</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jordan Landers (for a start)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
