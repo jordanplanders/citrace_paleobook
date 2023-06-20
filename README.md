@@ -55,7 +55,7 @@ If you are interested in running this material locally on your computer, you wil
 1. Clone the `https://github.com/jordanplanders/LMR_CMIP_paleobook` repository:
 
    ```bash
-    git clone https://github.com/jordanplanders/LMR_CMIP_paleobook.git
+    git clone https://github.com/LinkedEarth/citrace_paleobook
    ```
 
 1. Create and activate your conda environment from the `environment.yml` file
