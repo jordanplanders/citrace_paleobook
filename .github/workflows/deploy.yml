@@ -1,0 +1,81 @@
+name: deploy
+
+on:
+  # Trigger the workflow on push to main branch
+  push:
+    branches:
+      - main
+
+# This job installs dependencies, build the book, and pushes it to `gh-pages`
+jobs:
+  build-and-deploy-book:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-version: [3.10.11]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    # Install CC
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Setup with Mamba
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+          auto-update-conda: true
+          auto-activate-base: false
+          miniforge-variant: Mambaforge
+          miniforge-version: latest
+          activate-environment: conda-env-paleobook-dev-py
+          environment-file: environment.yml
+
+    - name: ipykernel
+      run: |
+        pip install ipykernel
+        python -m ipykernel install --user --name conda-env-paleobook-dev-py
+
+    # Print Conda info
+    - name: Conda info
+      shell: bash -l {0}
+      run: |
+        conda activate conda-env-paleobook-dev-py
+        pip install jupyter-book
+        pip install ghp-import
+        conda list
+        conda info
+        jupyter-book toc .
+        jupyter-book build .
+        ghp-import ./_build/html -f -p -n -b paleobook
+
+#    # install pips
+#    - name: Bonus pips
+#      run: |
+#        pip install seaborn
+#        pip install pandas>=2.0.0
+#        pip install jupyter-book
+#        pip install ghp-import
+
+#     Build the book
+#    - name: Build book TOC file
+#      run: |
+#        jupyter-book toc .
+#    - name: Build the book
+#      run: |
+#        jupyter-book build .
+
+    # Deploy the book's HTML to gh-pages branch
+#    - name: GitHub Pages action
+#      uses: peaceiris/actions-gh-pages@v3.6.1
+#      with:
+#        github_token: ${{ secrets.GITHUB_TOKEN }}
+#        publish_branch: paleobook
+#        publish_dir: ./_build/html
+
+#    - name: Push _build/html to paleobook
+#      run: |
+#        ghp-import ./_build/html -f -p -n -b paleobook
