@@ -10,7 +10,7 @@ dependencies:
   #
   - jupyterhub-singleuser>=3.0
   - cartopy>=0.21.1
-  - python=3.10
+  - python=3.10.12
   - climlab
   - s3fs
   - gcsfs
