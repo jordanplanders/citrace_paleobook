@@ -60,6 +60,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'README';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -157,12 +159,16 @@ const thebe_selector_output = ".output, .cell_output"
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lifehacks</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="notebooks/lifehacks/working_with_data_on_a_model_grid.html">Navigating the perils of a model grid</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notebooks/lifehacks/pyODV.html">py(?)ODV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/lifehacks/pyODV.html">pyODV</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Science Bits</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="notebooks/science_bits/data_scatter_on_pcolor.html">Working with empirical measurements and model output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/science_bits/data_scatter_on_pcolor.html">PaMoDaCo: Working with measurements and model output</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/science_bits/clustering.html">Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/science_bits/PaMoDaCo_downcore_D14C.html">PaMoDaCo: Contextualizing a downcore record in model-space</a></li>
+
+
+
 </ul>
 
     </div>
@@ -217,7 +223,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/jordanplanders/citrace" target="_blank"
+      <li><a href="https://github.com/LinkedEarth/citrace_paleobook" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -234,7 +240,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/jordanplanders/citrace/issues/new?title=Issue%20on%20page%20%2FREADME.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/LinkedEarth/citrace_paleobook/issues/new?title=Issue%20on%20page%20%2FREADME.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -384,31 +390,33 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="c-itrace-and-friends-paleobook">
 <h1>C-iTrace (and friends) Paleobook<a class="headerlink" href="#c-itrace-and-friends-paleobook" title="Permalink to this headline">#</a></h1>
-<p>This PaleoBook looks at how to slice, dice, navigate, visualize and perhaps consider multi-proxy, spatially resolved model output by exploring output from coarse iTRACE model runs.</p>
+<p>This PaleoBook looks at how to slice, dice, navigate, visualize and investigate paleoceanographic questions at the interface between models and observations using the multi-proxy, spatially resolved model output from <a class="reference external" href="https://sites.google.com/colorado.edu/citrace">coarse iTRACE (C-iTRACE) runs</a>.</p>
 <section id="motivation">
 <h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">#</a></h2>
 <p>Paleo-model output offers a spatially resolved look at how proxy distributions may have evolved over time–a welcome gift in a field perpetually saddled with navigating sparse data problems. Working with model output comes with a few unique challenges, in addition to some intriguing opportunities.</p>
+<p>C-iTRACE is a deglacial simulation performed using a low resolution (3 degrees) configuration of the isotope enabled version of the Parallel Ocean Program version 2 (POP2) with 60 vertical layers and active biogeochemistry. The isotope suite includes a growing set of geotracers such as <span class="math notranslate nohighlight">\(\delta^{13}\)</span>C, <span class="math notranslate nohighlight">\(\Delta^{14}\)</span>C, <span class="math notranslate nohighlight">\(\varepsilon\)</span>Nd, <span class="math notranslate nohighlight">\(\delta^{18}\)</span>O.</p>
+<p>The simulation spans 20ka to present at decadal resolution and is forced with momentum, heat, freshwater fluxes and sea ice fractions from existing fully-coupled TraCE-21 ka simulation and reconstructed atmospheric CO<span class="math notranslate nohighlight">\(_2\)</span> and <span class="math notranslate nohighlight">\(\Delta^{14}\)</span>C. The C-iTRACE simulation is part of an effort to test code prior to adding the tracer suite to the full resolution ocean component of the Community Earth System Model (CESM) and reasonably reproduces the physical circulation of TraCE-21ka when strong restoring is applied at the surface boundary. Tracers were spun up separately on timescales relevant to their residence times.</p>
 </section>
 <section id="authors">
 <h2>Authors<a class="headerlink" href="#authors" title="Permalink to this headline">#</a></h2>
 <p><span class="xref myst">Jordan Landers</span></p>
 <section id="contributors">
 <h3>Contributors<a class="headerlink" href="#contributors" title="Permalink to this headline">#</a></h3>
-<a href="https://github.com/jordanplanders/citrace_paleobook/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=jordanplanders/citrace_paleobook" />
+<a href="https://github.com/linked.earth/citrace_paleobook/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=linked.earth/citrace_paleobook" />
 </a>
 </section>
 </section>
 <section id="structure">
 <h2>Structure<a class="headerlink" href="#structure" title="Permalink to this headline">#</a></h2>
-<p>This Paleobook is made up of two sections: Lifehacks, and Science Bits</p>
+<p>This PaleoBook is made up of two sections: Lifehacks, and Science Bits</p>
 <section id="lifehacks">
 <h3>Lifehacks<a class="headerlink" href="#lifehacks" title="Permalink to this headline">#</a></h3>
-<p>This section covers nuts and bolts about how to access cloud available data, process it, and make some stock visualizations</p>
+<p>This section covers nuts and bolts about how to assess and work with model grids that aren’t indexed on latitude and longitude, access cloud available data, process it, and produce some of visualizations most commonly used to look at ocean variables.</p>
 </section>
 <section id="science-bits">
 <h3>Science Bits<a class="headerlink" href="#science-bits" title="Permalink to this headline">#</a></h3>
-<p>This section applies the technical skills from the Lifehacks section to do standard analysis.</p>
+<p>This section applies the technical skills from the Lifehacks section to explore questions surrounding the evolution of global ocean circulation and tracer distribution since the Last Glacial Maximum.</p>
 </section>
 </section>
 <section id="running-the-notebooks">
@@ -435,7 +443,7 @@ Jupyter</a>.</p>
 <p>If you are interested in running this material locally on your computer, you will need to follow this workflow:</p>
 <ol class="arabic">
 <li><p>Clone the <code class="docutils literal notranslate"><span class="pre">https://github.com/jordanplanders/LMR_CMIP_paleobook</span></code> repository:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/jordanplanders/LMR_CMIP_paleobook.git
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/LinkedEarth/citrace_paleobook
 </pre></div>
 </div>
 </li>

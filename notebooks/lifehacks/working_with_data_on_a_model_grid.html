@@ -63,7 +63,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/lifehacks/working_with_data_on_a_model_grid';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="py(?)ODV" href="pyODV.html" />
+    <link rel="next" title="pyODV" href="pyODV.html" />
     <link rel="prev" title="C-iTrace (and friends) Paleobook" href="../../README.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="None"/>
@@ -158,12 +158,16 @@ const thebe_selector_output = ".output, .cell_output"
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lifehacks</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Navigating the perils of a model grid</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pyODV.html">py(?)ODV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyODV.html">pyODV</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Science Bits</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../science_bits/data_scatter_on_pcolor.html">Navigating the perils of a model grid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../science_bits/data_scatter_on_pcolor.html">PaMoDaCo: Working with measurements and model output</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../science_bits/clustering.html">Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../science_bits/PaMoDaCo_downcore_D14C.html">PaMoDaCo: Contextualizing a downcore record in model-space</a></li>
+
+
+
 </ul>
 
     </div>
@@ -218,7 +222,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/jordanplanders/citrace" target="_blank"
+      <li><a href="https://github.com/LinkedEarth/citrace_paleobook" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -235,7 +239,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/jordanplanders/citrace/issues/new?title=Issue%20on%20page%20%2Fnotebooks/lifehacks/working_with_data_on_a_model_grid.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/LinkedEarth/citrace_paleobook/issues/new?title=Issue%20on%20page%20%2Fnotebooks/lifehacks/working_with_data_on_a_model_grid.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -359,10 +363,25 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">Imports</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intuition">Intuition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intuition">Intuition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-on-a-lat-lon-grid">Data on a lat-lon grid</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#point-wise-data">Point-wise data</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-reality-of-model-output">The reality of model output</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pmip-lgm">PMIP LGM</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-itrace">C-iTRACE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-itrace">C-iTRACE</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#scatterplot">1. Scatterplot</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pcolormesh">2. Pcolormesh</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#filled-contour">3. Filled Contour</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-along-lat-lon">Selecting along lat/lon</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-using-coordinate-dimensions">Selecting using coordinate-dimensions</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-using-dimensions">Selecting using dimensions</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-using-where">Selecting using <code class="docutils literal notranslate"><span class="pre">where</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
@@ -385,10 +404,8 @@ document.write(`
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h2>
 <p>The coordinate system that is computationally practical for model simulations is not always intuitive for the slicing and dicing required by analysis.</p>
 <ol class="arabic simple">
-<li><p>Perils of the model grid</p></li>
-<li><p>Adding analysis coordinates</p></li>
-<li><p>Querying with analysis coordinates</p></li>
-<li><p>Relocating support functions to loadable file</p></li>
+<li><p>Intuitive notion of spatial distributions in latitude-longitude coordinates</p></li>
+<li><p>Reality of model grids</p></li>
 </ol>
 </section>
 <hr class="docutils" />
@@ -415,14 +432,6 @@ document.write(`
 <span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
 <span class="kn">import</span> <span class="nn">cartopy.feature</span> <span class="k">as</span> <span class="nn">cfeature</span>
 <span class="kn">import</span> <span class="nn">cartopy.util</span> <span class="k">as</span> <span class="nn">cutil</span>
-
-<span class="kn">import</span> <span class="nn">pyleoclim</span> <span class="k">as</span> <span class="nn">pyleo</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The autoreload extension is already loaded. To reload it, use:
-  %reload_ext autoreload
 </pre></div>
 </div>
 </div>
@@ -431,6 +440,8 @@ document.write(`
 <section id="intuition">
 <h2>Intuition<a class="headerlink" href="#intuition" title="Permalink to this headline">#</a></h2>
 <p>The world we live and move in is round, and locations can sensibly be described in terms of latitude and longitude. With this in mind, it doesn’t seem unreasonable to expect spatially resolved data to behave similarly. I know that precipitation  follows a distribution of sorts. Let’s look at a quick example.</p>
+<section id="data-on-a-lat-lon-grid">
+<h3>Data on a lat-lon grid<a class="headerlink" href="#data-on-a-lat-lon-grid" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for Google Cloud:</span>
@@ -539,6 +550,9 @@ To plot a filled contour map, we make a couple of simple adjustments, appending 
 <img alt="../../_images/a8b5c45c125c17e9e6e1877d3fb725ff7f445b6148de65214d523114b3643fa7.png" src="../../_images/a8b5c45c125c17e9e6e1877d3fb725ff7f445b6148de65214d523114b3643fa7.png" />
 </div>
 </div>
+</section>
+<section id="point-wise-data">
+<h3>Point-wise data<a class="headerlink" href="#point-wise-data" title="Permalink to this headline">#</a></h3>
 <p>Also very tidy are datasets that reflect measurements taken at specific locations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -579,6 +593,7 @@ To plot a filled contour map, we make a couple of simple adjustments, appending 
 <img alt="../../_images/85ff7e45c31aa923c709377542a8dee5715a54bbb5224eb25f9e2f4ac999f236.png" src="../../_images/85ff7e45c31aa923c709377542a8dee5715a54bbb5224eb25f9e2f4ac999f236.png" />
 </div>
 </div>
+</section>
 </section>
 <section id="the-reality-of-model-output">
 <h2>The reality of model output<a class="headerlink" href="#the-reality-of-model-output" title="Permalink to this headline">#</a></h2>
@@ -640,9 +655,9 @@ To plot a filled contour map, we make a couple of simple adjustments, appending 
 <span class="n">year</span> <span class="o">=</span> <span class="mi">3290</span>
 <span class="n">var</span> <span class="o">=</span> <span class="s1">&#39;po4&#39;</span>
 <span class="n">lev</span><span class="o">=</span> <span class="mf">7.800e+01</span><span class="c1">#2.590e+03#3.5#7.800e+01</span>
-<span class="n">colorbar_units</span> <span class="o">=</span> <span class="s1">&#39;[mm/day]&#39;</span>
+<span class="n">colorbar_units</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;[$\mu$mole/kg]&#39;</span>
 <span class="n">ppt_cmap</span> <span class="o">=</span> <span class="s1">&#39;BuGn&#39;</span>
-<span class="n">title_copy</span> <span class="o">=</span> <span class="s1">&#39;Phosphate, </span><span class="si">{}</span><span class="s1">/</span><span class="si">{}</span><span class="s1"> </span><span class="se">\n</span><span class="s1">(ref. int: (1900-1980))&#39;</span>
+<span class="n">title_copy</span> <span class="o">=</span> <span class="s1">&#39;Phosphate, </span><span class="si">{}</span><span class="s1">/</span><span class="si">{}</span><span class="s1">&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -661,17 +676,18 @@ To plot a filled contour map, we make a couple of simple adjustments, appending 
 <p>And let’s plot…</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nc</span> <span class="o">=</span> <span class="mi">21</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">()</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">mlgm_snapshot_data</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">],</span><span class="n">mlgm_snapshot_data</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">],</span><span class="n">mlgm_snapshot_data</span><span class="p">,</span> <span class="n">nc</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;BuGn&#39;</span><span class="p">)</span><span class="c1">#nc,**cf2_kwargs)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.contour.QuadContourSet at 0x1643f33d0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.contour.QuadContourSet at 0x1460000d0&gt;
 </pre></div>
 </div>
-<img alt="../../_images/62ba3e27d31c243d13f209ae8c366c2b2502aee5da5176b710349559ef8d5f07.png" src="../../_images/62ba3e27d31c243d13f209ae8c366c2b2502aee5da5176b710349559ef8d5f07.png" />
+<img alt="../../_images/87ffc4582c99f88d904ca606ecba9ae35b0171263917885de67ada7a2208f711.png" src="../../_images/87ffc4582c99f88d904ca606ecba9ae35b0171263917885de67ada7a2208f711.png" />
 </div>
 </div>
 <p>A mess… curious. Let’s have a look at the underlying grid.</p>
@@ -694,7 +710,7 @@ To plot a filled contour map, we make a couple of simple adjustments, appending 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/f4c05060cccae394a85d06df9d519e7145106f8f73f33d657ba89d9f2e84e6eb.png" src="../../_images/f4c05060cccae394a85d06df9d519e7145106f8f73f33d657ba89d9f2e84e6eb.png" />
+<img alt="../../_images/84c4ca31e7e13f36edc7d83fd6678f57da1ef260dd3a5712f438f013cc7b05ca.png" src="../../_images/84c4ca31e7e13f36edc7d83fd6678f57da1ef260dd3a5712f438f013cc7b05ca.png" />
 </div>
 </div>
 <p>Might not hurt to curb that a bit.</p>
@@ -709,11 +725,31 @@ To plot a filled contour map, we make a couple of simple adjustments, appending 
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_scalar_mappable</span><span class="p">(</span><span class="n">lims</span><span class="p">,</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">ax_norm</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">lims</span><span class="p">),</span> <span class="n">vmax</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">lims</span><span class="p">),</span> <span class="n">clip</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">cmap</span><span class="p">)</span><span class="o">==</span><span class="nb">list</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ax_cmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="s2">&quot;MyCmapName&quot;</span><span class="p">,[</span><span class="s2">&quot;r&quot;</span><span class="p">,</span><span class="s2">&quot;b&quot;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ax_cmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="s2">&quot;MyCmapName&quot;</span><span class="p">,[</span><span class="s2">&quot;r&quot;</span><span class="p">,</span><span class="s2">&quot;b&quot;</span><span class="p">],</span> <span class="n">N</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ax_cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>    
+            <span class="n">ax_cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">ax_sm</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span><span class="n">norm</span><span class="o">=</span><span class="n">ax_norm</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">ax_cmap</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ax_sm</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_levels</span><span class="o">=</span> <span class="mi">60</span>
 <span class="n">ax2_levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">min_lim</span><span class="p">,</span> <span class="n">max_lim</span><span class="p">,</span> <span class="n">n_levels</span><span class="p">),</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span><span class="c1">#0.0026, .003, 15), decimals=6)</span>
 <span class="c1"># make scalar mappable</span>
-<span class="n">ax2_sm</span> <span class="o">=</span> <span class="n">make_scalar_mappable</span><span class="p">([</span><span class="n">min_lim</span><span class="p">,</span> <span class="n">max_lim</span><span class="p">],</span><span class="s1">&#39;BuGn&#39;</span> <span class="p">,</span> <span class="n">n_levels</span><span class="p">)</span><span class="c1">#[0.0026, .003]</span>
-<span class="n">cf2_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cmap&#39;</span><span class="p">:</span><span class="n">ax2_sm</span><span class="o">.</span><span class="n">cmap</span><span class="p">,</span><span class="s1">&#39;levels&#39;</span><span class="p">:</span><span class="n">ax2_levels</span><span class="p">,</span> <span class="s1">&#39;norm&#39;</span> <span class="p">:</span> <span class="n">ax2_sm</span><span class="o">.</span><span class="n">norm</span><span class="p">}</span><span class="c1">#mpl.colors.TwoSlopeNorm(vmin=min_val, vcenter=0.0026, vmax=max_val), &#39;levels&#39;:ax2_levels}#SymLogNorm(.00152, linscale=.003)}#, vmin=None, vmax=None, clip=False)ax2_sm.norm}</span>
+<span class="n">ax2_sm_po4</span> <span class="o">=</span> <span class="n">make_scalar_mappable</span><span class="p">([</span><span class="n">min_lim</span><span class="p">,</span> <span class="n">max_lim</span><span class="p">],</span><span class="s1">&#39;BuGn&#39;</span> <span class="p">,</span> <span class="n">n_levels</span><span class="p">)</span><span class="c1">#[0.0026, .003]</span>
+<span class="n">cf2_kwargs_po4</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cmap&#39;</span><span class="p">:</span><span class="n">ax2_sm_po4</span><span class="o">.</span><span class="n">cmap</span><span class="p">,</span><span class="s1">&#39;levels&#39;</span><span class="p">:</span><span class="n">ax2_levels</span><span class="p">,</span> <span class="s1">&#39;norm&#39;</span> <span class="p">:</span> <span class="n">ax2_sm_po4</span><span class="o">.</span><span class="n">norm</span><span class="p">}</span><span class="c1">#mpl.colors.TwoSlopeNorm(vmin=min_val, vcenter=0.0026, vmax=max_val), &#39;levels&#39;:ax2_levels}#SymLogNorm(.00152, linscale=.003)}#, vmin=None, vmax=None, clip=False)ax2_sm.norm}</span>
 </pre></div>
 </div>
 </div>
@@ -726,23 +762,18 @@ To plot a filled contour map, we make a couple of simple adjustments, appending 
 <span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">Robinson</span><span class="p">(</span><span class="n">central_longitude</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">COASTLINE</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
 
-<span class="c1"># place data on coordinate system with continuous x axis (longitude axis)</span>
-<span class="c1"># tas_c, lonc = cutil.add_cyclic_point(snapshot_data[var], snapshot_data[&#39;longitude&#39;])</span>
 <span class="c1"># plot contourf on ax2 (geosubplot)</span>
-<span class="c1"># make_scalar_mappable(lims, ppt_cmap, n=None)</span>
 <span class="n">cf2</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">mlgm_snapshot_data</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">],</span><span class="n">mlgm_snapshot_data</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">],</span><span class="n">mlgm_snapshot_data</span><span class="p">,</span> <span class="n">nc</span><span class="p">,</span>
-                   <span class="c1"># transform_first=True,</span>
-                               <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span><span class="n">extend</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">cf2_kwargs</span><span class="p">)</span>
+                               <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span><span class="n">extend</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">cf2_kwargs_po4</span><span class="p">)</span>
 
 <span class="c1"># add annotations (colorbar, title)</span>
-
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cf2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">colorbar_units</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">FormatStrFormatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">))</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title_copy</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">month</span><span class="p">,</span> <span class="n">year</span><span class="p">));</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/0f643ad0d731e0487e539f4267b135f5173d8493e73e03213873388ada9fa3c5.png" src="../../_images/0f643ad0d731e0487e539f4267b135f5173d8493e73e03213873388ada9fa3c5.png" />
+<img alt="../../_images/8a908078110c01df079abb2e291d93e1ddeca9e4a6ca69337056faca86f7c89b.png" src="../../_images/8a908078110c01df079abb2e291d93e1ddeca9e4a6ca69337056faca86f7c89b.png" />
 </div>
 </div>
 <p>Odd. And honestly, I have not yet fully unravelled the mystery here. However, thninking about the streaky one above, there may be something to be investigated. The longitude data does not appear to be sorted. This may be part of our problem.</p>
@@ -784,11 +815,12 @@ To plot a filled contour map, we make a couple of simple adjustments, appending 
 <span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">Robinson</span><span class="p">(</span><span class="n">central_longitude</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">COASTLINE</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
 
-<span class="n">cf2</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">numpy_tmp_lon</span><span class="p">,</span><span class="n">numpy_tmp_lat</span><span class="p">,</span><span class="n">numpy_tmp</span><span class="p">,</span> <span class="n">nc</span><span class="p">,</span><span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span><span class="n">extend</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">cf2_kwargs</span><span class="p">)</span><span class="c1">#transform=ccrs.PlateCarree()# levels=ax2_levels,</span>
+<span class="n">cf2</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">numpy_tmp_lon</span><span class="p">,</span><span class="n">numpy_tmp_lat</span><span class="p">,</span><span class="n">numpy_tmp</span><span class="p">,</span> <span class="n">nc</span><span class="p">,</span>
+                   <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span><span class="n">extend</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">cf2_kwargs_po4</span><span class="p">)</span><span class="c1">#transform=ccrs.PlateCarree()# levels=ax2_levels,</span>
 
 <span class="c1"># add annotations (colorbar, title)</span>
 <span class="n">ax2_cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="n">cb2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">ax2_sm</span><span class="p">,</span><span class="n">cax</span><span class="o">=</span><span class="n">ax2_cb</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">colorbar_units</span><span class="p">,</span>
+<span class="n">cb2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">ax2_sm_po4</span><span class="p">,</span><span class="n">cax</span><span class="o">=</span><span class="n">ax2_cb</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">colorbar_units</span><span class="p">,</span>
                    <span class="nb">format</span><span class="o">=</span><span class="n">FormatStrFormatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">))</span>
                     
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title_copy</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">month</span><span class="p">,</span> <span class="n">year</span><span class="p">));</span>
@@ -796,10 +828,37 @@ To plot a filled contour map, we make a couple of simple adjustments, appending 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/ff51668d06b3b0d17b6751bc7e0e6265475b4ebeef956498dffc27729ecfc000.png" src="../../_images/ff51668d06b3b0d17b6751bc7e0e6265475b4ebeef956498dffc27729ecfc000.png" />
+<img alt="../../_images/5d0baee995c71758adb6cd3cfca52c8914b7db8df136a0081c87a9866e723894.png" src="../../_images/5d0baee995c71758adb6cd3cfca52c8914b7db8df136a0081c87a9866e723894.png" />
 </div>
 </div>
-<p>It turns out, we can also use <code class="docutils literal notranslate"><span class="pre">pcolormesh</span></code>, but it’s good to know about both.</p>
+<p>With further investigation, it turns out that the restructuring we went through above is similar to specifying <code class="docutils literal notranslate"><span class="pre">transform_first=True</span></code>. Nice to have some intuition for what that parameter affects. Have a look below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="c1"># 1 row, 2 columns, .05 space between columns, 8:.3 ratio of left column to right column</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mf">.3</span><span class="p">])</span>
+
+<span class="c1"># add subplot with specified map projection and coastlines (GeoAxes)</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">Robinson</span><span class="p">(</span><span class="n">central_longitude</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">COASTLINE</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
+
+<span class="n">cf2</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">mlgm_snapshot_data</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">],</span><span class="n">mlgm_snapshot_data</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">],</span><span class="n">mlgm_snapshot_data</span><span class="p">,</span> <span class="n">nc</span><span class="p">,</span>
+                   <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span><span class="n">extend</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span><span class="n">transform_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">cf2_kwargs_po4</span><span class="p">)</span><span class="c1">#transform=ccrs.PlateCarree()# levels=ax2_levels,</span>
+
+<span class="c1"># add annotations (colorbar, title)</span>
+<span class="n">ax2_cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">cb2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">ax2_sm_po4</span><span class="p">,</span><span class="n">cax</span><span class="o">=</span><span class="n">ax2_cb</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">colorbar_units</span><span class="p">,</span>
+                   <span class="nb">format</span><span class="o">=</span><span class="n">FormatStrFormatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">))</span>
+                    
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title_copy</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">month</span><span class="p">,</span> <span class="n">year</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/57e1984657117e8885cc44b9a5948251fbc6dfb4e1cbd47f9c03f8ac33bc6620.png" src="../../_images/57e1984657117e8885cc44b9a5948251fbc6dfb4e1cbd47f9c03f8ac33bc6620.png" />
+</div>
+</div>
+<p>Another option is to use <code class="docutils literal notranslate"><span class="pre">pcolormesh</span></code> which avoids the smoothing that goes into calculating contours and colors based on the value associated with each cell. If the underlying grid is regular, filled contours are an option, otherwise, <code class="docutils literal notranslate"><span class="pre">pcolormesh</span></code> is likely a better choice.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plt.figure(figsize=(9,5));</span>
@@ -814,8 +873,8 @@ To plot a filled contour map, we make a couple of simple adjustments, appending 
                                    <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span> 
                                    <span class="n">x</span><span class="o">=</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span> 
                                    <span class="n">levels</span><span class="o">=</span><span class="n">ax2_levels</span><span class="p">,</span> 
-                                  <span class="n">cmap</span><span class="o">=</span><span class="n">cf2_kwargs</span><span class="p">[</span><span class="s1">&#39;cmap&#39;</span><span class="p">],</span> 
-                                  <span class="n">norm</span><span class="o">=</span><span class="n">cf2_kwargs</span><span class="p">[</span><span class="s1">&#39;norm&#39;</span><span class="p">],</span> 
+                                  <span class="n">cmap</span><span class="o">=</span><span class="n">cf2_kwargs_po4</span><span class="p">[</span><span class="s1">&#39;cmap&#39;</span><span class="p">],</span> 
+                                  <span class="n">norm</span><span class="o">=</span><span class="n">cf2_kwargs_po4</span><span class="p">[</span><span class="s1">&#39;norm&#39;</span><span class="p">],</span> 
                                   <span class="n">add_colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span>
 
 <span class="n">ax2</span><span class="o">.</span><span class="n">coastlines</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
@@ -823,7 +882,7 @@ To plot a filled contour map, we make a couple of simple adjustments, appending 
 <span class="c1"># ax2 = add_lat_lon_labels(ax2, lon_locs=[-180, -30, 0, 45, 170])</span>
 
 <span class="n">ax2_cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="n">cb2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">ax2_sm</span><span class="p">,</span><span class="n">cax</span><span class="o">=</span><span class="n">ax2_cb</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">colorbar_units</span><span class="p">,</span> 
+<span class="n">cb2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">ax2_sm_po4</span><span class="p">,</span><span class="n">cax</span><span class="o">=</span><span class="n">ax2_cb</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">colorbar_units</span><span class="p">,</span> 
                    <span class="nb">format</span><span class="o">=</span><span class="n">FormatStrFormatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
                   <span class="p">)</span>
 <span class="n">cb2</span><span class="o">.</span><span class="n">minorticks_off</span><span class="p">()</span> 
@@ -831,7 +890,7 @@ To plot a filled contour map, we make a couple of simple adjustments, appending 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/46d4a034801a685f7f9b63629d2b23aaafd230fc0f20a9a1d21da06a18e58741.png" src="../../_images/46d4a034801a685f7f9b63629d2b23aaafd230fc0f20a9a1d21da06a18e58741.png" />
+<img alt="../../_images/6b9e05c9717f2682a26507742cbfc0098db77c7fe923e370f993ec8e9d965eda.png" src="../../_images/6b9e05c9717f2682a26507742cbfc0098db77c7fe923e370f993ec8e9d965eda.png" />
 </div>
 </div>
 </section>
@@ -850,21 +909,492 @@ To plot a filled contour map, we make a couple of simple adjustments, appending 
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="o">=</span> <span class="s1">&#39;d18O&#39;</span>
-<span class="n">file_name</span> <span class="o">=</span> <span class="s1">&#39;ctrace.decadal.</span><span class="si">{}</span><span class="s1">.nc&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
-<span class="n">file_path</span> <span class="o">=</span> <span class="n">PF_data_dir</span><span class="o">/</span><span class="s1">&#39;netcdf3&#39;</span><span class="o">/</span><span class="n">file_name</span>
-<span class="n">ctrace</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">use_cftime</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="c1">#, engine=&#39;netcdf4&#39;, decode_coords=True)#.load()#, decode_coords=True)</span>
-
-<span class="c1"># convert prate_mean from kg/(m^2*s) to mm/day</span>
-<span class="n">depth_unit_conversion</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">100</span>
-<span class="n">ctrace</span><span class="o">=</span><span class="n">ctrace</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">z_t_m</span><span class="o">=</span><span class="n">ctrace</span><span class="p">[</span><span class="s1">&#39;z_t&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">depth_unit_conversion</span><span class="p">)</span>
+<span class="n">colorbar_units</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;[\textperthousand]&#39;</span>
+<span class="n">time</span> <span class="o">=</span> <span class="o">-</span><span class="mf">21.99</span>
+<span class="n">depth</span> <span class="o">=</span> <span class="mi">750</span>
+<span class="n">title_var</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$\delta^</span><span class="si">{18}</span><span class="s1">$O &#39;</span>
+<span class="n">traits</span> <span class="o">=</span> <span class="s1">&#39;depth=</span><span class="si">{}</span><span class="s1"> m, time=</span><span class="si">{}</span><span class="s1"> kya&#39;</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c_snapshot_data</span> <span class="o">=</span> <span class="n">ctrace</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="o">-</span><span class="mf">21.99</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
-<span class="n">c_snapshot_data</span> <span class="o">=</span> <span class="n">c_snapshot_data</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">z_t</span><span class="o">=</span><span class="mf">7.500000e+03</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file_name</span> <span class="o">=</span> <span class="s1">&#39;ctrace.decadal.</span><span class="si">{}</span><span class="s1">.nc&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+<span class="n">file_path</span> <span class="o">=</span> <span class="n">PF_data_dir</span><span class="o">/</span><span class="s1">&#39;netcdf3&#39;</span><span class="o">/</span><span class="n">file_name</span>
+<span class="n">ctrace</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">use_cftime</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="c1">#, engine=&#39;netcdf4&#39;, decode_coords=True)#.load()#, decode_coords=True)</span>
+
+<span class="c1"># convert prate_mean from kg/(m^2*s) to mm/day</span>
+<span class="n">depth_unit_conversion</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">100</span>
+<span class="n">ctrace</span><span class="o">=</span><span class="n">ctrace</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">z_t_m</span><span class="o">=</span><span class="n">ctrace</span><span class="p">[</span><span class="s1">&#39;z_t&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">depth_unit_conversion</span><span class="p">)</span>
+<span class="n">ctrace</span> <span class="o">=</span> <span class="n">ctrace</span><span class="o">.</span><span class="n">swap_dims</span><span class="p">({</span><span class="s1">&#39;z_t&#39;</span><span class="p">:</span><span class="s1">&#39;z_t_m&#39;</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ctrace</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewBox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewBox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+  --xr-border-color: var(--jp-border-color2, #e0e0e0);
+  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
+  --xr-background-color: var(--jp-layout-color0, white);
+  --xr-background-color-row-even: var(--jp-layout-color1, white);
+  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+}
+
+html[theme=dark],
+body[data-theme=dark],
+body.vscode-dark {
+  --xr-font-color0: rgba(255, 255, 255, 1);
+  --xr-font-color2: rgba(255, 255, 255, 0.54);
+  --xr-font-color3: rgba(255, 255, 255, 0.38);
+  --xr-border-color: #1F1F1F;
+  --xr-disabled-color: #515151;
+  --xr-background-color: #111111;
+  --xr-background-color-row-even: #111111;
+  --xr-background-color-row-odd: #313131;
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 20px 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: none;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: '►';
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: '▼';
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: '(';
+}
+
+.xr-dim-list:after {
+  content: ')';
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ',';
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  margin-bottom: 0;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-index-preview {
+  grid-column: 2 / 5;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  display: none;
+  background-color: var(--xr-background-color) !important;
+  padding-bottom: 5px !important;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data,
+.xr-index-data-in:checked ~ .xr-index-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-index-name div,
+.xr-index-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2,
+.xr-no-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+</style><pre class='xr-text-repr-fallback'>&lt;xarray.Dataset&gt;
+Dimensions:     (nlat: 116, nlon: 100, time: 2200, z_t_m: 60, d2: 2)
+Coordinates:
+    TLAT        (nlat, nlon) float64 ...
+    TLONG       (nlat, nlon) float64 ...
+  * time        (time) float64 -22.0 -21.99 -21.98 -21.97 ... -0.03 -0.02 -0.01
+    z_t         (z_t_m) float32 500.0 1.5e+03 2.5e+03 ... 5.125e+05 5.375e+05
+  * z_t_m       (z_t_m) float32 5.0 15.0 25.0 ... 4.875e+03 5.125e+03 5.375e+03
+Dimensions without coordinates: nlat, nlon, d2
+Data variables:
+    d18O        (time, z_t_m, nlat, nlon) float32 ...
+    time_bound  (time, d2) float64 ...
+Attributes: (12/16)
+    title:                      b30.22_0kaDVT
+    history:                    Tue May 11 11:24:12 2021: ncks -A /glade/scra...
+    Conventions:                CF-1.0; http://www.cgd.ucar.edu/cms/eaton/net...
+    contents:                   Diagnostic and Prognostic Variables
+    source:                     POP, the NCAR/CSM Ocean Component
+    revision:                    $Name: ccsm3_0_1_beta22 $
+    ...                         ...
+    tavg_sum:                   2592000.0
+    tavg_sum_qflux:             2592000.0
+    NCO:                        netCDF Operators version 4.9.5 (Homepage = ht...
+    nco_openmp_thread_number:   1
+    conventions:                CF-1.0; http://www.cgd.ucar.edu/cms/eaton/net...
+    history_of_appended_files:  Tue May 11 11:24:12 2021: Appended file /glad...</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-4a6881b5-eaec-496f-9306-c6d3a708a4d1' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-4a6881b5-eaec-496f-9306-c6d3a708a4d1' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span>nlat</span>: 116</li><li><span>nlon</span>: 100</li><li><span class='xr-has-index'>time</span>: 2200</li><li><span class='xr-has-index'>z_t_m</span>: 60</li><li><span>d2</span>: 2</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-4830ce49-3a6d-4f6e-b2a7-027eab4bf1e9' class='xr-section-summary-in' type='checkbox'  checked><label for='section-4830ce49-3a6d-4f6e-b2a7-027eab4bf1e9' class='xr-section-summary' >Coordinates: <span>(5)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>TLAT</span></div><div class='xr-var-dims'>(nlat, nlon)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-102e2ab9-8199-43d2-a159-1b84f37ee6e6' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-102e2ab9-8199-43d2-a159-1b84f37ee6e6' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-3a2b4e01-bb93-4c0e-982b-721883a9baaa' class='xr-var-data-in' type='checkbox'><label for='data-3a2b4e01-bb93-4c0e-982b-721883a9baaa' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>array of t-grid latitudes</dd><dt><span>units :</span></dt><dd>degrees_north</dd></dl></div><div class='xr-var-data'><pre>[11600 values with dtype=float64]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>TLONG</span></div><div class='xr-var-dims'>(nlat, nlon)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-dfafbf75-5a57-4083-aa50-d7eaa918487f' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-dfafbf75-5a57-4083-aa50-d7eaa918487f' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-801b334f-1b05-4ab6-80da-835b6bb39cf0' class='xr-var-data-in' type='checkbox'><label for='data-801b334f-1b05-4ab6-80da-835b6bb39cf0' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>array of t-grid longitudes</dd><dt><span>units :</span></dt><dd>degrees_east</dd></dl></div><div class='xr-var-data'><pre>[11600 values with dtype=float64]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>time</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>-22.0 -21.99 -21.98 ... -0.02 -0.01</div><input id='attrs-54acca2c-7a1c-4dcf-99f5-33e03f627852' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-54acca2c-7a1c-4dcf-99f5-33e03f627852' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-52ca5839-cd12-4f19-b043-e9c28859cb0d' class='xr-var-data-in' type='checkbox'><label for='data-52ca5839-cd12-4f19-b043-e9c28859cb0d' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>time</dd><dt><span>units :</span></dt><dd>ka BP</dd><dt><span>bounds :</span></dt><dd>time_bound</dd><dt><span>calendar :</span></dt><dd>noleap</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div><div class='xr-var-data'><pre>array([-2.200000e+01, -2.199000e+01, -2.198000e+01, ..., -3.000069e-02,
+       -2.000046e-02, -1.000023e-02])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>z_t</span></div><div class='xr-var-dims'>(z_t_m)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>500.0 1.5e+03 ... 5.375e+05</div><input id='attrs-f51c7027-37e7-4999-8dc4-020d07b09183' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-f51c7027-37e7-4999-8dc4-020d07b09183' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-f4cd1d80-db5a-48c3-9164-60ec3b4bcfbc' class='xr-var-data-in' type='checkbox'><label for='data-f4cd1d80-db5a-48c3-9164-60ec3b4bcfbc' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>depth from surface to midpoint of layer</dd><dt><span>units :</span></dt><dd>centimeters</dd><dt><span>positive :</span></dt><dd>down</dd><dt><span>valid_min :</span></dt><dd>500.0</dd><dt><span>valid_max :</span></dt><dd>537500.0</dd></dl></div><div class='xr-var-data'><pre>array([5.000000e+02, 1.500000e+03, 2.500000e+03, 3.500000e+03, 4.500000e+03,
+       5.500000e+03, 6.500000e+03, 7.500000e+03, 8.500000e+03, 9.500000e+03,
+       1.050000e+04, 1.150000e+04, 1.250000e+04, 1.350000e+04, 1.450000e+04,
+       1.550000e+04, 1.650984e+04, 1.754790e+04, 1.862913e+04, 1.976603e+04,
+       2.097114e+04, 2.225783e+04, 2.364088e+04, 2.513702e+04, 2.676542e+04,
+       2.854837e+04, 3.051192e+04, 3.268680e+04, 3.510935e+04, 3.782276e+04,
+       4.087846e+04, 4.433777e+04, 4.827367e+04, 5.277280e+04, 5.793729e+04,
+       6.388626e+04, 7.075633e+04, 7.870025e+04, 8.788252e+04, 9.847059e+04,
+       1.106204e+05, 1.244567e+05, 1.400497e+05, 1.573946e+05, 1.764003e+05,
+       1.968944e+05, 2.186457e+05, 2.413972e+05, 2.649001e+05, 2.889385e+05,
+       3.133405e+05, 3.379793e+05, 3.627670e+05, 3.876452e+05, 4.125768e+05,
+       4.375392e+05, 4.625190e+05, 4.875083e+05, 5.125028e+05, 5.375000e+05],
+      dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>z_t_m</span></div><div class='xr-var-dims'>(z_t_m)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>5.0 15.0 ... 5.125e+03 5.375e+03</div><input id='attrs-a9d9dab7-1f6f-457e-8783-193275312fec' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-a9d9dab7-1f6f-457e-8783-193275312fec' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-1e4d5636-08dd-42f2-9191-607e5666eb6b' class='xr-var-data-in' type='checkbox'><label for='data-1e4d5636-08dd-42f2-9191-607e5666eb6b' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([5.000000e+00, 1.500000e+01, 2.500000e+01, 3.500000e+01, 4.500000e+01,
+       5.500000e+01, 6.500000e+01, 7.500000e+01, 8.500000e+01, 9.500000e+01,
+       1.050000e+02, 1.150000e+02, 1.250000e+02, 1.350000e+02, 1.450000e+02,
+       1.550000e+02, 1.650984e+02, 1.754790e+02, 1.862913e+02, 1.976603e+02,
+       2.097114e+02, 2.225783e+02, 2.364088e+02, 2.513701e+02, 2.676542e+02,
+       2.854836e+02, 3.051192e+02, 3.268680e+02, 3.510935e+02, 3.782276e+02,
+       4.087846e+02, 4.433777e+02, 4.827367e+02, 5.277280e+02, 5.793729e+02,
+       6.388626e+02, 7.075633e+02, 7.870025e+02, 8.788252e+02, 9.847058e+02,
+       1.106204e+03, 1.244567e+03, 1.400497e+03, 1.573946e+03, 1.764003e+03,
+       1.968944e+03, 2.186457e+03, 2.413971e+03, 2.649001e+03, 2.889385e+03,
+       3.133405e+03, 3.379793e+03, 3.627670e+03, 3.876452e+03, 4.125768e+03,
+       4.375393e+03, 4.625190e+03, 4.875083e+03, 5.125028e+03, 5.375000e+03],
+      dtype=float32)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-a66d4702-298c-417f-9b6f-cdad090c60a6' class='xr-section-summary-in' type='checkbox'  checked><label for='section-a66d4702-298c-417f-9b6f-cdad090c60a6' class='xr-section-summary' >Data variables: <span>(2)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>d18O</span></div><div class='xr-var-dims'>(time, z_t_m, nlat, nlon)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-3f84c1d7-f73b-4eee-a1c5-3b0ba5578a54' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-3f84c1d7-f73b-4eee-a1c5-3b0ba5578a54' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-40b6fbd1-2024-4201-bb6e-d24475e9db5f' class='xr-var-data-in' type='checkbox'><label for='data-40b6fbd1-2024-4201-bb6e-d24475e9db5f' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>d18O</dd><dt><span>units :</span></dt><dd>permil</dd><dt><span>grid_loc :</span></dt><dd>3111</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div><div class='xr-var-data'><pre>[1531200000 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>time_bound</span></div><div class='xr-var-dims'>(time, d2)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-336d467a-f968-4655-ae52-fa2242213ce1' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-336d467a-f968-4655-ae52-fa2242213ce1' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-febf6aec-c9b8-4381-92ba-a10c8560f10f' class='xr-var-data-in' type='checkbox'><label for='data-febf6aec-c9b8-4381-92ba-a10c8560f10f' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>time</dd><dt><span>units :</span></dt><dd>ka BP</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd><dt><span>bounds :</span></dt><dd>time_bound</dd><dt><span>calendar :</span></dt><dd>noleap</dd></dl></div><div class='xr-var-data'><pre>[4400 values with dtype=float64]</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-9a1e4b74-e884-4a50-9c39-64099aced1d3' class='xr-section-summary-in' type='checkbox'  ><label for='section-9a1e4b74-e884-4a50-9c39-64099aced1d3' class='xr-section-summary' >Indexes: <span>(2)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-index-name'><div>time</div></div><div class='xr-index-preview'>PandasIndex</div><div></div><input id='index-a64a9582-8fce-4e29-9106-643fa49bf2b1' class='xr-index-data-in' type='checkbox'/><label for='index-a64a9582-8fce-4e29-9106-643fa49bf2b1' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Index([              -22.0,   -21.9899997711182,   -21.9799995422363,
+         -21.9699993133545,   -21.9599990844727,   -21.9500007629395,
+         -21.9400005340576,   -21.9300003051758,   -21.9200000762939,
+         -21.9099998474121,
+       ...
+        -0.100000381469727, -0.0900001525878906, -0.0799999237060547,
+       -0.0699996948242188, -0.0600013732910156, -0.0500011444091797,
+       -0.0400009155273438, -0.0300006866455078, -0.0200004577636719,
+       -0.0100002288818359],
+      dtype=&#x27;float64&#x27;, name=&#x27;time&#x27;, length=2200))</pre></div></li><li class='xr-var-item'><div class='xr-index-name'><div>z_t_m</div></div><div class='xr-index-preview'>PandasIndex</div><div></div><input id='index-c3fc18c3-0d4b-4077-b100-d6dc4d36708f' class='xr-index-data-in' type='checkbox'/><label for='index-c3fc18c3-0d4b-4077-b100-d6dc4d36708f' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Index([               5.0,               15.0,               25.0,
+                     35.0,               45.0,               55.0,
+                     65.0,               75.0,               85.0,
+                     95.0,              105.0,              115.0,
+                    125.0,              135.0,              145.0,
+                    155.0,   165.098388671875, 175.47903442382812,
+         186.291259765625, 197.66026306152344,  209.7113800048828,
+       222.57827758789062, 236.40882873535156, 251.37014770507812,
+        267.6542053222656,   285.483642578125, 305.11920166015625,
+       326.86798095703125,  351.0934753417969, 378.22760009765625,
+        408.7846374511719,   443.377685546875,  482.7366943359375,
+        527.7279663085938,  579.3728637695312,  638.8626098632812,
+        707.5632934570312,  787.0025024414062,     878.8251953125,
+         984.705810546875, 1106.2042236328125,   1244.56689453125,
+       1400.4971923828125, 1573.9464111328125, 1764.0032958984375,
+       1968.9442138671875,   2186.45654296875,  2413.971435546875,
+        2649.001220703125,  2889.384521484375,  3133.404541015625,
+         3379.79345703125,  3627.670166015625,  3876.451904296875,
+         4125.76806640625,     4375.392578125,    4625.1904296875,
+         4875.08349609375,   5125.02783203125,             5375.0],
+      dtype=&#x27;float32&#x27;, name=&#x27;z_t_m&#x27;))</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-c4d3b98a-4245-4d53-8c76-9f318f6b8bbb' class='xr-section-summary-in' type='checkbox'  ><label for='section-c4d3b98a-4245-4d53-8c76-9f318f6b8bbb' class='xr-section-summary' >Attributes: <span>(16)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>title :</span></dt><dd>b30.22_0kaDVT</dd><dt><span>history :</span></dt><dd>Tue May 11 11:24:12 2021: ncks -A /glade/scratch/strandwg/AJahn/subset_time_TraCE.nc /glade/scratch/zanowski/citrace_output/ctrace.decadal.d18O.nc
+Wed Apr 21 09:42:57 2021: ncks -v d18O /glade/scratch/sgu28/ctrace_transient/ctrace_decadal_all/ctrace.decadal.evo.nc ctrace.decadal.d18O.nc
+Fri Apr 26 10:41:02 2019: ncrcat c40.22_0ka.ctrace.t01.pop.h.00012000.decade.nc c40.20_0ka.ctrace.t01.pop.h.00011000.decade.nc c40.19_0ka.ctrace.t01.pop.h.00010500.decade.nc c40.18_5ka.ctrace.t01.pop.h.00010100.decade.nc c40.18_4ka.ctrace.t01.pop.h.00010900.decade.nc c40.17_5ka.ctrace.t01.pop.h.00010500.decade.nc c40.17_0ka.ctrace.t01.pop.h.00011000.decade.nc c40.16_0ka.ctrace.t01.pop.h.00011000.decade.nc c40.15_0ka.ctrace.t01.pop.h.00010100.decade.nc c40.14_9ka.ctrace.t01.pop.h.00010550.decade.nc c40.14_35ka.ctrace.t01.pop.h.00010480.decade.nc c40.13_87ka.ctrace.t01.pop.h.00010770.decade.nc c40.13_1ka.ctrace.t01.pop.h.00010200.decade.nc c40.12_9ka.ctrace.t01.pop.h.00010400.decade.nc c40.12_5ka.ctrace.t01.pop.h.00010500.decade.nc c40.12_0ka.ctrace.t01.pop.h.00010300.decade.nc c40.11_7ka.ctrace.t01.pop.h.00010400.decade.nc c40.11_3ka.ctrace.t01.pop.h.00010500.decade.nc c40.10_8ka.ctrace.t01.pop.h.00010600.decade.nc c40.10_2ka.ctrace.t01.pop.h.00010500.decade.nc c40.09_7ka.ctrace.t01.pop.h.00010500.decade.nc c40.09_2ka.ctrace.t01.pop.h.00010500.decade.nc c40.08_7ka.ctrace.t01.pop.h.00010200.decade.nc c40.08_5ka.ctrace.t01.pop.h.00010500.decade.nc c40.08_0ka.ctrace.t01.pop.h.00010400.decade.nc c40.07_6ka.ctrace.t01.pop.h.00010400.decade.nc c40.07_2ka.ctrace.t02.pop.h.02410491.decade.nc c40.07_2ka.ctrace.t01.pop.h.00010241.decade.nc c40.06_7ka.ctrace.t01.pop.h.00010500.decade.nc c40.06_2ka.ctrace.t01.pop.h.00010500.decade.nc c40.05_7ka.ctrace.t01.pop.h.00010700.decade.nc c40.05_0ka.ctrace.t01.pop.h.00011000.decade.nc c40.04_0ka.ctrace.t01.pop.h.00010800.decade.nc c40.03_2ka.ctrace.t01.pop.h.00010800.decade.nc c40.02_4ka.ctrace.t01.pop.h.00011000.decade.nc c40.01_4ka.ctrace.t01.pop.h.00011000.decade.nc c40.00_4ka.ctrace.t01.pop.h.00010400.decade.nc ctrace.decadal.evo.nc
+Wed Jun 28 05:49:25 2017: ncrcat c40.22_0ka.ctrace.t01.pop.h.decade.0001.nc c40.22_0ka.ctrace.t01.pop.h.decade.0011.nc c40.22_0ka.ctrace.t01.pop.h.decade.0021.nc c40.22_0ka.ctrace.t01.pop.h.decade.0031.nc c40.22_0ka.ctrace.t01.pop.h.decade.0041.nc c40.22_0ka.ctrace.t01.pop.h.decade.0051.nc c40.22_0ka.ctrace.t01.pop.h.decade.0061.nc c40.22_0ka.ctrace.t01.pop.h.decade.0071.nc c40.22_0ka.ctrace.t01.pop.h.decade.0081.nc c40.22_0ka.ctrace.t01.pop.h.decade.0091.nc c40.22_0ka.ctrace.t01.pop.h.decade.0101.nc c40.22_0ka.ctrace.t01.pop.h.decade.0111.nc c40.22_0ka.ctrace.t01.pop.h.decade.0121.nc c40.22_0ka.ctrace.t01.pop.h.decade.0131.nc c40.22_0ka.ctrace.t01.pop.h.decade.0141.nc c40.22_0ka.ctrace.t01.pop.h.decade.0151.nc c40.22_0ka.ctrace.t01.pop.h.decade.0161.nc c40.22_0ka.ctrace.t01.pop.h.decade.0171.nc c40.22_0ka.ctrace.t01.pop.h.decade.0181.nc c40.22_0ka.ctrace.t01.pop.h.decade.0191.nc c40.22_0ka.ctrace.t01.pop.h.decade.0201.nc c40.22_0ka.ctrace.t01.pop.h.decade.0211.nc c40.22_0ka.ctrace.t01.pop.h.decade.0221.nc c40.22_0ka.ctrace.t01.pop.h.decade.0231.nc c40.22_0ka.ctrace.t01.pop.h.decade.0241.nc c40.22_0ka.ctrace.t01.pop.h.decade.0251.nc c40.22_0ka.ctrace.t01.pop.h.decade.0261.nc c40.22_0ka.ctrace.t01.pop.h.decade.0271.nc c40.22_0ka.ctrace.t01.pop.h.decade.0281.nc c40.22_0ka.ctrace.t01.pop.h.decade.0291.nc c40.22_0ka.ctrace.t01.pop.h.decade.0301.nc c40.22_0ka.ctrace.t01.pop.h.decade.0311.nc c40.22_0ka.ctrace.t01.pop.h.decade.0321.nc c40.22_0ka.ctrace.t01.pop.h.decade.0331.nc c40.22_0ka.ctrace.t01.pop.h.decade.0341.nc c40.22_0ka.ctrace.t01.pop.h.decade.0351.nc c40.22_0ka.ctrace.t01.pop.h.decade.0361.nc c40.22_0ka.ctrace.t01.pop.h.decade.0371.nc c40.22_0ka.ctrace.t01.pop.h.decade.0381.nc c40.22_0ka.ctrace.t01.pop.h.decade.0391.nc c40.22_0ka.ctrace.t01.pop.h.decade.0401.nc c40.22_0ka.ctrace.t01.pop.h.decade.0411.nc c40.22_0ka.ctrace.t01.pop.h.decade.0421.nc c40.22_0ka.ctrace.t01.pop.h.decade.0431.nc c40.22_0ka.ctrace.t01.pop.h.decade.0441.nc c40.22_0ka.ctrace.t01.pop.h.decade.0451.nc c40.22_0ka.ctrace.t01.pop.h.decade.0461.nc c40.22_0ka.ctrace.t01.pop.h.decade.0471.nc c40.22_0ka.ctrace.t01.pop.h.decade.0481.nc c40.22_0ka.ctrace.t01.pop.h.decade.0491.nc c40.22_0ka.ctrace.t01.pop.h.decade.0501.nc c40.22_0ka.ctrace.t01.pop.h.decade.0511.nc c40.22_0ka.ctrace.t01.pop.h.decade.0521.nc c40.22_0ka.ctrace.t01.pop.h.decade.0531.nc c40.22_0ka.ctrace.t01.pop.h.decade.0541.nc c40.22_0ka.ctrace.t01.pop.h.decade.0551.nc c40.22_0ka.ctrace.t01.pop.h.decade.0561.nc c40.22_0ka.ctrace.t01.pop.h.decade.0571.nc c40.22_0ka.ctrace.t01.pop.h.decade.0581.nc c40.22_0ka.ctrace.t01.pop.h.decade.0591.nc c40.22_0ka.ctrace.t01.pop.h.decade.0601.nc c40.22_0ka.ctrace.t01.pop.h.decade.0611.nc c40.22_0ka.ctrace.t01.pop.h.decade.0621.nc c40.22_0ka.ctrace.t01.pop.h.decade.0631.nc c40.22_0ka.ctrace.t01.pop.h.decade.0641.nc c40.22_0ka.ctrace.t01.pop.h.decade.0651.nc c40.22_0ka.ctrace.t01.pop.h.decade.0661.nc c40.22_0ka.ctrace.t01.pop.h.decade.0671.nc c40.22_0ka.ctrace.t01.pop.h.decade.0681.nc c40.22_0ka.ctrace.t01.pop.h.decade.0691.nc c40.22_0ka.ctrace.t01.pop.h.decade.0701.nc c40.22_0ka.ctrace.t01.pop.h.decade.0711.nc c40.22_0ka.ctrace.t01.pop.h.decade.0721.nc c40.22_0ka.ctrace.t01.pop.h.decade.0731.nc c40.22_0ka.ctrace.t01.pop.h.decade.0741.nc c40.22_0ka.ctrace.t01.pop.h.decade.0751.nc c40.22_0ka.ctrace.t01.pop.h.decade.0761.nc c40.22_0ka.ctrace.t01.pop.h.decade.0771.nc c40.22_0ka.ctrace.t01.pop.h.decade.0781.nc c40.22_0ka.ctrace.t01.pop.h.decade.0791.nc c40.22_0ka.ctrace.t01.pop.h.decade.0801.nc c40.22_0ka.ctrace.t01.pop.h.decade.0811.nc c40.22_0ka.ctrace.t01.pop.h.decade.0821.nc c40.22_0ka.ctrace.t01.pop.h.decade.0831.nc c40.22_0ka.ctrace.t01.pop.h.decade.0841.nc c40.22_0ka.ctrace.t01.pop.h.decade.0851.nc c40.22_0ka.ctrace.t01.pop.h.decade.0861.nc c40.22_0ka.ctrace.t01.pop.h.decade.0871.nc c40.22_0ka.ctrace.t01.pop.h.decade.0881.nc c40.22_0ka.ctrace.t01.pop.h.decade.0891.nc c40.22_0ka.ctrace.t01.pop.h.decade.0901.nc c40.22_0ka.ctrace.t01.pop.h.decade.0911.nc c40.22_0ka.ctrace.t01.pop.h.decade.0921.nc c40.22_0ka.ctrace.t01.pop.h.decade.0931.nc c40.22_0ka.ctrace.t01.pop.h.decade.0941.nc c40.22_0ka.ctrace.t01.pop.h.decade.0951.nc c40.22_0ka.ctrace.t01.pop.h.decade.0961.nc c40.22_0ka.ctrace.t01.pop.h.decade.0971.nc c40.22_0ka.ctrace.t01.pop.h.decade.0981.nc c40.22_0ka.ctrace.t01.pop.h.decade.0991.nc c40.22_0ka.ctrace.t01.pop.h.decade.1001.nc c40.22_0ka.ctrace.t01.pop.h.decade.1011.nc c40.22_0ka.ctrace.t01.pop.h.decade.1021.nc c40.22_0ka.ctrace.t01.pop.h.decade.1031.nc c40.22_0ka.ctrace.t01.pop.h.decade.1041.nc c40.22_0ka.ctrace.t01.pop.h.decade.1051.nc c40.22_0ka.ctrace.t01.pop.h.decade.1061.nc c40.22_0ka.ctrace.t01.pop.h.decade.1071.nc c40.22_0ka.ctrace.t01.pop.h.decade.1081.nc c40.22_0ka.ctrace.t01.pop.h.decade.1091.nc c40.22_0ka.ctrace.t01.pop.h.decade.1101.nc c40.22_0ka.ctrace.t01.pop.h.decade.1111.nc c40.22_0ka.ctrace.t01.pop.h.decade.1121.nc c40.22_0ka.ctrace.t01.pop.h.decade.1131.nc c40.22_0ka.ctrace.t01.pop.h.decade.1141.nc c40.22_0ka.ctrace.t01.pop.h.decade.1151.nc c40.22_0ka.ctrace.t01.pop.h.decade.1161.nc c40.22_0ka.ctrace.t01.pop.h.decade.1171.nc c40.22_0ka.ctrace.t01.pop.h.decade.1181.nc c40.22_0ka.ctrace.t01.pop.h.decade.1191.nc c40.22_0ka.ctrace.t01.pop.h.decade.1201.nc c40.22_0ka.ctrace.t01.pop.h.decade.1211.nc c40.22_0ka.ctrace.t01.pop.h.decade.1221.nc c40.22_0ka.ctrace.t01.pop.h.decade.1231.nc c40.22_0ka.ctrace.t01.pop.h.decade.1241.nc c40.22_0ka.ctrace.t01.pop.h.decade.1251.nc c40.22_0ka.ctrace.t01.pop.h.decade.1261.nc c40.22_0ka.ctrace.t01.pop.h.decade.1271.nc c40.22_0ka.ctrace.t01.pop.h.decade.1281.nc c40.22_0ka.ctrace.t01.pop.h.decade.1291.nc c40.22_0ka.ctrace.t01.pop.h.decade.1301.nc c40.22_0ka.ctrace.t01.pop.h.decade.1311.nc c40.22_0ka.ctrace.t01.pop.h.decade.1321.nc c40.22_0ka.ctrace.t01.pop.h.decade.1331.nc c40.22_0ka.ctrace.t01.pop.h.decade.1341.nc c40.22_0ka.ctrace.t01.pop.h.decade.1351.nc c40.22_0ka.ctrace.t01.pop.h.decade.1361.nc c40.22_0ka.ctrace.t01.pop.h.decade.1371.nc c40.22_0ka.ctrace.t01.pop.h.decade.1381.nc c40.22_0ka.ctrace.t01.pop.h.decade.1391.nc c40.22_0ka.ctrace.t01.pop.h.decade.1401.nc c40.22_0ka.ctrace.t01.pop.h.decade.1411.nc c40.22_0ka.ctrace.t01.pop.h.decade.1421.nc c40.22_0ka.ctrace.t01.pop.h.decade.1431.nc c40.22_0ka.ctrace.t01.pop.h.decade.1441.nc c40.22_0ka.ctrace.t01.pop.h.decade.1451.nc c40.22_0ka.ctrace.t01.pop.h.decade.1461.nc c40.22_0ka.ctrace.t01.pop.h.decade.1471.nc c40.22_0ka.ctrace.t01.pop.h.decade.1481.nc c40.22_0ka.ctrace.t01.pop.h.decade.1491.nc c40.22_0ka.ctrace.t01.pop.h.decade.1501.nc c40.22_0ka.ctrace.t01.pop.h.decade.1511.nc c40.22_0ka.ctrace.t01.pop.h.decade.1521.nc c40.22_0ka.ctrace.t01.pop.h.decade.1531.nc c40.22_0ka.ctrace.t01.pop.h.decade.1541.nc c40.22_0ka.ctrace.t01.pop.h.decade.1551.nc c40.22_0ka.ctrace.t01.pop.h.decade.1561.nc c40.22_0ka.ctrace.t01.pop.h.decade.1571.nc c40.22_0ka.ctrace.t01.pop.h.decade.1581.nc c40.22_0ka.ctrace.t01.pop.h.decade.1591.nc c40.22_0ka.ctrace.t01.pop.h.decade.1601.nc c40.22_0ka.ctrace.t01.pop.h.decade.1611.nc c40.22_0ka.ctrace.t01.pop.h.decade.1621.nc c40.22_0ka.ctrace.t01.pop.h.decade.1631.nc c40.22_0ka.ctrace.t01.pop.h.decade.1641.nc c40.22_0ka.ctrace.t01.pop.h.decade.1651.nc c40.22_0ka.ctrace.t01.pop.h.decade.1661.nc c40.22_0ka.ctrace.t01.pop.h.decade.1671.nc c40.22_0ka.ctrace.t01.pop.h.decade.1681.nc c40.22_0ka.ctrace.t01.pop.h.decade.1691.nc c40.22_0ka.ctrace.t01.pop.h.decade.1701.nc c40.22_0ka.ctrace.t01.pop.h.decade.1711.nc c40.22_0ka.ctrace.t01.pop.h.decade.1721.nc c40.22_0ka.ctrace.t01.pop.h.decade.1731.nc c40.22_0ka.ctrace.t01.pop.h.decade.1741.nc c40.22_0ka.ctrace.t01.pop.h.decade.1751.nc c40.22_0ka.ctrace.t01.pop.h.decade.1761.nc c40.22_0ka.ctrace.t01.pop.h.decade.1771.nc c40.22_0ka.ctrace.t01.pop.h.decade.1781.nc c40.22_0ka.ctrace.t01.pop.h.decade.1791.nc c40.22_0ka.ctrace.t01.pop.h.decade.1801.nc c40.22_0ka.ctrace.t01.pop.h.decade.1811.nc c40.22_0ka.ctrace.t01.pop.h.decade.1821.nc c40.22_0ka.ctrace.t01.pop.h.decade.1831.nc c40.22_0ka.ctrace.t01.pop.h.decade.1841.nc c40.22_0ka.ctrace.t01.pop.h.decade.1851.nc c40.22_0ka.ctrace.t01.pop.h.decade.1861.nc c40.22_0ka.ctrace.t01.pop.h.decade.1871.nc c40.22_0ka.ctrace.t01.pop.h.decade.1881.nc c40.22_0ka.ctrace.t01.pop.h.decade.1891.nc c40.22_0ka.ctrace.t01.pop.h.decade.1901.nc c40.22_0ka.ctrace.t01.pop.h.decade.1911.nc c40.22_0ka.ctrace.t01.pop.h.decade.1921.nc c40.22_0ka.ctrace.t01.pop.h.decade.1931.nc c40.22_0ka.ctrace.t01.pop.h.decade.1941.nc c40.22_0ka.ctrace.t01.pop.h.decade.1951.nc c40.22_0ka.ctrace.t01.pop.h.decade.1961.nc c40.22_0ka.ctrace.t01.pop.h.decade.1971.nc c40.22_0ka.ctrace.t01.pop.h.decade.1981.nc c40.22_0ka.ctrace.t01.pop.h.decade.1991.nc c40.22_0ka.ctrace.t01.pop.h.00012000.decade.nc
+Fri Jun  2 12:07:42 2017: ncea -O -n 10,4,1 c40.22_0ka.ctrace.t01.pop.h.0001.nc c40.22_0ka.ctrace.t01.pop.h.decade.0001.nc
+Fri Jun  2 10:15:12 2017: ncra -O c40.22_0ka.ctrace.t01.pop.h.0001.nc c40.22_0ka.ctrace.t01.pop.h.0001.ann.nc
+Fri Jun  2 10:14:44 2017: ncrcat -O c40.22_0ka.ctrace.t01.pop.h.0001-01.nc c40.22_0ka.ctrace.t01.pop.h.0001-02.nc c40.22_0ka.ctrace.t01.pop.h.0001-03.nc c40.22_0ka.ctrace.t01.pop.h.0001-04.nc c40.22_0ka.ctrace.t01.pop.h.0001-05.nc c40.22_0ka.ctrace.t01.pop.h.0001-06.nc c40.22_0ka.ctrace.t01.pop.h.0001-07.nc c40.22_0ka.ctrace.t01.pop.h.0001-08.nc c40.22_0ka.ctrace.t01.pop.h.0001-09.nc c40.22_0ka.ctrace.t01.pop.h.0001-10.nc c40.22_0ka.ctrace.t01.pop.h.0001-11.nc c40.22_0ka.ctrace.t01.pop.h.0001-12.nc c40.22_0ka.ctrace.t01.pop.h.0001.nc
+none</dd><dt><span>Conventions :</span></dt><dd>CF-1.0; http://www.cgd.ucar.edu/cms/eaton/netcdf/CF-current.htm</dd><dt><span>contents :</span></dt><dd>Diagnostic and Prognostic Variables</dd><dt><span>source :</span></dt><dd>POP, the NCAR/CSM Ocean Component</dd><dt><span>revision :</span></dt><dd> $Name: ccsm3_0_1_beta22 $</dd><dt><span>calendar :</span></dt><dd>All years have exactly  365 days.</dd><dt><span>start_time :</span></dt><dd>This dataset was created on 2007-07-29 at 23:13:09.2</dd><dt><span>cell_methods :</span></dt><dd>cell_methods = time: mean ==&gt; the variable values are averaged over the time interval between the previous time coordinate and the current one.          cell_methods  absent  ==&gt; the variable values are at the time given by the current time coordinate.</dd><dt><span>nsteps_total :</span></dt><dd>390</dd><dt><span>tavg_sum :</span></dt><dd>2592000.0</dd><dt><span>tavg_sum_qflux :</span></dt><dd>2592000.0</dd><dt><span>NCO :</span></dt><dd>netCDF Operators version 4.9.5 (Homepage = http://nco.sf.net, Code = http://github.com/nco/nco)</dd><dt><span>nco_openmp_thread_number :</span></dt><dd>1</dd><dt><span>conventions :</span></dt><dd>CF-1.0; http://www.cgd.ucar.edu/cms/eaton/netcdf/CF-current.htm</dd><dt><span>history_of_appended_files :</span></dt><dd>Tue May 11 11:24:12 2021: Appended file /glade/scratch/strandwg/AJahn/subset_time_TraCE.nc had no &quot;history&quot; attribute
+</dd></dl></div></li></ul></div></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c_snapshot_data</span> <span class="o">=</span> <span class="n">ctrace</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="n">time</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+<span class="n">c_snapshot_data</span> <span class="o">=</span> <span class="n">c_snapshot_data</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">z_t_m</span><span class="o">=</span><span class="n">depth</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -886,20 +1416,28 @@ To plot a filled contour map, we make a couple of simple adjustments, appending 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.contour.QuadContourSet at 0x1630f92a0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.contour.QuadContourSet at 0x14e41cd90&gt;
 </pre></div>
 </div>
-<img alt="../../_images/c7888fa4424b83e29b67ee18419f390dedb2d9637f0bea78e5fb87638fb12505.png" src="../../_images/c7888fa4424b83e29b67ee18419f390dedb2d9637f0bea78e5fb87638fb12505.png" />
+<img alt="../../_images/7bb31e25ee683b7ae4dccf66b53e80e969e8a3082602789c864dbab52ae4baf9.png" src="../../_images/7bb31e25ee683b7ae4dccf66b53e80e969e8a3082602789c864dbab52ae4baf9.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">c_snapshot_data</span><span class="o">.</span><span class="n">TLONG</span><span class="p">,</span> <span class="n">c_snapshot_data</span><span class="o">.</span><span class="n">TLAT</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">.51</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">()</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">c_snapshot_data</span><span class="o">.</span><span class="n">TLONG</span><span class="p">,</span> <span class="n">c_snapshot_data</span><span class="o">.</span><span class="n">TLAT</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">.51</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Longitude ($^{\circ}$E)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Latitude ($^{\circ}$N)&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/5f3f094a9fb5ce41f2b2550c651e44a406b98473954d4666f13d94a815d4f5da.png" src="../../_images/5f3f094a9fb5ce41f2b2550c651e44a406b98473954d4666f13d94a815d4f5da.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Latitude ($^{\\circ}$N)&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/1073afb859cb83d36c0d56e39756bf6fd8c6fe8ff4431e550e5ff89b10b11a97.png" src="../../_images/1073afb859cb83d36c0d56e39756bf6fd8c6fe8ff4431e550e5ff89b10b11a97.png" />
 </div>
 </div>
 <p>So while the data sit on a 116 x 100 grid, neither the rows, nor the columns follow lines of constant latitude or longitude north of about 25N.</p>
@@ -911,7 +1449,7 @@ To plot a filled contour map, we make a couple of simple adjustments, appending 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/c581e0a51d611cdfbe1f20966a91268414eed67d8a0cf0d58a638ffb898ae41e.png" src="../../_images/c581e0a51d611cdfbe1f20966a91268414eed67d8a0cf0d58a638ffb898ae41e.png" />
+<img alt="../../_images/116f8d6afac4f00b7f08bc55fdd3ed00ef6d2af3a4468e147ba20287d04f9f52.png" src="../../_images/116f8d6afac4f00b7f08bc55fdd3ed00ef6d2af3a4468e147ba20287d04f9f52.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -926,15 +1464,17 @@ To plot a filled contour map, we make a couple of simple adjustments, appending 
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_levels</span><span class="o">=</span> <span class="mi">60</span>
-<span class="n">ax2_levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">min_lim</span><span class="p">,</span> <span class="n">max_lim</span><span class="p">,</span> <span class="n">n_levels</span><span class="p">),</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span><span class="c1">#0.0026, .003, 15), decimals=6)</span>
+<span class="n">ax2_levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">min_lim</span><span class="p">,</span> <span class="n">max_lim</span><span class="p">,</span> <span class="n">n_levels</span><span class="p">),</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="c1"># make scalar mappable</span>
-<span class="n">ax2_sm</span> <span class="o">=</span> <span class="n">make_scalar_mappable</span><span class="p">([</span><span class="n">min_lim</span><span class="p">,</span> <span class="n">max_lim</span><span class="p">],</span><span class="s1">&#39;BuGn&#39;</span> <span class="p">,</span> <span class="n">n_levels</span><span class="p">)</span><span class="c1">#[0.0026, .003]</span>
-<span class="n">cf2_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cmap&#39;</span><span class="p">:</span><span class="n">ax2_sm</span><span class="o">.</span><span class="n">cmap</span><span class="p">,</span><span class="s1">&#39;levels&#39;</span><span class="p">:</span><span class="n">ax2_levels</span><span class="p">,</span> <span class="s1">&#39;norm&#39;</span> <span class="p">:</span> <span class="n">ax2_sm</span><span class="o">.</span><span class="n">norm</span><span class="p">}</span><span class="c1">#mpl.colors.TwoSlopeNorm(vmin=min_val, vcenter=0.0026, vmax=max_val), &#39;levels&#39;:ax2_levels}#SymLogNorm(.00152, linscale=.003)}#, vmin=None, vmax=None, clip=False)ax2_sm.norm}</span>
+<span class="n">ax2_sm_d18O</span> <span class="o">=</span> <span class="n">make_scalar_mappable</span><span class="p">([</span><span class="n">min_lim</span><span class="p">,</span> <span class="n">max_lim</span><span class="p">],</span><span class="s1">&#39;BuGn&#39;</span> <span class="p">,</span> <span class="n">n_levels</span><span class="p">)</span>
+<span class="n">cf2_kwargs_d18O</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cmap&#39;</span><span class="p">:</span><span class="n">ax2_sm_d18O</span><span class="o">.</span><span class="n">cmap</span><span class="p">,</span><span class="s1">&#39;levels&#39;</span><span class="p">:</span><span class="n">ax2_levels</span><span class="p">,</span> <span class="s1">&#39;norm&#39;</span> <span class="p">:</span> <span class="n">ax2_sm_d18O</span><span class="o">.</span><span class="n">norm</span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Given the model grid issue, we can go about this in one of three ways: as a scatterplot</p>
+<p>Given the model grid issue, we can go about this in one of three ways:</p>
+<section id="scatterplot">
+<h4>1. Scatterplot<a class="headerlink" href="#scatterplot" title="Permalink to this headline">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -946,20 +1486,22 @@ To plot a filled contour map, we make a couple of simple adjustments, appending 
 <span class="n">ax2</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">COASTLINE</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
 
 <span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">c_snapshot_data</span><span class="o">.</span><span class="n">TLONG</span><span class="p">,</span><span class="n">c_snapshot_data</span><span class="o">.</span><span class="n">TLAT</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="n">c_snapshot_data</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span> 
-            <span class="n">cmap</span><span class="o">=</span><span class="n">cf2_kwargs</span><span class="p">[</span><span class="s1">&#39;cmap&#39;</span><span class="p">],</span> <span class="n">norm</span><span class="o">=</span><span class="n">cf2_kwargs</span><span class="p">[</span><span class="s1">&#39;norm&#39;</span><span class="p">])</span>
+            <span class="n">cmap</span><span class="o">=</span><span class="n">cf2_kwargs_d18O</span><span class="p">[</span><span class="s1">&#39;cmap&#39;</span><span class="p">],</span> <span class="n">norm</span><span class="o">=</span><span class="n">cf2_kwargs_d18O</span><span class="p">[</span><span class="s1">&#39;norm&#39;</span><span class="p">])</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">LAND</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
 
-<span class="n">ax2_cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="n">cb2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">ax2_sm</span><span class="p">,</span><span class="n">cax</span><span class="o">=</span><span class="n">ax2_cb</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">colorbar_units</span><span class="p">,</span>
+<span class="n">cb2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">ax2_sm_d18O</span><span class="p">,</span><span class="n">cax</span><span class="o">=</span><span class="n">ax2_cb</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">title_var</span><span class="p">,</span><span class="n">colorbar_units</span><span class="p">]),</span>
                    <span class="nb">format</span><span class="o">=</span><span class="n">FormatStrFormatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">traits</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">time</span><span class="p">));</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/4058cc8e8d2d4a6c178c80e9d39135dadfd99e3637a1f256b57de0e04d89e65c.png" src="../../_images/4058cc8e8d2d4a6c178c80e9d39135dadfd99e3637a1f256b57de0e04d89e65c.png" />
+<img alt="../../_images/f56dcb17f402d8b18e0223df0ea34b9a63d7440feb26badcdd0f3c8658d3e96d.png" src="../../_images/f56dcb17f402d8b18e0223df0ea34b9a63d7440feb26badcdd0f3c8658d3e96d.png" />
 </div>
 </div>
-<p>As a pcolormesh</p>
+</section>
+<section id="pcolormesh">
+<h4>2. Pcolormesh<a class="headerlink" href="#pcolormesh" title="Permalink to this headline">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plt.figure(figsize=(9,5));</span>
@@ -974,23 +1516,27 @@ To plot a filled contour map, we make a couple of simple adjustments, appending 
                                    <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span> 
                                    <span class="n">x</span><span class="o">=</span><span class="s1">&#39;TLONG&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;TLAT&#39;</span><span class="p">,</span> 
                                    <span class="n">levels</span><span class="o">=</span><span class="n">ax2_levels</span><span class="p">,</span> 
-                                  <span class="n">cmap</span><span class="o">=</span><span class="n">cf2_kwargs</span><span class="p">[</span><span class="s1">&#39;cmap&#39;</span><span class="p">],</span> 
-                                  <span class="n">norm</span><span class="o">=</span><span class="n">cf2_kwargs</span><span class="p">[</span><span class="s1">&#39;norm&#39;</span><span class="p">],</span> 
+                                  <span class="n">cmap</span><span class="o">=</span><span class="n">cf2_kwargs_d18O</span><span class="p">[</span><span class="s1">&#39;cmap&#39;</span><span class="p">],</span> 
+                                  <span class="n">norm</span><span class="o">=</span><span class="n">cf2_kwargs_d18O</span><span class="p">[</span><span class="s1">&#39;norm&#39;</span><span class="p">],</span> 
                                   <span class="n">add_colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span>
 
 <span class="n">ax2</span><span class="o">.</span><span class="n">coastlines</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">LAND</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
 
 <span class="n">ax2_cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="n">cb2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">ax2_sm</span><span class="p">,</span><span class="n">cax</span><span class="o">=</span><span class="n">ax2_cb</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">colorbar_units</span><span class="p">,</span>
+<span class="n">cb2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">ax2_sm_d18O</span><span class="p">,</span><span class="n">cax</span><span class="o">=</span><span class="n">ax2_cb</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">title_var</span><span class="p">,</span><span class="n">colorbar_units</span><span class="p">]),</span>
                    <span class="nb">format</span><span class="o">=</span><span class="n">FormatStrFormatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">traits</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">time</span><span class="p">));</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/8d4ef094e24216befa287236f75c54df3397de85b33e73809b15ce48122ac478.png" src="../../_images/8d4ef094e24216befa287236f75c54df3397de85b33e73809b15ce48122ac478.png" />
+<img alt="../../_images/8a1975661b19279177f932d3cde970fd5c2a58124bc477dcaf0587b713c78c1e.png" src="../../_images/8a1975661b19279177f932d3cde970fd5c2a58124bc477dcaf0587b713c78c1e.png" />
 </div>
 </div>
+</section>
+<section id="filled-contour">
+<h4>3. Filled Contour<a class="headerlink" href="#filled-contour" title="Permalink to this headline">#</a></h4>
 <p>Or as a filled contour, but ONLY if we specify to transform the data before doing the contour calculations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1003,24 +1549,547 @@ To plot a filled contour map, we make a couple of simple adjustments, appending 
 <span class="n">ax2</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">COASTLINE</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
 
 <span class="n">cf2</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">c_snapshot_data</span><span class="o">.</span><span class="n">TLONG</span><span class="p">,</span><span class="n">c_snapshot_data</span><span class="o">.</span><span class="n">TLAT</span><span class="p">,</span><span class="n">c_snapshot_data</span><span class="p">,</span>  <span class="n">ax2_levels</span><span class="p">,</span><span class="c1">#cmap=&#39;BuGn&#39;,</span>
-                   <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span><span class="n">cmap</span><span class="o">=</span><span class="n">cf2_kwargs</span><span class="p">[</span><span class="s1">&#39;cmap&#39;</span><span class="p">],</span> <span class="n">transform_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                  <span class="n">norm</span><span class="o">=</span><span class="n">cf2_kwargs</span><span class="p">[</span><span class="s1">&#39;norm&#39;</span><span class="p">],</span> <span class="n">extent</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="c1">#, **cf2_kwargs)#transform=ccrs.PlateCarree()# levels=ax2_levels,</span>
+                   <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span><span class="n">cmap</span><span class="o">=</span><span class="n">cf2_kwargs_d18O</span><span class="p">[</span><span class="s1">&#39;cmap&#39;</span><span class="p">],</span> <span class="n">transform_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                  <span class="n">norm</span><span class="o">=</span><span class="n">cf2_kwargs_d18O</span><span class="p">[</span><span class="s1">&#39;norm&#39;</span><span class="p">],</span> <span class="n">extent</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="c1">#, **cf2_kwargs)#transform=ccrs.PlateCarree()# levels=ax2_levels,</span>
                   <span class="p">)</span>
 
 <span class="n">ax2</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">LAND</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
 <span class="c1"># add annotations (colorbar, title)</span>
 <span class="n">ax2_cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="n">cb2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">ax2_sm</span><span class="p">,</span><span class="n">cax</span><span class="o">=</span><span class="n">ax2_cb</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">colorbar_units</span><span class="p">,</span>
-                   <span class="nb">format</span><span class="o">=</span><span class="n">FormatStrFormatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">))</span>                    
+<span class="n">cb2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">ax2_sm_d18O</span><span class="p">,</span><span class="n">cax</span><span class="o">=</span><span class="n">ax2_cb</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">title_var</span><span class="p">,</span><span class="n">colorbar_units</span><span class="p">]),</span>
+                   <span class="nb">format</span><span class="o">=</span><span class="n">FormatStrFormatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">))</span>                  
 
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title_copy</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">month</span><span class="p">,</span> <span class="n">year</span><span class="p">));</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">traits</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">time</span><span class="p">));</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/93a37c6abf75451b3836ae201ba577172340d33d65cd10750ce0d600201fd1a4.png" src="../../_images/93a37c6abf75451b3836ae201ba577172340d33d65cd10750ce0d600201fd1a4.png" />
+<img alt="../../_images/21762a1917c2e17e9b8a37fc7cccf8ec69164a0cb535f94400a09afaa8186024.png" src="../../_images/21762a1917c2e17e9b8a37fc7cccf8ec69164a0cb535f94400a09afaa8186024.png" />
 </div>
 </div>
+</section>
+</section>
+<section id="selecting-along-lat-lon">
+<h3>Selecting along lat/lon<a class="headerlink" href="#selecting-along-lat-lon" title="Permalink to this headline">#</a></h3>
+<p>From the perspective of xarray there are dimensions, which describe degrees of freedom, and coordinates which create context around those dimensions. For example, in the examples below, there are spatial dimensions that describe the number of points in each aspect of the underlying grid, however there are separate coordinates that associate a point on the grid with a lat-lon pair.</p>
+<p>When a dimension is also a coordinate, we can use <code class="docutils literal notranslate"><span class="pre">.sel()</span></code> to select using either the dimension system or the coordinate system. Furthermore, we can specify <code class="docutils literal notranslate"><span class="pre">.sel(method='nearest')</span></code> to return the nearest match.</p>
+<section id="selecting-using-coordinate-dimensions">
+<h4>Selecting using coordinate-dimensions<a class="headerlink" href="#selecting-using-coordinate-dimensions" title="Permalink to this headline">#</a></h4>
+<p>time and depth are consistent throughout the dataset</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># select data closest to specified time and depth values</span>
+<span class="n">snapshot_ds</span> <span class="o">=</span> <span class="n">ctrace</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="n">time</span><span class="p">,</span> <span class="n">z_t_m</span><span class="o">=</span><span class="n">depth</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="selecting-using-dimensions">
+<h4>Selecting using dimensions<a class="headerlink" href="#selecting-using-dimensions" title="Permalink to this headline">#</a></h4>
+<p>The histogram of data on the lon dimension with index 55 shows that though there is a dominent longitude band, there are multiple longitudes involved.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">snapshot_ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">nlon</span><span class="o">=</span><span class="mi">55</span><span class="p">)</span><span class="o">.</span><span class="n">TLONG</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>161.30101007080071
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># select data on a single dimension value</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">snapshot_ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">nlon</span><span class="o">=</span><span class="mi">55</span><span class="p">)</span><span class="o">.</span><span class="n">TLONG</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: ylabel=&#39;Count&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/525651a66605cc75c2eaa73973ee46bef2fd35196f0a058a7019af6d2cce70c8.png" src="../../_images/525651a66605cc75c2eaa73973ee46bef2fd35196f0a058a7019af6d2cce70c8.png" />
+</div>
+</div>
+</section>
+<section id="selecting-using-where">
+<h4>Selecting using <code class="docutils literal notranslate"><span class="pre">where</span></code><a class="headerlink" href="#selecting-using-where" title="Permalink to this headline">#</a></h4>
+<p>If we were resolute about filtering by longitude, we could filter the TLONG arrays for values in a certain window.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">between_ds</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">lims</span><span class="p">):</span>
+    <span class="n">_ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">ds</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">&lt;</span><span class="nb">max</span><span class="p">(</span><span class="n">lims</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">&gt;</span><span class="nb">min</span><span class="p">(</span><span class="n">lims</span><span class="p">)),</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_ds</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">section_ds</span> <span class="o">=</span> <span class="n">between_ds</span><span class="p">(</span><span class="n">snapshot_ds</span><span class="p">,</span> <span class="s1">&#39;TLONG&#39;</span><span class="p">,[</span><span class="mi">160</span><span class="p">,</span> <span class="mi">163</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">section_ds</span><span class="p">[</span><span class="s1">&#39;d18O&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">TLONG</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;nlat&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewBox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewBox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+  --xr-border-color: var(--jp-border-color2, #e0e0e0);
+  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
+  --xr-background-color: var(--jp-layout-color0, white);
+  --xr-background-color-row-even: var(--jp-layout-color1, white);
+  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+}
+
+html[theme=dark],
+body[data-theme=dark],
+body.vscode-dark {
+  --xr-font-color0: rgba(255, 255, 255, 1);
+  --xr-font-color2: rgba(255, 255, 255, 0.54);
+  --xr-font-color3: rgba(255, 255, 255, 0.38);
+  --xr-border-color: #1F1F1F;
+  --xr-disabled-color: #515151;
+  --xr-background-color: #111111;
+  --xr-background-color-row-even: #111111;
+  --xr-background-color-row-odd: #313131;
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 20px 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: none;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: '►';
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: '▼';
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: '(';
+}
+
+.xr-dim-list:after {
+  content: ')';
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ',';
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  margin-bottom: 0;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-index-preview {
+  grid-column: 2 / 5;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  display: none;
+  background-color: var(--xr-background-color) !important;
+  padding-bottom: 5px !important;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data,
+.xr-index-data-in:checked ~ .xr-index-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-index-name div,
+.xr-index-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2,
+.xr-no-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+</style><pre class='xr-text-repr-fallback'>&lt;xarray.DataArray &#x27;TLONG&#x27; (nlon: 5)&gt;
+array([147.29784258, 151.13834525, 154.95023564, 158.73244459,
+       162.48678877])
+Coordinates:
+    time     float64 -21.99
+    z_t      float32 7.87e+04
+    z_t_m    float32 787.0
+Dimensions without coordinates: nlon</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-array-name'>'TLONG'</div><ul class='xr-dim-list'><li><span>nlon</span>: 5</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-dad8e6b2-bea5-46a2-97a8-4d08eeb99a7b' class='xr-array-in' type='checkbox' checked><label for='section-dad8e6b2-bea5-46a2-97a8-4d08eeb99a7b' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>147.3 151.1 155.0 158.7 162.5</span></div><div class='xr-array-data'><pre>array([147.29784258, 151.13834525, 154.95023564, 158.73244459,
+       162.48678877])</pre></div></div></li><li class='xr-section-item'><input id='section-d960ec65-de91-4ac2-b6ec-a95dbadf6239' class='xr-section-summary-in' type='checkbox'  checked><label for='section-d960ec65-de91-4ac2-b6ec-a95dbadf6239' class='xr-section-summary' >Coordinates: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>time</span></div><div class='xr-var-dims'>()</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>-21.99</div><input id='attrs-966ec693-5e93-453b-b2ca-226de80a67d7' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-966ec693-5e93-453b-b2ca-226de80a67d7' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-8804fda7-e0d4-4f50-8698-4aa8f6bce308' class='xr-var-data-in' type='checkbox'><label for='data-8804fda7-e0d4-4f50-8698-4aa8f6bce308' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>time</dd><dt><span>units :</span></dt><dd>ka BP</dd><dt><span>bounds :</span></dt><dd>time_bound</dd><dt><span>calendar :</span></dt><dd>noleap</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div><div class='xr-var-data'><pre>array(-21.98999977)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>z_t</span></div><div class='xr-var-dims'>()</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>7.87e+04</div><input id='attrs-cabacc52-5bf7-424e-b7d5-f415e587a4ff' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-cabacc52-5bf7-424e-b7d5-f415e587a4ff' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-68b45788-6901-4efb-acc8-55828b1907d6' class='xr-var-data-in' type='checkbox'><label for='data-68b45788-6901-4efb-acc8-55828b1907d6' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>depth from surface to midpoint of layer</dd><dt><span>units :</span></dt><dd>centimeters</dd><dt><span>positive :</span></dt><dd>down</dd><dt><span>valid_min :</span></dt><dd>500.0</dd><dt><span>valid_max :</span></dt><dd>537500.0</dd></dl></div><div class='xr-var-data'><pre>array(78700.25, dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>z_t_m</span></div><div class='xr-var-dims'>()</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>787.0</div><input id='attrs-8eec449f-a5b8-4905-beec-00ecbc4a254b' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-8eec449f-a5b8-4905-beec-00ecbc4a254b' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-084db1a7-e1e3-4ec1-9100-b9b276c6e4ac' class='xr-var-data-in' type='checkbox'><label for='data-084db1a7-e1e3-4ec1-9100-b9b276c6e4ac' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array(787.0025, dtype=float32)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-395b07a0-ba60-4d12-87b2-3ea322921b9e' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-395b07a0-ba60-4d12-87b2-3ea322921b9e' class='xr-section-summary'  title='Expand/collapse section'>Indexes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'></ul></div></li><li class='xr-section-item'><input id='section-b73bd9a9-7182-45b0-be6b-a2381c35ac78' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-b73bd9a9-7182-45b0-be6b-a2381c35ac78' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># nan_filter = np.isnan(section_ds[&#39;d18O&#39;].data)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">section_ds</span><span class="p">[</span><span class="s1">&#39;d18O&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">TLONG</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: ylabel=&#39;Count&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/3b2b801ed7e9ff6edbe1b8882004bbb3c13285e4fae1a356242294eefb759e9f.png" src="../../_images/3b2b801ed7e9ff6edbe1b8882004bbb3c13285e4fae1a356242294eefb759e9f.png" />
+</div>
+</div>
+<p>That’s thought provoking…we filtered for (160, 163)… Let’s fix up a scatterplot of the the latitude-longitude pairs still part of this filtered dataset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">section_ds</span><span class="p">[</span><span class="s1">&#39;d18O&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">TLONG</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">section_ds</span><span class="p">[</span><span class="s1">&#39;d18O&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">TLAT</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x1d41d9e70&gt;
+</pre></div>
+</div>
+<img alt="../../_images/f746b3a3d16191be113f76ee6b22ac3d8da9626b04c3a8ff2cdfd3711bf62138.png" src="../../_images/f746b3a3d16191be113f76ee6b22ac3d8da9626b04c3a8ff2cdfd3711bf62138.png" />
+</div>
+</div>
+<p>It becomes clear!  The filtered dataset retains all nlon values that have an TLONG value in our range. If we pull the data out and use numpy to make a masking array for the nans, and then apply that mask to the TLONG array, we will hopefully find that the values still in our filtered dataset correspond to longitude values in our desired range. Let’s see…</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nan_filter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">section_ds</span><span class="p">[</span><span class="s1">&#39;d18O&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">section_ds</span><span class="o">.</span><span class="n">TLONG</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">~</span><span class="n">nan_filter</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: ylabel=&#39;Count&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/32ff34d089409ecc53b83010ce289b6988baa784b994705633c5339f70be42af.png" src="../../_images/32ff34d089409ecc53b83010ce289b6988baa784b994705633c5339f70be42af.png" />
+</div>
+</div>
+<p>Success! This exercise has also clarified a bit more about how Xarray treats dimensions and coordinates. Below are a pair of maps illustrating that the range of <code class="docutils literal notranslate"><span class="pre">TLONG</span></code> values yielded by a <code class="docutils literal notranslate"><span class="pre">where</span></code> filter is more restricted than that based on a single <code class="docutils literal notranslate"><span class="pre">nlon</span></code> dimension value. The color is simply to highlight which locations are contained in each set.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="c1"># 1 row, 2 columns, .05 space between columns, 8:.3 ratio of left column to right column</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span> <span class="mf">.3</span><span class="p">])</span>
+
+<span class="c1"># add subplot with specified map projection and coastlines (GeoAxes)</span>
+<span class="n">ax_sel</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">Robinson</span><span class="p">(</span><span class="n">central_longitude</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">ax_sel</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">COASTLINE</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
+
+<span class="n">scatter</span> <span class="o">=</span> <span class="n">ax_sel</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">section_ds</span><span class="o">.</span><span class="n">TLONG</span><span class="p">,</span><span class="n">section_ds</span><span class="o">.</span><span class="n">TLAT</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="n">section_ds</span><span class="p">[</span><span class="s1">&#39;d18O&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span> <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span> 
+             <span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">cf2_kwargs</span><span class="p">[</span><span class="s1">&#39;norm&#39;</span><span class="p">])</span>
+<span class="n">ax_sel</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">LAND</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">ax_sel</span><span class="o">.</span><span class="n">set_global</span><span class="p">()</span>
+<span class="n">ax_sel</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;filtered by &quot;where&quot;&#39;</span><span class="p">)</span>
+
+<span class="n">ax_nlon</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">Robinson</span><span class="p">(</span><span class="n">central_longitude</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">ax_nlon</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">COASTLINE</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
+
+<span class="n">scatter</span> <span class="o">=</span> <span class="n">ax_nlon</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">snapshot_ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">nlon</span><span class="o">=</span><span class="mi">55</span><span class="p">)</span><span class="o">.</span><span class="n">TLONG</span><span class="p">,</span><span class="n">snapshot_ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">nlon</span><span class="o">=</span><span class="mi">55</span><span class="p">)</span><span class="o">.</span><span class="n">TLAT</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="n">snapshot_ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">nlon</span><span class="o">=</span><span class="mi">55</span><span class="p">)[</span><span class="s1">&#39;d18O&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span> <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span> 
+             <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">cf2_kwargs_d18O</span><span class="p">[</span><span class="s1">&#39;norm&#39;</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">ax_nlon</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">LAND</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">ax_nlon</span><span class="o">.</span><span class="n">set_global</span><span class="p">()</span>
+<span class="n">ax_nlon</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;filtered by nlon=55&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/85b622c79ab63304bc70ad80d4f700be6dcf69b68db768599061371cfabc611f.png" src="../../_images/85b622c79ab63304bc70ad80d4f700be6dcf69b68db768599061371cfabc611f.png" />
+</div>
+</div>
+</section>
 </section>
 </section>
 <hr class="docutils" />
@@ -1035,6 +2104,16 @@ To plot a filled contour map, we make a couple of simple adjustments, appending 
 <tr class="row-odd"><th class="text-left head"><p><em>Citations</em></p></th>
 </tr>
 </thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Gu, Sifan, Liu, Zhengyu, Jahn, Alexandra, Zanowski, Hannah. (2021). C-iTRACE. Version 1.0. UCAR/NCAR - DASH Repository. <a class="reference external" href="https://doi.org/10.5065/hanq-bn92">https://doi.org/10.5065/hanq-bn92</a>.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Ohgaito, R. &amp; Yamamoto, Akitomo &amp; Hajima, Tomohiro &amp; O’ishi, Ryouta &amp; Abe, Manabu &amp; Tatebe, Hiroaki &amp; Abe-Ouchi, Ayako &amp; Kawamiya, M.. (2020). PMIP4 experiments using MIROC-ES2L Earth System Model. 10.5194/gmd-2020-64.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Kageyama, M., Braconnot, P., Harrison, S. P., Haywood, A. M., Jungclaus, J. H., Otto-Bliesner, B. L., Peterschmitt, J.-Y., Abe-Ouchi, A., Albani, S., Bartlein, P. J., Brierley, C., Crucifix, M., Dolan, A., Fernandez-Donado, L., Fischer, H., Hopcroft, P. O., Ivanovic, R. F., Lambert, F., Lunt, D. J., Mahowald, N. M., Peltier, W. R., Phipps, S. J., Roche, D. M., Schmidt, G. A., Tarasov, L., Valdes, P. J., Zhang, Q., and Zhou, T.: The PMIP4 contribution to CMIP6 – Part 1: Overview and over-arching analysis plan, Geosci. Model Dev., 11, 1033–1057, <a class="reference external" href="https://doi.org/10.5194/gmd-11-1033-2018">https://doi.org/10.5194/gmd-11-1033-2018</a>, 2018.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Garcia, H. E., K. Weathers, C. R. Paver, I. Smolyar, T. P. Boyer, R. A. Locarnini, M. M. Zweng, A. V. Mishonov, O. K. Baranova, D. Seidov, and J. R. Reagan, 2018. World Ocean Atlas 2018, Volume 4: Dissolved Inorganic Nutrients (phosphate, nitrate and nitrate+nitrite, silicate). A. Mishonov Technical Ed.; NOAA Atlas NESDIS 84, 35pp.</p></td>
+</tr>
+</tbody>
 </table>
 </section>
 </section>
@@ -1084,7 +2163,7 @@ To plot a filled contour map, we make a couple of simple adjustments, appending 
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">py(?)ODV</p>
+        <p class="prev-next-title">pyODV</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1108,10 +2187,25 @@ To plot a filled contour map, we make a couple of simple adjustments, appending 
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">Imports</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intuition">Intuition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intuition">Intuition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-on-a-lat-lon-grid">Data on a lat-lon grid</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#point-wise-data">Point-wise data</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-reality-of-model-output">The reality of model output</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pmip-lgm">PMIP LGM</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-itrace">C-iTRACE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-itrace">C-iTRACE</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#scatterplot">1. Scatterplot</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pcolormesh">2. Pcolormesh</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#filled-contour">3. Filled Contour</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-along-lat-lon">Selecting along lat/lon</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-using-coordinate-dimensions">Selecting using coordinate-dimensions</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-using-dimensions">Selecting using dimensions</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-using-where">Selecting using <code class="docutils literal notranslate"><span class="pre">where</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>

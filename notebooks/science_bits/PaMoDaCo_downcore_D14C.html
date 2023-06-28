@@ -1,0 +1,1535 @@
+
+
+<!DOCTYPE html>
+
+
+<html >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>PaMoDaCo: Contextualizing a downcore record in model-space &#8212; C-iTrace Paleobook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/science_bits/PaMoDaCo_downcore_D14C';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Clustering" href="clustering.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="None"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../README.html">
+                    C-iTrace (and friends) Paleobook
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lifehacks</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lifehacks/working_with_data_on_a_model_grid.html">Navigating the perils of a model grid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lifehacks/pyODV.html">pyODV</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Science Bits</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="data_scatter_on_pcolor.html">PaMoDaCo: Working with measurements and model output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clustering.html">Clustering</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">PaMoDaCo: Contextualizing a downcore record in model-space</a></li>
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/LinkedEarth/citrace_paleobook" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/LinkedEarth/citrace_paleobook/issues/new?title=Issue%20on%20page%20%2Fnotebooks/science_bits/PaMoDaCo_downcore_D14C.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/science_bits/PaMoDaCo_downcore_D14C.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>PaMoDaCo: Contextualizing a downcore record in model-space</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">PaMoDaCo: Contextualizing a downcore record in model-space</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scientific-question">Scientific Question</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data">Load Data</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#explore">Explore</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-data-comparison">Model-Data Comparison</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibration-datasets">Calibration Datasets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intcal20">Intcal20</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marine20">Marine20</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot">Plot</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#marchitto-et-al-2007">Marchitto et al, 2007</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#all-together">All together</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-and-references">Resources and references</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="pamodaco-contextualizing-a-downcore-record-in-model-space">
+<h1>PaMoDaCo: Contextualizing a downcore record in model-space<a class="headerlink" href="#pamodaco-contextualizing-a-downcore-record-in-model-space" title="Permalink to this headline">#</a></h1>
+<hr class="docutils" />
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h2>
+<p>One of the critical elements in paleoclimate today is pulling together multiple datasets, either in the spirit of data-model comparison or multiple datasets to build a fuller context.</p>
+<p>In the coarse iTRACE simulations, <span class="math notranslate nohighlight">\(\Delta^{14}\)</span>C is split into abiotic and biotic components. Here we look at abiotic <span class="math notranslate nohighlight">\(\Delta^{14}\)</span>C which is like biotic <span class="math notranslate nohighlight">\(\Delta^{14}\)</span>C except it doesn’t account for isotope fractionation from biological processes or air-sea gas exchange.</p>
+<p>While 3 degrees will not resolve the role of eddies, nor will any of the current paleoceanographic proxies, and they offer a pleasingly tractable data product with coverage not susceptible to dissolution (take that, glacial deep North Pacific!).</p>
+</section>
+<section id="imports">
+<h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="c1"># import folium </span>
+<span class="c1"># import pyperclip as c</span>
+
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">ListedColormap</span><span class="p">,</span> <span class="n">LinearSegmentedColormap</span>
+<span class="kn">import</span> <span class="nn">matplotlib.gridspec</span> <span class="k">as</span> <span class="nn">gridspec</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
+ 
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="scientific-question">
+<h2>Scientific Question<a class="headerlink" href="#scientific-question" title="Permalink to this headline">#</a></h2>
+<p>It is widely hypothesized that CO<span class="math notranslate nohighlight">\(_{2}\)</span> accumulated in the deep ocean during the last glacial period, and that its release at the onset of the deglaciation was critical to the warming that paved the way to the Holocene. At the surface, water exchanges CO<span class="math notranslate nohighlight">\(_{2}\)</span> with the atmosphere, however, once at depth, the only source of radiocarbon is organic matter exported from the surface ocean. In a more stratified glacial ocean, organic matter exported from the surface ocean would have regenerated at depth, where it would have been sequestered, gradually losing radiocarbon through decay.
+<br><br>
+The somewhat iconic (if you are inclined that way) two step increase in atmospheric CO<span class="math notranslate nohighlight">\(_{2}\)</span> during the deglaciation is consistent with such a hypothesis, and is bolstered by a roughly coincident, two-phase decrease in atmospheric radiocarbon not readily explained by changes in production. The atmospheric record is broadly believed to reflect changes in ocean circulation that gave rise to fluxes of CO<span class="math notranslate nohighlight">\(_{2}\)</span> from the deep ocean reservoir to the atmosphere.
+<br><br>
+However, balancing both the CO<span class="math notranslate nohighlight">\(_{2}\)</span> and radiocarbon budget has proven challenging for a number of reasons, not the least of which is that the sediments that would be most telling were were largely dissolved by the very carbonic acid they might have documented. Evidence tampering, indeed!
+<br><br>
+As an alternative, let’s dip into this question by looking into results from the C-iTrace model runs and some data collected from intermediate depth cores off the coast of Baja California by <a class="reference external" href="https://doi.org/10.25921/6nm6-2c24">Marchitto et al, 2007</a>.  Intermediate depth cores cannot directly tell the story, but if there was a CO<span class="math notranslate nohighlight">\(_{2}\)</span>-rich, radiocarbon-poor watermass that upwelled at the start of the deglaciation, driving the atmospheric signal, it would have had to pass through intermediate depths somewhere, and perhaps there are footprints to be found.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="load-data">
+<h1>Load Data<a class="headerlink" href="#load-data" title="Permalink to this headline">#</a></h1>
+<p>The radiocarbon data from the C-iTrace project runs around 6Gb. While this is not impassable, we will make use of the fact that Xarray allows a dataset to be opened and indexed without being loaded into memory. As such, this entire notebook will turn on a series of queries that return slices of the data in order to hold some resources in reserve for delightful things like visualizations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">PF_data_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/Users/jlanders/PycharmProjects/PangeoForge_recipes/C-iTRACE/data&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file_name</span> <span class="o">=</span> <span class="s1">&#39;ctrace.decadal.ABIO_D14Cocn.nc&#39;</span>
+<span class="n">c14_ocn_nc</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">PF_data_dir</span><span class="o">/</span><span class="s1">&#39;netcdf4&#39;</span><span class="o">/</span><span class="n">file_name</span><span class="p">,</span> <span class="n">use_cftime</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="c1">#, engine=&#39;netcdf4&#39;, decode_coords=True)#.load()#, decode_coords=True)</span>
+
+<span class="n">file_name</span> <span class="o">=</span> <span class="s1">&#39;ctrace.decadal.ABIO_D14Catm.nc&#39;</span>
+<span class="n">c14_atm_nc</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">PF_data_dir</span><span class="o">/</span><span class="s1">&#39;netcdf4&#39;</span><span class="o">/</span><span class="n">file_name</span><span class="p">,</span> <span class="n">use_cftime</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="c1">#, engine=&#39;netcdf4&#39;, decode_coords=True)#.load()#, decode_coords=True)</span>
+<span class="c1"># ds_Nd143</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iso_ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">combine_by_coords</span><span class="p">([</span><span class="n">c14_ocn_nc</span><span class="p">[</span><span class="s1">&#39;ABIO_D14Cocn&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span> 
+                               <span class="n">c14_atm_nc</span><span class="p">[</span><span class="s1">&#39;ABIO_D14Catm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">convert_z_to_meters</span><span class="p">(</span><span class="n">ds</span><span class="p">):</span>
+    <span class="n">cm_to_m</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">100</span>
+    <span class="n">z_t</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">z_t</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;z_t_m&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;z_t&quot;</span><span class="p">,</span> <span class="n">z_t</span><span class="o">*</span><span class="n">cm_to_m</span><span class="p">)</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">swap_dims</span><span class="p">({</span><span class="s1">&#39;z_t&#39;</span><span class="p">:</span><span class="s1">&#39;z_t_m&#39;</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">ds</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># convert depth from cm to m</span>
+<span class="n">iso_ds</span> <span class="o">=</span><span class="n">convert_z_to_meters</span><span class="p">(</span><span class="n">iso_ds</span><span class="p">)</span>
+<span class="n">iso_ds</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewBox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewBox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+  --xr-border-color: var(--jp-border-color2, #e0e0e0);
+  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
+  --xr-background-color: var(--jp-layout-color0, white);
+  --xr-background-color-row-even: var(--jp-layout-color1, white);
+  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+}
+
+html[theme=dark],
+body[data-theme=dark],
+body.vscode-dark {
+  --xr-font-color0: rgba(255, 255, 255, 1);
+  --xr-font-color2: rgba(255, 255, 255, 0.54);
+  --xr-font-color3: rgba(255, 255, 255, 0.38);
+  --xr-border-color: #1F1F1F;
+  --xr-disabled-color: #515151;
+  --xr-background-color: #111111;
+  --xr-background-color-row-even: #111111;
+  --xr-background-color-row-odd: #313131;
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 20px 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: none;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: '►';
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: '▼';
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: '(';
+}
+
+.xr-dim-list:after {
+  content: ')';
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ',';
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  margin-bottom: 0;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-index-preview {
+  grid-column: 2 / 5;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  display: none;
+  background-color: var(--xr-background-color) !important;
+  padding-bottom: 5px !important;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data,
+.xr-index-data-in:checked ~ .xr-index-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-index-name div,
+.xr-index-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2,
+.xr-no-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+</style><pre class='xr-text-repr-fallback'>&lt;xarray.Dataset&gt;
+Dimensions:       (time: 2200, nlat: 116, nlon: 100, z_t_m: 60)
+Coordinates:
+  * time          (time) float64 -22.0 -21.99 -21.98 ... -0.03 -0.02 -0.01
+    TLAT          (nlat, nlon) float64 ...
+    TLONG         (nlat, nlon) float64 ...
+    z_t           (z_t_m) float32 500.0 1.5e+03 2.5e+03 ... 5.125e+05 5.375e+05
+  * z_t_m         (z_t_m) float32 5.0 15.0 25.0 ... 5.125e+03 5.375e+03
+Dimensions without coordinates: nlat, nlon
+Data variables:
+    ABIO_D14Catm  (time, nlat, nlon) float64 9.969e+36 9.969e+36 ... 9.969e+36
+    ABIO_D14Cocn  (time, z_t_m, nlat, nlon) float64 nan nan nan ... nan nan nan</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-7ec6ca6d-6afa-4489-9e98-9b4c7fdb92cd' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-7ec6ca6d-6afa-4489-9e98-9b4c7fdb92cd' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span class='xr-has-index'>time</span>: 2200</li><li><span>nlat</span>: 116</li><li><span>nlon</span>: 100</li><li><span class='xr-has-index'>z_t_m</span>: 60</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-858c4b94-a30f-4820-8242-5d028df397bf' class='xr-section-summary-in' type='checkbox'  checked><label for='section-858c4b94-a30f-4820-8242-5d028df397bf' class='xr-section-summary' >Coordinates: <span>(5)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>time</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>-22.0 -21.99 -21.98 ... -0.02 -0.01</div><input id='attrs-470fcbff-8c6e-4071-a80f-562a0ee39ed3' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-470fcbff-8c6e-4071-a80f-562a0ee39ed3' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-08bf37b1-c05a-4759-a015-8cc2c607ef10' class='xr-var-data-in' type='checkbox'><label for='data-08bf37b1-c05a-4759-a015-8cc2c607ef10' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>time</dd><dt><span>units :</span></dt><dd>ka BP</dd><dt><span>bounds :</span></dt><dd>time_bound</dd><dt><span>calendar :</span></dt><dd>noleap</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div><div class='xr-var-data'><pre>array([-2.200000e+01, -2.199000e+01, -2.198000e+01, ..., -3.000069e-02,
+       -2.000046e-02, -1.000023e-02])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>TLAT</span></div><div class='xr-var-dims'>(nlat, nlon)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-89808742-2490-4d1c-af4e-8345312a3248' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-89808742-2490-4d1c-af4e-8345312a3248' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-c6957fc9-ecb6-4f9b-84d5-83a518ef6bc9' class='xr-var-data-in' type='checkbox'><label for='data-c6957fc9-ecb6-4f9b-84d5-83a518ef6bc9' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>array of t-grid latitudes</dd><dt><span>units :</span></dt><dd>degrees_north</dd></dl></div><div class='xr-var-data'><pre>[11600 values with dtype=float64]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>TLONG</span></div><div class='xr-var-dims'>(nlat, nlon)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-b97ff022-ea12-4e24-a6c4-f49d938a101c' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-b97ff022-ea12-4e24-a6c4-f49d938a101c' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-fcb543e3-2406-4ba3-869b-78b277c4ad0e' class='xr-var-data-in' type='checkbox'><label for='data-fcb543e3-2406-4ba3-869b-78b277c4ad0e' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>array of t-grid longitudes</dd><dt><span>units :</span></dt><dd>degrees_east</dd></dl></div><div class='xr-var-data'><pre>[11600 values with dtype=float64]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>z_t</span></div><div class='xr-var-dims'>(z_t_m)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>500.0 1.5e+03 ... 5.375e+05</div><input id='attrs-45b02164-9bfb-4a20-8434-84192c9cc5eb' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-45b02164-9bfb-4a20-8434-84192c9cc5eb' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-79c682d3-78d0-4203-a4c4-a54e51b2ac72' class='xr-var-data-in' type='checkbox'><label for='data-79c682d3-78d0-4203-a4c4-a54e51b2ac72' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>depth from surface to midpoint of layer</dd><dt><span>units :</span></dt><dd>centimeters</dd><dt><span>positive :</span></dt><dd>down</dd><dt><span>valid_min :</span></dt><dd>500.0</dd><dt><span>valid_max :</span></dt><dd>537500.0</dd></dl></div><div class='xr-var-data'><pre>array([5.000000e+02, 1.500000e+03, 2.500000e+03, 3.500000e+03, 4.500000e+03,
+       5.500000e+03, 6.500000e+03, 7.500000e+03, 8.500000e+03, 9.500000e+03,
+       1.050000e+04, 1.150000e+04, 1.250000e+04, 1.350000e+04, 1.450000e+04,
+       1.550000e+04, 1.650984e+04, 1.754790e+04, 1.862913e+04, 1.976603e+04,
+       2.097114e+04, 2.225783e+04, 2.364088e+04, 2.513702e+04, 2.676542e+04,
+       2.854837e+04, 3.051192e+04, 3.268680e+04, 3.510935e+04, 3.782276e+04,
+       4.087846e+04, 4.433777e+04, 4.827367e+04, 5.277280e+04, 5.793729e+04,
+       6.388626e+04, 7.075633e+04, 7.870025e+04, 8.788252e+04, 9.847059e+04,
+       1.106204e+05, 1.244567e+05, 1.400497e+05, 1.573946e+05, 1.764003e+05,
+       1.968944e+05, 2.186457e+05, 2.413972e+05, 2.649001e+05, 2.889385e+05,
+       3.133405e+05, 3.379793e+05, 3.627670e+05, 3.876452e+05, 4.125768e+05,
+       4.375392e+05, 4.625190e+05, 4.875083e+05, 5.125028e+05, 5.375000e+05],
+      dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>z_t_m</span></div><div class='xr-var-dims'>(z_t_m)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>5.0 15.0 ... 5.125e+03 5.375e+03</div><input id='attrs-ccfa9414-fa60-4cd6-8c1e-d635a25ed38e' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-ccfa9414-fa60-4cd6-8c1e-d635a25ed38e' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-3de712b0-61e3-434b-a150-590256754b5a' class='xr-var-data-in' type='checkbox'><label for='data-3de712b0-61e3-434b-a150-590256754b5a' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([5.000000e+00, 1.500000e+01, 2.500000e+01, 3.500000e+01, 4.500000e+01,
+       5.500000e+01, 6.500000e+01, 7.500000e+01, 8.500000e+01, 9.500000e+01,
+       1.050000e+02, 1.150000e+02, 1.250000e+02, 1.350000e+02, 1.450000e+02,
+       1.550000e+02, 1.650984e+02, 1.754790e+02, 1.862913e+02, 1.976603e+02,
+       2.097114e+02, 2.225783e+02, 2.364088e+02, 2.513701e+02, 2.676542e+02,
+       2.854836e+02, 3.051192e+02, 3.268680e+02, 3.510935e+02, 3.782276e+02,
+       4.087846e+02, 4.433777e+02, 4.827367e+02, 5.277280e+02, 5.793729e+02,
+       6.388626e+02, 7.075633e+02, 7.870025e+02, 8.788252e+02, 9.847058e+02,
+       1.106204e+03, 1.244567e+03, 1.400497e+03, 1.573946e+03, 1.764003e+03,
+       1.968944e+03, 2.186457e+03, 2.413971e+03, 2.649001e+03, 2.889385e+03,
+       3.133405e+03, 3.379793e+03, 3.627670e+03, 3.876452e+03, 4.125768e+03,
+       4.375393e+03, 4.625190e+03, 4.875083e+03, 5.125028e+03, 5.375000e+03],
+      dtype=float32)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-c316341e-b154-478d-81aa-5c2e72bad82f' class='xr-section-summary-in' type='checkbox'  checked><label for='section-c316341e-b154-478d-81aa-5c2e72bad82f' class='xr-section-summary' >Data variables: <span>(2)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>ABIO_D14Catm</span></div><div class='xr-var-dims'>(time, nlat, nlon)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>9.969e+36 9.969e+36 ... 9.969e+36</div><input id='attrs-94472335-0c48-4b54-8b93-dc9a69c7ed25' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-94472335-0c48-4b54-8b93-dc9a69c7ed25' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-62876255-c1a5-4842-bf66-08f03998a420' class='xr-var-data-in' type='checkbox'><label for='data-62876255-c1a5-4842-bf66-08f03998a420' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[[ 9.96920997e+36,  9.96920997e+36,  9.96920997e+36, ...,
+          9.96920997e+36,  9.96920997e+36,  9.96920997e+36],
+        [ 4.78450104e+02,  9.96920997e+36,  9.96920997e+36, ...,
+          4.78450104e+02,  4.78450104e+02,  4.78450104e+02],
+        [ 4.78450104e+02,  4.78450104e+02,  4.78450104e+02, ...,
+          4.78450104e+02,  4.78450104e+02,  4.78450104e+02],
+        ...,
+        [ 9.96920997e+36,  9.96920997e+36,  9.96920997e+36, ...,
+          9.96920997e+36,  9.96920997e+36,  9.96920997e+36],
+        [ 9.96920997e+36,  9.96920997e+36,  9.96920997e+36, ...,
+          9.96920997e+36,  9.96920997e+36,  9.96920997e+36],
+        [ 9.96920997e+36,  9.96920997e+36,  9.96920997e+36, ...,
+          9.96920997e+36,  9.96920997e+36,  9.96920997e+36]],
+
+       [[ 9.96920997e+36,  9.96920997e+36,  9.96920997e+36, ...,
+          9.96920997e+36,  9.96920997e+36,  9.96920997e+36],
+        [ 4.77950104e+02,  9.96920997e+36,  9.96920997e+36, ...,
+          4.77950104e+02,  4.77950104e+02,  4.77950104e+02],
+        [ 4.77950104e+02,  4.77950104e+02,  4.77950104e+02, ...,
+          4.77950104e+02,  4.77950104e+02,  4.77950104e+02],
+...
+        [ 9.96920997e+36,  9.96920997e+36,  9.96920997e+36, ...,
+          9.96920997e+36,  9.96920997e+36,  9.96920997e+36],
+        [ 9.96920997e+36,  9.96920997e+36,  9.96920997e+36, ...,
+          9.96920997e+36,  9.96920997e+36,  9.96920997e+36],
+        [ 9.96920997e+36,  9.96920997e+36,  9.96920997e+36, ...,
+          9.96920997e+36,  9.96920997e+36,  9.96920997e+36]],
+
+       [[ 9.96920997e+36,  9.96920997e+36,  9.96920997e+36, ...,
+          9.96920997e+36,  9.96920997e+36,  9.96920997e+36],
+        [-1.84244308e+01,  9.96920997e+36,  9.96920997e+36, ...,
+         -1.84244308e+01, -1.84244308e+01, -1.84244308e+01],
+        [-1.84244308e+01, -1.84244308e+01, -1.84244308e+01, ...,
+         -1.84244308e+01, -1.84244308e+01, -1.84244308e+01],
+        ...,
+        [ 9.96920997e+36,  9.96920997e+36,  9.96920997e+36, ...,
+          9.96920997e+36,  9.96920997e+36,  9.96920997e+36],
+        [ 9.96920997e+36,  9.96920997e+36,  9.96920997e+36, ...,
+          9.96920997e+36,  9.96920997e+36,  9.96920997e+36],
+        [ 9.96920997e+36,  9.96920997e+36,  9.96920997e+36, ...,
+          9.96920997e+36,  9.96920997e+36,  9.96920997e+36]]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>ABIO_D14Cocn</span></div><div class='xr-var-dims'>(time, z_t_m, nlat, nlon)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>nan nan nan nan ... nan nan nan nan</div><input id='attrs-0ef29510-403d-484f-a68d-7165125b77f2' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-0ef29510-403d-484f-a68d-7165125b77f2' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-52085beb-153c-4c96-805c-25e28a0a8c2f' class='xr-var-data-in' type='checkbox'><label for='data-52085beb-153c-4c96-805c-25e28a0a8c2f' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Abiotic oceanic Delta C14 in permil</dd><dt><span>units :</span></dt><dd>permil</dd><dt><span>grid_loc :</span></dt><dd>3111</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div><div class='xr-var-data'><pre>array([[[[          nan,           nan,           nan, ...,
+                    nan,           nan,           nan],
+         [ 158.61843872,           nan,           nan, ...,
+           158.22215271,  158.40805054,  158.52345276],
+         [ 159.54211426,  159.89089966,  160.05558777, ...,
+           158.47431946,  158.85461426,  159.22468567],
+         ...,
+         [          nan,           nan,           nan, ...,
+                    nan,           nan,           nan],
+         [          nan,           nan,           nan, ...,
+                    nan,           nan,           nan],
+         [          nan,           nan,           nan, ...,
+                    nan,           nan,           nan]],
+
+        [[          nan,           nan,           nan, ...,
+                    nan,           nan,           nan],
+         [ 158.58685303,           nan,           nan, ...,
+           158.17605591,  158.36558533,  158.48947144],
+         [ 159.46728516,  159.84681702,  160.025177  , ...,
+           158.37953186,  158.75274658,  159.1289978 ],
+...
+         [          nan,           nan,           nan, ...,
+                    nan,           nan,           nan],
+         [          nan,           nan,           nan, ...,
+                    nan,           nan,           nan],
+         [          nan,           nan,           nan, ...,
+                    nan,           nan,           nan]],
+
+        [[          nan,           nan,           nan, ...,
+                    nan,           nan,           nan],
+         [          nan,           nan,           nan, ...,
+                    nan,           nan,           nan],
+         [          nan,           nan,           nan, ...,
+                    nan,           nan,           nan],
+         ...,
+         [          nan,           nan,           nan, ...,
+                    nan,           nan,           nan],
+         [          nan,           nan,           nan, ...,
+                    nan,           nan,           nan],
+         [          nan,           nan,           nan, ...,
+                    nan,           nan,           nan]]]])</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-8f89eb09-adc1-401f-af12-0fbb38640fa0' class='xr-section-summary-in' type='checkbox'  ><label for='section-8f89eb09-adc1-401f-af12-0fbb38640fa0' class='xr-section-summary' >Indexes: <span>(2)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-index-name'><div>time</div></div><div class='xr-index-preview'>PandasIndex</div><div></div><input id='index-e1899745-8556-4dbe-8736-da2c2033d1fa' class='xr-index-data-in' type='checkbox'/><label for='index-e1899745-8556-4dbe-8736-da2c2033d1fa' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Index([              -22.0,   -21.9899997711182,   -21.9799995422363,
+         -21.9699993133545,   -21.9599990844727,   -21.9500007629395,
+         -21.9400005340576,   -21.9300003051758,   -21.9200000762939,
+         -21.9099998474121,
+       ...
+        -0.100000381469727, -0.0900001525878906, -0.0799999237060547,
+       -0.0699996948242188, -0.0600013732910156, -0.0500011444091797,
+       -0.0400009155273438, -0.0300006866455078, -0.0200004577636719,
+       -0.0100002288818359],
+      dtype=&#x27;float64&#x27;, name=&#x27;time&#x27;, length=2200))</pre></div></li><li class='xr-var-item'><div class='xr-index-name'><div>z_t_m</div></div><div class='xr-index-preview'>PandasIndex</div><div></div><input id='index-b3d8f4bc-cb6a-4699-82c3-7dca6adf1cb1' class='xr-index-data-in' type='checkbox'/><label for='index-b3d8f4bc-cb6a-4699-82c3-7dca6adf1cb1' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Index([               5.0,               15.0,               25.0,
+                     35.0,               45.0,               55.0,
+                     65.0,               75.0,               85.0,
+                     95.0,              105.0,              115.0,
+                    125.0,              135.0,              145.0,
+                    155.0,   165.098388671875, 175.47903442382812,
+         186.291259765625, 197.66026306152344,  209.7113800048828,
+       222.57827758789062, 236.40882873535156, 251.37014770507812,
+        267.6542053222656,   285.483642578125, 305.11920166015625,
+       326.86798095703125,  351.0934753417969, 378.22760009765625,
+        408.7846374511719,   443.377685546875,  482.7366943359375,
+        527.7279663085938,  579.3728637695312,  638.8626098632812,
+        707.5632934570312,  787.0025024414062,     878.8251953125,
+         984.705810546875, 1106.2042236328125,   1244.56689453125,
+       1400.4971923828125, 1573.9464111328125, 1764.0032958984375,
+       1968.9442138671875,   2186.45654296875,  2413.971435546875,
+        2649.001220703125,  2889.384521484375,  3133.404541015625,
+         3379.79345703125,  3627.670166015625,  3876.451904296875,
+         4125.76806640625,     4375.392578125,    4625.1904296875,
+         4875.08349609375,   5125.02783203125,             5375.0],
+      dtype=&#x27;float32&#x27;, name=&#x27;z_t_m&#x27;))</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-abbbe123-6de3-4355-88e1-9b5364f5fd43' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-abbbe123-6de3-4355-88e1-9b5364f5fd43' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div></div></div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="explore">
+<h1>Explore<a class="headerlink" href="#explore" title="Permalink to this headline">#</a></h1>
+<p>As a first step, let’s pull together a few plots that will allow us to verify that we have a grasp on space and time in this dataset (and/or that the model did as well!) by plotting two sections (one from the Pacific, one from the Atlantic) along lines of constant longitude from the recent (ish–it’s all relative…this would not constitute “recent” as it might pertain to how long ago I purchased the milk in my refrigerator ) past, the mid deglaciation, and the late glacial period.</p>
+<blockquote>
+<div><p><em>Tech Tip:</em> In order to ensure grids of plots are organized and well labeled, it can be helpful to collect the data in dictionaries.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glacial_kya</span> <span class="o">=</span> <span class="mi">18</span>
+<span class="n">deglacial_kya</span> <span class="o">=</span> <span class="mi">14</span>
+<span class="n">hol_kya</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">time_cats</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;glacial&#39;</span><span class="p">,</span> <span class="s1">&#39;deglacial&#39;</span><span class="p">,</span> <span class="s1">&#39;holocene&#39;</span><span class="p">]</span>
+<span class="n">var</span> <span class="o">=</span> <span class="s1">&#39;ABIO_D14Cocn&#39;</span>
+<span class="n">tracer_label</span> <span class="o">=</span> <span class="s2">&quot;$\Delta^</span><span class="si">{14}</span><span class="s2">$C ($\perthousand$)&quot;</span>
+
+<span class="n">coords_pac</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;lat&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">85</span><span class="p">,</span> <span class="mi">75</span><span class="p">],</span> <span class="s1">&#39;lon&#39;</span><span class="p">:</span> <span class="mf">224.470996</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span> <span class="p">:(</span><span class="mi">6000</span><span class="p">,</span><span class="mi">0</span><span class="p">)}</span>
+<span class="n">coords_atl</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;lat&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">75</span><span class="p">,</span><span class="o">-</span><span class="mi">85</span><span class="p">],</span> <span class="s1">&#39;lon&#39;</span><span class="p">:</span> <span class="mi">334</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span> <span class="p">:(</span><span class="mi">6000</span><span class="p">,</span><span class="mi">0</span><span class="p">)}</span>
+
+<span class="k">def</span> <span class="nf">make_meta_d</span><span class="p">(</span><span class="n">coords</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;coords&#39;</span><span class="p">:</span> <span class="n">coords</span><span class="p">,</span> 
+            <span class="s1">&#39;time_d&#39;</span><span class="p">:{</span><span class="s1">&#39;glacial&#39;</span><span class="p">:{</span><span class="s1">&#39;kya&#39;</span><span class="p">:</span><span class="n">glacial_kya</span><span class="p">},</span>
+                      <span class="s1">&#39;deglacial&#39;</span><span class="p">:{</span><span class="s1">&#39;kya&#39;</span><span class="p">:</span><span class="n">deglacial_kya</span><span class="p">},</span>
+                      <span class="s1">&#39;holocene&#39;</span><span class="p">:{</span><span class="s1">&#39;kya&#39;</span><span class="p">:</span><span class="n">hol_kya</span><span class="p">}}</span> <span class="p">}</span>
+
+<span class="n">Pacific</span> <span class="o">=</span> <span class="n">make_meta_d</span><span class="p">(</span><span class="n">coords_pac</span><span class="p">)</span>
+<span class="n">Atlantic</span> <span class="o">=</span> <span class="n">make_meta_d</span><span class="p">(</span><span class="n">coords_atl</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">between</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">lims</span><span class="p">):</span>
+    <span class="n">_ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">ds</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">&lt;</span><span class="nb">max</span><span class="p">(</span><span class="n">lims</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">&gt;</span><span class="nb">min</span><span class="p">(</span><span class="n">lims</span><span class="p">)),</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_ds</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">time_cats</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">iso_ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span><span class="o">=-</span><span class="mi">1</span><span class="o">*</span><span class="n">Pacific</span><span class="p">[</span><span class="s1">&#39;time_d&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;kya&#39;</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+    <span class="n">_sect_ds</span> <span class="o">=</span> <span class="n">between</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;TLONG&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">Pacific</span><span class="p">[</span><span class="s1">&#39;coords&#39;</span><span class="p">][</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">Pacific</span><span class="p">[</span><span class="s1">&#39;coords&#39;</span><span class="p">][</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span><span class="o">+</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">sect_ds</span> <span class="o">=</span> <span class="n">_sect_ds</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+    <span class="n">Pacific</span><span class="p">[</span><span class="s1">&#39;time_d&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">sect_ds</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">time_cats</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">iso_ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span><span class="o">=-</span><span class="mi">1</span><span class="o">*</span><span class="n">Atlantic</span><span class="p">[</span><span class="s1">&#39;time_d&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;kya&#39;</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+    <span class="n">_sect_ds</span> <span class="o">=</span> <span class="n">between</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;TLONG&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">Atlantic</span><span class="p">[</span><span class="s1">&#39;coords&#39;</span><span class="p">][</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">Atlantic</span><span class="p">[</span><span class="s1">&#39;coords&#39;</span><span class="p">][</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">sect_ds</span> <span class="o">=</span> <span class="n">_sect_ds</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+    <span class="n">Atlantic</span><span class="p">[</span><span class="s1">&#39;time_d&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">sect_ds</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><em>Tech Tip:</em> It can be useful to place grids of plots like the six-section multiplot in the works below, on the same color scale. Adopting a consistent color scale can require a different approach for different plot types, but for the filled contour plots below, it’s simply a matter of finding the maximum and minimum values of all data that will be plotted, and calculating “levels”. Here we also rounded the values to two decimal placed.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lim_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">Pacific</span><span class="p">[</span><span class="s1">&#39;time_d&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">time_cats</span><span class="p">]</span><span class="o">+</span>
+        <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">Atlantic</span><span class="p">[</span><span class="s1">&#39;time_d&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">time_cats</span><span class="p">]))</span>
+<span class="n">lim_min</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">Pacific</span><span class="p">[</span><span class="s1">&#39;time_d&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">time_cats</span><span class="p">]</span><span class="o">+</span>
+        <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">Atlantic</span><span class="p">[</span><span class="s1">&#39;time_d&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">time_cats</span><span class="p">]))</span>
+
+<span class="n">levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">lim_min</span><span class="p">,</span> <span class="n">lim_max</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><em>Tech Tip:</em> Colorbars are wildly informative, but have an annoying habit of ending up positioned awkwardly or causing plots with and without to end up misaligned. The last line of the code cell below constructs a colorbar based on the <code class="docutils literal notranslate"><span class="pre">contourf</span></code> data</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_inset_map</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="n">lons</span><span class="p">,</span> <span class="n">central_lon</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">central_lat</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="n">axin</span> <span class="o">=</span> <span class="n">inset_axes</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">.25</span><span class="o">*</span><span class="mi">5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">.25</span><span class="o">*</span><span class="mi">5</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">,</span> 
+                 <span class="n">axes_class</span><span class="o">=</span><span class="n">cartopy</span><span class="o">.</span><span class="n">mpl</span><span class="o">.</span><span class="n">geoaxes</span><span class="o">.</span><span class="n">GeoAxes</span><span class="p">,</span> 
+                 <span class="n">axes_kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">Orthographic</span><span class="p">(</span><span class="n">central_latitude</span><span class="o">=</span><span class="n">central_lat</span><span class="p">,</span> 
+                                                               <span class="n">central_longitude</span><span class="o">=</span><span class="n">central_lon</span><span class="p">)))</span>
+                                                               <span class="c1"># central_lon)))</span>
+
+    <span class="n">axin</span><span class="o">.</span><span class="n">coastlines</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
+    <span class="n">axin</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">LAND</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">axin</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">())</span>
+    <span class="n">axin</span><span class="o">.</span><span class="n">set_global</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_scalar_mappable</span><span class="p">(</span><span class="n">lims</span><span class="p">,</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">ax_norm</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">lims</span><span class="p">),</span> <span class="n">vmax</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">lims</span><span class="p">),</span> <span class="n">clip</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">cmap</span><span class="p">)</span><span class="o">==</span><span class="nb">list</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ax_cmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="s2">&quot;MyCmapName&quot;</span><span class="p">,[</span><span class="s2">&quot;r&quot;</span><span class="p">,</span><span class="s2">&quot;b&quot;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ax_cmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="s2">&quot;MyCmapName&quot;</span><span class="p">,[</span><span class="s2">&quot;r&quot;</span><span class="p">,</span><span class="s2">&quot;b&quot;</span><span class="p">],</span> <span class="n">N</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ax_cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>    
+            <span class="n">ax_cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">ax_sm</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span><span class="n">norm</span><span class="o">=</span><span class="n">ax_norm</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">ax_cmap</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ax_sm</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_levels</span><span class="o">=</span> <span class="mi">60</span>
+<span class="c1"># make scalar mappable</span>
+<span class="n">ax2_sm</span> <span class="o">=</span> <span class="n">make_scalar_mappable</span><span class="p">([</span><span class="nb">min</span><span class="p">(</span><span class="n">levels</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">levels</span><span class="p">)],</span><span class="s1">&#39;bone&#39;</span> <span class="p">)</span><span class="c1">#[0.0026, .003]</span>
+<span class="n">cf2_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cmap&#39;</span><span class="p">:</span><span class="n">ax2_sm</span><span class="o">.</span><span class="n">cmap</span><span class="p">,</span><span class="s1">&#39;levels&#39;</span><span class="p">:</span><span class="n">levels</span><span class="p">,</span> <span class="s1">&#39;norm&#39;</span> <span class="p">:</span> <span class="n">ax2_sm</span><span class="o">.</span><span class="n">norm</span><span class="p">}</span><span class="c1">#mpl.colors.TwoSlopeNorm(vmin=min_val, vcenter=0.0026, vmax=max_val), &#39;levels&#39;:ax2_levels}#SymLogNorm(.00152, linscale=.003)}#, vmin=None, vmax=None, clip=False)ax2_sm.norm}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">FormatStrFormatter</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">));</span>
+
+<span class="c1"># setup a grid of subplots, cols: Pacific &amp; Atlantic, rows: glacial, degleciation, holocene</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">.1</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span> <span class="mf">.3</span><span class="p">])</span>
+
+<span class="n">pac_lst</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">atl_lst</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">ik</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Pacific</span><span class="p">[</span><span class="s1">&#39;time_d&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+    <span class="n">sect_ds</span> <span class="o">=</span> <span class="n">Pacific</span><span class="p">[</span><span class="s1">&#39;time_d&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+    <span class="c1"># for scatter, because color var is an array, need to make a mesh version of x and y vars</span>
+    <span class="n">lat_mesh</span><span class="p">,</span> <span class="n">depth_mesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">sect_ds</span><span class="o">.</span><span class="n">TLAT</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;nlon&#39;</span><span class="p">),</span> <span class="n">sect_ds</span><span class="o">.</span><span class="n">z_t_m</span><span class="p">)</span>
+    
+    <span class="n">ax_pac</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="n">ik</span><span class="p">,</span> <span class="mi">1</span><span class="p">]);</span>
+    <span class="n">ax_pac</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">sect_ds</span><span class="o">.</span><span class="n">TLAT</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;nlon&#39;</span><span class="p">),</span> <span class="n">sect_ds</span><span class="o">.</span><span class="n">z_t_m</span><span class="p">,</span>
+                     <span class="n">sect_ds</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;nlon&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;upper&#39;</span><span class="p">,</span>
+                         <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span>
+                         <span class="n">cmap</span><span class="o">=</span><span class="n">ax2_sm</span><span class="o">.</span><span class="n">cmap</span><span class="p">,</span> 
+                        <span class="n">norm</span><span class="o">=</span><span class="n">ax2_sm</span><span class="o">.</span><span class="n">norm</span><span class="p">)</span>
+    <span class="n">pac_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ax_pac</span><span class="p">)</span>
+    
+    <span class="n">sect_ds</span> <span class="o">=</span> <span class="n">Atlantic</span><span class="p">[</span><span class="s1">&#39;time_d&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+    <span class="n">ax_atl</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="n">ik</span><span class="p">,</span> <span class="mi">0</span><span class="p">]);</span>
+    <span class="n">ax_atl</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">sect_ds</span><span class="o">.</span><span class="n">TLAT</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;nlon&#39;</span><span class="p">),</span> <span class="n">sect_ds</span><span class="o">.</span><span class="n">z_t_m</span><span class="p">,</span>
+                     <span class="n">sect_ds</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;nlon&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;upper&#39;</span><span class="p">,</span>
+                         <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span>
+                         <span class="n">cmap</span><span class="o">=</span><span class="n">ax2_sm</span><span class="o">.</span><span class="n">cmap</span><span class="p">,</span> 
+                        <span class="n">norm</span><span class="o">=</span><span class="n">ax2_sm</span><span class="o">.</span><span class="n">norm</span><span class="p">)</span>
+    <span class="n">atl_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ax_atl</span><span class="p">)</span>
+    
+    <span class="n">ax_atl</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;ylim&#39;</span><span class="p">:</span><span class="n">Atlantic</span><span class="p">[</span><span class="s1">&#39;coords&#39;</span><span class="p">][</span><span class="s1">&#39;depth&#39;</span><span class="p">],</span> <span class="s1">&#39;xlim&#39;</span><span class="p">:</span><span class="n">Atlantic</span><span class="p">[</span><span class="s1">&#39;coords&#39;</span><span class="p">][</span><span class="s1">&#39;lat&#39;</span><span class="p">],</span> 
+                    <span class="s1">&#39;ylabel&#39;</span><span class="p">:</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> (</span><span class="si">{}</span><span class="s1"> ky bp)</span><span class="se">\n</span><span class="s1">depth (km)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> 
+                                                             <span class="n">Atlantic</span><span class="p">[</span><span class="s1">&#39;time_d&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;kya&#39;</span><span class="p">])})</span>
+    <span class="n">ax_pac</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;ylim&#39;</span><span class="p">:</span><span class="n">Pacific</span><span class="p">[</span><span class="s1">&#39;coords&#39;</span><span class="p">][</span><span class="s1">&#39;depth&#39;</span><span class="p">],</span> <span class="s1">&#39;xlim&#39;</span><span class="p">:</span><span class="n">Pacific</span><span class="p">[</span><span class="s1">&#39;coords&#39;</span><span class="p">][</span><span class="s1">&#39;lat&#39;</span><span class="p">]})</span>
+
+    
+<span class="n">atl_lst</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Atlantic basin (lon=</span><span class="si">{0:.3g}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Atlantic</span><span class="p">[</span><span class="s1">&#39;coords&#39;</span><span class="p">][</span><span class="s1">&#39;lon&#39;</span><span class="p">]))</span>
+<span class="n">pac_lst</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Pacific basin (lon=</span><span class="si">{0:.3g}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Pacific</span><span class="p">[</span><span class="s1">&#39;coords&#39;</span><span class="p">][</span><span class="s1">&#39;lon&#39;</span><span class="p">]))</span>
+
+<span class="n">pac_lst</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Latitude (north to south)&#39;</span><span class="p">)</span>
+<span class="n">atl_lst</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Latitude (south to north)&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ik</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atl_lst</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">atl_lst</span><span class="p">[</span><span class="n">ik</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+    <span class="n">pac_lst</span><span class="p">[</span><span class="n">ik</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+<span class="k">for</span> <span class="n">ik</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pac_lst</span><span class="p">)):</span>
+    <span class="n">pac_lst</span><span class="p">[</span><span class="n">ik</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+
+<span class="n">ax2_cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">cb2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">ax2_sm</span><span class="p">,</span><span class="n">cax</span><span class="o">=</span><span class="n">ax2_cb</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span><span class="c1">#label=colorbar_units,</span>
+                   <span class="nb">format</span><span class="o">=</span><span class="n">FormatStrFormatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/962f8d15b1a0b5ea30563455f52cb805c4886bc2465327baf793c344f8275964.png" src="../../_images/962f8d15b1a0b5ea30563455f52cb805c4886bc2465327baf793c344f8275964.png" />
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="model-data-comparison">
+<h1>Model-Data Comparison<a class="headerlink" href="#model-data-comparison" title="Permalink to this headline">#</a></h1>
+<section id="calibration-datasets">
+<h2>Calibration Datasets<a class="headerlink" href="#calibration-datasets" title="Permalink to this headline">#</a></h2>
+<section id="intcal20">
+<h3>Intcal20<a class="headerlink" href="#intcal20" title="Permalink to this headline">#</a></h3>
+<p>Having explored the model output a bit, let’s load up some observational data. First let’s take a brief look at the most recent Intcal compilation, <a class="reference external" href="https://www.cambridge.org/core/journals/radiocarbon/article/intcal20-northern-hemisphere-radiocarbon-age-calibration-curve-055-cal-kbp/83257B63DC3AF9CFA6243F59D7503EFF">Intcal20</a>.  The Intcal project compiles data from a myriad of sources to produce a widely accepted baseline for atmospheric radiocarbon. Atmospheric radiocarbon is a function of production in the atmosphere, which itself varies due to the earth’s geomagnetic field and cosmic ray flux, and fluxes from the ocean. Thus, when considering variations in, for example, a marine sediment record, it is important to consider what the state of the atmosphere.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">intcal20</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://www.intcal.org/curves/intcal20.14c&#39;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">intcal20</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">,</span> <span class="s1">&#39; 14C age&#39;</span><span class="p">,</span> <span class="s1">&#39;Sigma_14C_age&#39;</span><span class="p">,</span> <span class="s1">&#39;Delta 14C&#39;</span><span class="p">,</span> <span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">]</span>
+
+<span class="n">intcal09</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://intcal.org/curves/intcal09.14c&#39;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">intcal09</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">,</span> <span class="s1">&#39; 14C age&#39;</span><span class="p">,</span> <span class="s1">&#39;Sigma_14C_age&#39;</span><span class="p">,</span> <span class="s1">&#39;Delta 14C&#39;</span><span class="p">,</span> <span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">]</span>
+<span class="n">intcal09</span><span class="o">=</span><span class="n">intcal09</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">intcal09</span><span class="p">[</span><span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">intcal09</span><span class="p">[</span><span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="marine20">
+<h3>Marine20<a class="headerlink" href="#marine20" title="Permalink to this headline">#</a></h3>
+<p>For kicks, let’s add <a class="reference external" href="https://www.cambridge.org/core/journals/radiocarbon/article/marine20the-marine-radiocarbon-age-calibration-curve-055000-cal-bp/B3013899914A3198D4B884B7B6E5CE66">Marine20</a>, a record of the average surface ocean radiocarbon.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">marine20</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://intcal.org/curves/marine20.14c&#39;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">marine20</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">,</span> <span class="s1">&#39; 14C age&#39;</span><span class="p">,</span> <span class="s1">&#39;Sigma_14C_age&#39;</span><span class="p">,</span> <span class="s1">&#39;Delta 14C&#39;</span><span class="p">,</span> <span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">]</span>
+
+<span class="n">marine13</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://intcal.org/curves/marine13.14c&#39;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">marine13</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">,</span> <span class="s1">&#39; 14C age&#39;</span><span class="p">,</span> <span class="s1">&#39;Sigma_14C_age&#39;</span><span class="p">,</span> <span class="s1">&#39;Delta 14C&#39;</span><span class="p">,</span> <span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">]</span>
+
+<span class="n">marine04</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://intcal.org/curves/marine04.14c&#39;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">marine04</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">,</span> <span class="s1">&#39; 14C age&#39;</span><span class="p">,</span> <span class="s1">&#39;Sigma_14C_age&#39;</span><span class="p">,</span> <span class="s1">&#39;Delta 14C&#39;</span><span class="p">,</span> <span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plot">
+<h3>Plot<a class="headerlink" href="#plot" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># sns.set()</span>
+<span class="n">fig</span> <span class="p">,</span> <span class="n">ax</span><span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">intcal09</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">1</span><span class="o">/</span><span class="mi">1000</span><span class="p">,</span> <span class="n">intcal09</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">],</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Intcal09&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">intcal09</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span><span class="p">,</span> <span class="n">intcal09</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">intcal09</span><span class="p">[</span><span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">],</span>
+                 <span class="n">intcal09</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">intcal09</span><span class="p">[</span><span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">intcal20</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">1</span><span class="o">/</span><span class="mi">1000</span><span class="p">,</span> <span class="n">intcal20</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">],</span> <span class="s1">&#39;g-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Intcal20&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">intcal20</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span><span class="p">,</span> <span class="n">intcal20</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">intcal20</span><span class="p">[</span><span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">],</span>
+                 <span class="n">intcal20</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">intcal20</span><span class="p">[</span><span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marine04</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">1</span><span class="o">/</span><span class="mi">1000</span><span class="p">,</span> <span class="n">marine04</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">],</span> <span class="s1">&#39;c-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;marine04&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">marine04</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span><span class="p">,</span> <span class="n">marine04</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">marine04</span><span class="p">[</span><span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">],</span>
+                 <span class="n">marine04</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">marine04</span><span class="p">[</span><span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marine20</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">1</span><span class="o">/</span><span class="mi">1000</span><span class="p">,</span> <span class="n">marine20</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">],</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;marine20&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">marine20</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span><span class="p">,</span> <span class="n">marine20</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">marine20</span><span class="p">[</span><span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">],</span>
+                 <span class="n">marine20</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">marine20</span><span class="p">[</span><span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;xlim&#39;</span><span class="p">:(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="s1">&#39;xlabel&#39;</span><span class="p">:</span><span class="s1">&#39;ky bp&#39;</span><span class="p">,</span> <span class="s1">&#39;ylim&#39;</span><span class="p">:(</span><span class="o">-</span><span class="mi">200</span><span class="p">,</span> <span class="mi">550</span><span class="p">),</span> <span class="s1">&#39;ylabel&#39;</span><span class="p">:</span><span class="n">tracer_label</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/057200b173fcdafa2df1600541299695e7ef3eb27c60cf5648ded76f05908e12.png" src="../../_images/057200b173fcdafa2df1600541299695e7ef3eb27c60cf5648ded76f05908e12.png" />
+</div>
+</div>
+<p>Interesting to see how our understanding atmospheric radiocarbon has changed over the years. There is now considerably less volatility in both the marine and atmospheric records at the beginning of the deglaciation, and perhaps most notably, the spike at the beginning of the deglaciation in marine04 is no longer included.</p>
+</section>
+</section>
+<section id="marchitto-et-al-2007">
+<h2>Marchitto et al, 2007<a class="headerlink" href="#marchitto-et-al-2007" title="Permalink to this headline">#</a></h2>
+<p>Now let’s load the data for Marchitto et al, 2007.  Pulling data directly from NCEI can be both convenient and also a little messy.  I’ve expedited the process by preparing a list of column names, which in turn makes it easier to load the tabular data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Sample&#39;</span><span class="p">,</span> <span class="s1">&#39;Taxa&#39;</span><span class="p">,</span> <span class="s1">&#39;Depth (Composite,m)&#39;</span><span class="p">,</span><span class="s1">&#39;14Cage (kyrBP)&#39;</span><span class="p">,</span><span class="s1">&#39;14Cage (err)&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Cal.Age (kyrBP)&#39;</span><span class="p">,</span><span class="s1">&#39;Cal.Age (err)&#39;</span><span class="p">,</span><span class="s1">&#39;D14C (permil)&#39;</span><span class="p">,</span><span class="s1">&#39;d13C (permil)&#39;</span><span class="p">,</span><span class="s1">&#39;Accession#&#39;</span><span class="p">,</span><span class="s1">&#39;Son?&#39;</span><span class="p">,</span><span class="s1">&#39;Reference&#39;</span><span class="p">]</span>
+
+<span class="n">marchitto2007</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://www.ncei.noaa.gov/pub/data/paleo/contributions_by_author/marchitto2007b/marchitto2007b.txt&#39;</span><span class="p">,</span>
+           <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;ISO-8859-1&quot;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">col_names</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">118</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;\s\s+&#39;</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;python&#39;</span><span class="p">)</span>
+<span class="n">marchitto2007</span><span class="p">[</span><span class="s1">&#39;D14C (permil)&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">marchitto2007</span><span class="p">[</span><span class="s1">&#39;D14C (permil)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;nm&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s plot it along with the Intcal and Marine data.  I’m going to include the Marine04 record because that is the version that this paper used for reference.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cal_bp2kya</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">1000</span>
+<span class="n">fig</span> <span class="p">,</span> <span class="n">ax</span><span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">intcal20</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cal_bp2kya</span><span class="p">,</span> <span class="n">intcal20</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">],</span> <span class="s1">&#39;g-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Intcal20&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">intcal20</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cal_bp2kya</span><span class="p">,</span> <span class="n">intcal20</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">intcal20</span><span class="p">[</span><span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">],</span>
+                 <span class="n">intcal20</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">intcal20</span><span class="p">[</span><span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marine04</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cal_bp2kya</span><span class="p">,</span> <span class="n">marine04</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">],</span> <span class="s1">&#39;c-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;marine04&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">marine04</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cal_bp2kya</span><span class="p">,</span> <span class="n">marine04</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">marine04</span><span class="p">[</span><span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">],</span>
+                 <span class="n">marine04</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">marine04</span><span class="p">[</span><span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marine20</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cal_bp2kya</span><span class="p">,</span> <span class="n">marine20</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">],</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;marine20&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">marine20</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cal_bp2kya</span><span class="p">,</span> <span class="n">marine20</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">marine20</span><span class="p">[</span><span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">],</span>
+                 <span class="n">marine20</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">marine20</span><span class="p">[</span><span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marchitto2007</span><span class="p">[</span><span class="s1">&#39;Cal.Age (kyrBP)&#39;</span><span class="p">],</span> <span class="n">marchitto2007</span><span class="p">[</span><span class="s1">&#39;D14C (permil)&#39;</span><span class="p">],</span> 
+        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkred&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;710 m (Marchitto et al, 2007)&#39;</span> <span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;xlim&#39;</span><span class="p">:(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="s1">&#39;xlabel&#39;</span><span class="p">:</span><span class="s1">&#39;ky bp&#39;</span><span class="p">,</span> <span class="s1">&#39;ylim&#39;</span><span class="p">:(</span><span class="o">-</span><span class="mi">225</span><span class="p">,</span> <span class="mi">600</span><span class="p">),</span> <span class="s1">&#39;ylabel&#39;</span><span class="p">:</span><span class="n">tracer_label</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/1ccaba43b0bcfc93e2fff0da03ea2123eab84d8742905625e120826a7966e884.png" src="../../_images/1ccaba43b0bcfc93e2fff0da03ea2123eab84d8742905625e120826a7966e884.png" />
+</div>
+</div>
+</section>
+<section id="all-together">
+<h2>All together<a class="headerlink" href="#all-together" title="Permalink to this headline">#</a></h2>
+<p>Now we can query the C-iTrace output for the same (or as close as possible) location. In this case, I have the coordinates of the cores handy, but if I didn’t, it would be a good application of just clicking the map somewhere slightly off the coast of the southern tip of Baja and going with that (at least for the moment).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">marchitto_site</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;lat&#39;</span><span class="p">:</span> <span class="mf">23.4</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">:</span> <span class="mi">249</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>By a little trial and error, it turns out that <code class="docutils literal notranslate"><span class="pre">nlon=79</span></code> and <code class="docutils literal notranslate"><span class="pre">nlat=69</span></code> correspond to a point in the model grid very close to the Marchitto et al, 2007 site.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prof</span> <span class="o">=</span> <span class="n">iso_ds</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">nlon</span><span class="o">=</span><span class="mi">79</span><span class="p">,</span> <span class="n">nlat</span><span class="o">=</span><span class="mi">69</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># fig, ax = plot_location_over_time(coords_d=marchitto_site)</span>
+<span class="n">fig</span> <span class="p">,</span> <span class="n">ax</span><span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">intcal20</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">1</span><span class="o">/</span><span class="mi">1000</span><span class="p">,</span> <span class="n">intcal20</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">],</span> <span class="s1">&#39;g-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Intcal20&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">intcal20</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span><span class="p">,</span> <span class="n">intcal20</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">intcal20</span><span class="p">[</span><span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">],</span>
+                 <span class="n">intcal20</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">intcal20</span><span class="p">[</span><span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marine04</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">1</span><span class="o">/</span><span class="mi">1000</span><span class="p">,</span> <span class="n">marine04</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">],</span> <span class="s1">&#39;c-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;marine04&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">marine04</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span><span class="p">,</span> <span class="n">marine04</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">marine04</span><span class="p">[</span><span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">],</span>
+                 <span class="n">marine04</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">marine04</span><span class="p">[</span><span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marine20</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">1</span><span class="o">/</span><span class="mi">1000</span><span class="p">,</span> <span class="n">marine20</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">],</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;marine20&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">marine20</span><span class="p">[</span><span class="s1">&#39;CAL BP&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span><span class="p">,</span> <span class="n">marine20</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">marine20</span><span class="p">[</span><span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">],</span>
+                 <span class="n">marine20</span><span class="p">[</span><span class="s1">&#39;Delta 14C&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">marine20</span><span class="p">[</span><span class="s1">&#39;Sigma_Delta_14C&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">prof</span><span class="p">[</span><span class="s1">&#39;ABIO_D14Catm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">prof</span><span class="p">[</span><span class="s1">&#39;ABIO_D14Catm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Atmospehre (model)&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marchitto2007</span><span class="p">[</span><span class="s1">&#39;Cal.Age (kyrBP)&#39;</span><span class="p">],</span> <span class="n">marchitto2007</span><span class="p">[</span><span class="s1">&#39;D14C (permil)&#39;</span><span class="p">],</span> 
+        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkred&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;710 m</span><span class="se">\n</span><span class="s1">(Marchitto et al, 2007)&#39;</span> <span class="p">)</span>
+
+<span class="k">for</span> <span class="n">idepth</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span><span class="mi">36</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">49</span><span class="p">]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">prof</span><span class="p">[</span><span class="s1">&#39;ABIO_D14Cocn&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">prof</span><span class="p">[</span><span class="s1">&#39;ABIO_D14Cocn&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">z_t_m</span><span class="o">=</span><span class="n">idepth</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> 
+            <span class="n">c</span> <span class="o">=</span><span class="s1">&#39;midnightblue&#39;</span> <span class="k">if</span> <span class="n">idepth</span> <span class="o">!=</span><span class="mi">36</span> <span class="k">else</span> <span class="s1">&#39;mediumvioletred&#39;</span><span class="p">,</span> 
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{:.0f}</span><span class="s1"> m [C-iTRACE]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prof</span><span class="p">[</span><span class="s1">&#39;ABIO_D14Cocn&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">z_t_m</span><span class="o">=</span><span class="n">idepth</span><span class="p">)</span><span class="o">.</span><span class="n">z_t_m</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;xlim&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">22</span><span class="p">],</span> <span class="s1">&#39;ylabel&#39;</span><span class="p">:</span> <span class="n">tracer_label</span><span class="p">,</span> <span class="s1">&#39;ylim&#39;</span><span class="p">:[</span><span class="o">-</span><span class="mi">400</span><span class="p">,</span><span class="mi">600</span><span class="p">],</span> <span class="s1">&#39;xlabel&#39;</span><span class="p">:</span> <span class="s1">&#39;Time (kya)&#39;</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.02</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;C14_downcore_modelmarchitto.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="s1">&#39;figure&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="c1">#pad_inches=0.1,</span>
+            <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+            <span class="n">backend</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/fdb5b6daa8572b1bbd0f77774d9d6bb0b6e2d0fd3e3312c060d2fee059bcb84c.png" src="../../_images/fdb5b6daa8572b1bbd0f77774d9d6bb0b6e2d0fd3e3312c060d2fee059bcb84c.png" />
+</div>
+</div>
+<p>Interesting, so surface ocean trajectories from model output seem to agree reasonably well with Marine20, but the Marchitto et al, 2007 record seems to have its own (considerably more spirited?) story. The signal is certainly consistent with features of the atmospheric record, but none of the extreme behavior seems to be picked up in the C-iTrace run.</p>
+</section>
+<section id="resources-and-references">
+<h2>Resources and references<a class="headerlink" href="#resources-and-references" title="Permalink to this headline">#</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p><em>Citations</em></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Gu, Sifan, Liu, Zhengyu, Jahn, Alexandra, Zanowski, Hannah. (2021). C-iTRACE. Version 1.0. UCAR/NCAR - DASH Repository. <a class="reference external" href="https://doi.org/10.5065/hanq-bn92">https://doi.org/10.5065/hanq-bn92</a>.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Marchitto, T. M., Lehman, S. J., Ortiz, J. D., Flückiger, J., &amp; van Geen, A. (2007). Marine radiocarbon evidence for the mechanism of deglacial atmospheric CO2 rise. Science, 316(5830), 1456-1459.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "conda-env-paleobook-dev-py"
+        },
+        kernelOptions: {
+            name: "conda-env-paleobook-dev-py",
+            path: "./notebooks/science_bits"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'conda-env-paleobook-dev-py'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="clustering.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Clustering</p>
+      </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">PaMoDaCo: Contextualizing a downcore record in model-space</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scientific-question">Scientific Question</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data">Load Data</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#explore">Explore</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-data-comparison">Model-Data Comparison</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibration-datasets">Calibration Datasets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intcal20">Intcal20</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marine20">Marine20</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot">Plot</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#marchitto-et-al-2007">Marchitto et al, 2007</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#all-together">All together</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-and-references">Resources and references</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jordan Landers (for a start)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
