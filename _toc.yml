@@ -10,3 +10,4 @@ parts:
     chapters:
       - file: notebooks/science_bits/data_scatter_on_pcolor
       - file: notebooks/science_bits/clustering
+      - file: notebooks/science_bits/PaMoDaCo_downcore_D14C
