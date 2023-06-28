@@ -1,4 +1,4 @@
-# C-iTrace (and friends) Paleobook
+# C-iTRACE (and friends) PaleoBook
 
 This PaleoBook looks at how to slice, dice, navigate, visualize and investigate paleoceanographic questions at the interface between models and observations using the multi-proxy, spatially resolved model output from [coarse iTRACE (C-iTRACE) runs](https://sites.google.com/colorado.edu/citrace). 
 
