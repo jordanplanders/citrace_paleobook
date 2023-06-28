@@ -1,6 +1,6 @@
 # C-iTrace (and friends) Paleobook
 
-This PaleoBook looks at how to slice, dice, navigate, visualize and perhaps consider multi-proxy, spatially resolved model output by exploring output from coarse iTRACE model runs. 
+This PaleoBook looks at how to slice, dice, navigate, visualize and investigate paleoceanographic questions at the interface between models and observations using the multi-proxy, spatially resolved model output from [coarse iTRACE (C-iTRACE) runs](https://sites.google.com/colorado.edu/citrace). 
 
 ## Motivation
 
@@ -12,21 +12,21 @@ Paleo-model output offers a spatially resolved look at how proxy distributions m
 
 ### Contributors
 
-<a href="https://github.com/jordanplanders/citrace_paleobook/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=jordanplanders/citrace_paleobook" />
+<a href="https://github.com/linked.earth/citrace_paleobook/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=linked.earth/citrace_paleobook" />
 </a>
 
 ## Structure
 
-This Paleobook is made up of two sections: Lifehacks, and Science Bits
+This PaleoBook is made up of two sections: Lifehacks, and Science Bits
 
 ### Lifehacks
 
-This section covers nuts and bolts about how to access cloud available data, process it, and make some stock visualizations
+This section covers nuts and bolts about how to assess and work with model grids that aren't indexed on latitude and longitude, access cloud available data, process it, and produce some of visualizations most commonly used to look at ocean variables.
 
 ### Science Bits
 
-This section applies the technical skills from the Lifehacks section to do standard analysis.
+This section applies the technical skills from the Lifehacks section to explore questions surrounding the evolution of global ocean circulation and tracer distribution since the Last Glacial Maximum. 
 
 ## Running the Notebooks
 
